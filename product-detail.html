@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACONCN Composite Manhole Covers - Technical specifications and product details">
+    <title>Product Detail - ACONCN</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-lang="nav.home">Home</a></li>
+                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="products.html" data-lang="nav.products">Products</a></li>
+                <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
+                <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
+                <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-grid">
+                <div class="product-detail-image">
+                    <img id="product-image" src="" alt="Product Image" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="product-detail-info">
+                    <h1 id="product-title" data-lang="productDetail.title"></h1>
+                    <p id="product-desc" data-lang="productDetail.desc"></p>
+                    
+                    <table class="specs-table">
+                        <tr>
+                            <th data-lang="productDetail.clearOpening">Clear Opening</th>
+                            <td id="spec-opening"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="productDetail.frameSize">Frame Size</th>
+                            <td id="spec-frame"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="common.material">Material</th>
+                            <td id="spec-material"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="productDetail.temperatureRange">Temperature Range</th>
+                            <td id="spec-temperature"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="productDetail.serviceLife">Service Life</th>
+                            <td id="spec-life"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="productDetail.recycledContent">Recycled Content</th>
+                            <td id="spec-recycled"></td>
+                        </tr>
+                        <tr>
+                            <th data-lang="productDetail.weight">Weight</th>
+                            <td id="spec-weight"></td>
+                        </tr>
+                    </table>
+
+                    <h3 style="margin: 20px 0;" data-lang="common.features">Features</h3>
+                    <ul id="product-features" style="margin-bottom: 30px; padding-left: 20px;">
+                        <li data-lang="productDetail.antiTheftFeature">Anti-theft design - No scrap value</li>
+                        <li data-lang="productDetail.corrosionResistant">Corrosion resistant</li>
+                        <li data-lang="productDetail.noiseFree">Noise-free operation</li>
+                        <li data-lang="productDetail.lightweight">Lightweight for easy installation</li>
+                        <li data-lang="productDetail.ecoFriendly">Environmentally friendly materials</li>
+                    </ul>
+
+                    <h3 style="margin: 20px 0;" data-lang="common.applications">Applications</h3>
+                    <ul id="product-applications" style="margin-bottom: 30px; padding-left: 20px;">
+                    </ul>
+
+                    <a href="contact.html" class="btn btn-primary" style="width: 100%; text-align: center;" data-lang="common.requestQuote">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ACONCN</h4>
+                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.products">Products</h4>
+                    <ul>
+                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
+                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
+                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.company">Company</h4>
+                    <ul>
+                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
+                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
+                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h4 data-lang="footer.contact">Contact</h4>
+                    <p><span data-lang="footer.phone">Phone:</span> +86 13603038913</p>
+                    <p><span data-lang="footer.email">Email:</span> victor@aconcn.com</p>
+                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4 data-lang="footer.followUs">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Load product data based on URL parameter
+        const productData = {
+            d400: {
+                image: 'assets/images/product-d400.jpg',
+                titleKey: 'productDetail.d400Title',
+                descKey: 'productDetail.d400Desc',
+                specs: {
+                    opening: '600mm, 700mm, 800mm, 900mm',
+                    frame: '850mm standard (custom available)',
+                    material: 'Glass-fiber-reinforced phenolic composite',
+                    temperature: '-40°C to +120°C',
+                    life: '25+ years',
+                    recycled: '80% recycled materials',
+                    weight: '40-60 kg (depending on size)'
+                },
+                apps: ['urbanRoads', 'highways', 'municipalDrainage', 'industrialFacilities']
+            },
+            e600: {
+                image: 'assets/images/product-e600.jpg',
+                titleKey: 'productDetail.e600Title',
+                descKey: 'productDetail.e600Desc',
+                specs: {
+                    opening: '700mm, 800mm, 900mm, 1000mm',
+                    frame: '950mm standard (custom available)',
+                    material: 'Glass-fiber-reinforced phenolic composite',
+                    temperature: '-40°C to +120°C',
+                    life: '25+ years',
+                    recycled: '80% recycled materials',
+                    weight: '60-80 kg (depending on size)'
+                },
+                apps: ['highways', 'industrialFacilities', 'ports', 'airports']
+            },
+            f900: {
+                image: 'assets/images/product-d400-2.jpg',
+                titleKey: 'productDetail.f900Title',
+                descKey: 'productDetail.f900Desc',
+                specs: {
+                    opening: '800mm, 900mm, 1000mm',
+                    frame: '1100mm standard (custom available)',
+                    material: 'High-strength glass-fiber-reinforced composite',
+                    temperature: '-40°C to +120°C',
+                    life: '25+ years',
+                    recycled: '80% recycled materials',
+                    weight: '80-100 kg (depending on size)'
+                },
+                apps: ['airports', 'ports', 'heavyIndustrial', 'military']
+            },
+            grating: {
+                image: 'assets/images/product-e600-2.jpg',
+                titleKey: 'productDetail.gratingTitle',
+                descKey: 'productDetail.gratingDesc',
+                specs: {
+                    opening: 'Custom sizes available',
+                    frame: 'Custom sizes',
+                    material: 'Glass-fiber-reinforced phenolic composite',
+                    temperature: '-40°C to +120°C',
+                    life: '25+ years',
+                    recycled: '80% recycled materials',
+                    weight: '30-50 kg (depending on size)'
+                },
+                apps: ['urbanRoads', 'municipalDrainage', 'industrialFacilities', 'parking']
+            }
+        };
+
+        function getNestedValue(obj, key) {
+            return key.split('.').reduce((o, k) => (o && o[k]) ? o[k] : null, obj);
+        }
+
+        function loadProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'd400';
+            const data = productData[productId] || productData.d400;
+
+            // Set image
+            document.getElementById('product-image').src = data.image;
+
+            // Set title and description with translations
+            const langData = translations[currentLang];
+            const titleEl = document.getElementById('product-title');
+            const descEl = document.getElementById('product-desc');
+            
+            titleEl.setAttribute('data-lang', data.titleKey);
+            descEl.setAttribute('data-lang', data.descKey);
+            
+            const titleValue = getNestedValue(langData, data.titleKey);
+            const descValue = getNestedValue(langData, data.descKey);
+            
+            if (titleValue) titleEl.textContent = titleValue;
+            if (descValue) descEl.textContent = descValue;
+
+            // Set specs
+            document.getElementById('spec-opening').textContent = data.specs.opening;
+            document.getElementById('spec-frame').textContent = data.specs.frame;
+            document.getElementById('spec-material').textContent = data.specs.material;
+            document.getElementById('spec-temperature').textContent = data.specs.temperature;
+            document.getElementById('spec-life').textContent = data.specs.life;
+            document.getElementById('spec-recycled').textContent = data.specs.recycled;
+            document.getElementById('spec-weight').textContent = data.specs.weight;
+
+            // Set applications
+            const appsList = document.getElementById('product-applications');
+            appsList.innerHTML = data.apps.map(app => 
+                `<li data-lang="productDetail.${app}">${getNestedValue(langData, 'productDetail.' + app) || app}</li>`
+            ).join('');
+        }
+
+        // Load product on page ready
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProduct();
+        });
+
+        // Override updateLanguage to also update product-specific translations
+        const originalUpdateLanguage = updateLanguage;
+        updateLanguage = function() {
+            originalUpdateLanguage();
+            // Re-load product translations when language changes
+            if (document.getElementById('product-title')) {
+                loadProduct();
+            }
+        };
+    </script>
+</body>
+</html>

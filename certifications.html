@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACONCN - Quality certifications and test reports for composite manhole covers.">
+    <meta name="keywords" content="EN 124, ISO 9001, SGS, certification">
+    <title>ACONCN - Certifications | Quality Standards</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-lang="nav.home">Home</a></li>
+                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="products.html" data-lang="nav.products">Products</a></li>
+                <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
+                <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
+                <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-lang="certifications.title">Quality Certifications</h1>
+            <p data-lang="certifications.subtitle">Globally recognized standards</p>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications-section">
+        <div class="container">
+            <div class="certs-grid">
+                <div class="cert-item">
+                    <img src="assets/images/qa-cert.jpg" alt="QA Certification" style="width: 100%; height: 100%; object-fit: cover;">
+                    <h4 data-lang="certifications.en124">EN 124 Certified</h4>
+                </div>
+                <div class="cert-item">
+                    <img src="assets/images/ucs-cert.jpg" alt="UCS Certification" style="width: 100%; height: 100%; object-fit: cover;">
+                    <h4 data-lang="certifications.sgs">UCS System Certified</h4>
+                </div>
+                <div class="cert-item">
+                    <img src="assets/images/hk-eco-cert.jpg" alt="Hong Kong Eco Certification" style="width: 100%; height: 100%; object-fit: cover;">
+                    <h4 data-lang="certifications.iso">Hong Kong Green Label</h4>
+                </div>
+                <div class="cert-item">
+                    <img src="assets/images/qa-cert.jpg" alt="QA Certification 2" style="width: 100%; height: 100%; object-fit: cover;">
+                    <h4 data-lang="certifications.green">Quality Assurance</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Reports Section -->
+    <section class="test-reports">
+        <div class="container">
+            <h2 class="section-title" data-lang="testReports.title">Test Reports</h2>
+            <p class="section-subtitle" data-lang="testReports.subtitle">Certified quality and performance</p>
+            <div class="reports-grid">
+                <div class="report-card">
+                    <img src="assets/images/report-40t.jpg" alt="40T Test Report" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="report-info">
+                        <h4 data-lang="testReports.report40t">40T Load Test Report</h4>
+                        <p data-lang="testReports.report40tDesc">D400 load class certification test results</p>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <img src="assets/images/report-60t.jpg" alt="60T Test Report" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="report-info">
+                        <h4 data-lang="testReports.report60t">60T Load Test Report</h4>
+                        <p data-lang="testReports.report60tDesc">E600 load class certification test results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 data-lang="cta.title">Start Your Project With ACONCN</h2>
+            <p data-lang="cta.desc">Get expert advice and competitive pricing for your infrastructure projects.</p>
+            <a href="contact.html" class="btn btn-secondary" style="background: white; color: #3182ce;" data-lang="hero.requestQuote">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ACONCN</h4>
+                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.products">Products</h4>
+                    <ul>
+                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
+                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
+                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.company">Company</h4>
+                    <ul>
+                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
+                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
+                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h4 data-lang="footer.contact">Contact</h4>
+                    <p><span data-lang="footer.phone">Phone:</span> +86 13603038913</p>
+                    <p><span data-lang="footer.email">Email:</span> victor@aconcn.com</p>
+                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4 data-lang="footer.followUs">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

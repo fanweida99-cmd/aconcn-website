@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Orders</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="ACONCN Logo">
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span data-lang="nav.dashboard">Dashboard</span></a></li>
+                    <li><a href="orders.html" class="active"><i class="fas fa-shopping-cart"></i> <span data-lang="nav.orders">Orders</span></a></li>
+                    <li><a href="products.html"><i class="fas fa-box"></i> <span data-lang="nav.products">Products</span></a></li>
+                    <li><a href="customers.html"><i class="fas fa-users"></i> <span data-lang="nav.customers">Customers</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 data-lang="orders.title">Orders Management</h1>
+                <div class="user-info">
+                    <span data-lang="header.welcome">Welcome, Admin</span>
+                    <button onclick="switchLang('en')" style="padding: 5px 12px; margin-right: 5px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">EN</button>
+                    <button onclick="switchLang('zh')" style="padding: 5px 12px; margin-right: 10px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">中文</button>
+                    <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span data-lang="header.logout">Logout</span></button>
+                </div>
+            </header>
+
+            <!-- Orders Content -->
+            <div class="dashboard-content">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="search-orders" data-lang="orders.search" placeholder="Search orders by ID, customer, or product..." onkeyup="searchOrders()">
+                    <button class="btn-add" onclick="openModal('order-modal')"><i class="fas fa-plus"></i> <span data-lang="orders.add">Add Order</span></button>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-lang="orders.id">ID</th>
+                                <th data-lang="orders.customer">Customer</th>
+                                <th data-lang="orders.product">Product</th>
+                                <th data-lang="orders.quantity">Quantity</th>
+                                <th data-lang="orders.amount">Amount</th>
+                                <th data-lang="orders.status">Status</th>
+                                <th data-lang="orders.date">Date</th>
+                                <th data-lang="orders.actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal">
+            <h3 data-lang="orders.addEdit">Add/Edit Order</h3>
+            <form id="order-form">
+                <input type="hidden" id="order-id">
+                <div class="form-group">
+                    <label for="order-customer" data-lang="orders.customer">Customer</label>
+                    <input type="text" id="order-customer" placeholder="Enter customer name" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-product" data-lang="orders.product">Product</label>
+                    <input type="text" id="order-product" placeholder="Enter product name" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-quantity" data-lang="orders.quantity">Quantity</label>
+                    <input type="number" id="order-quantity" placeholder="Enter quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-amount" data-lang="orders.amount">Amount ($)</label>
+                    <input type="number" id="order-amount" placeholder="Enter amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-status" data-lang="orders.status">Status</label>
+                    <select id="order-status">
+                        <option value="pending" data-lang="orders.pending">Pending</option>
+                        <option value="processing" data-lang="orders.processing">Processing</option>
+                        <option value="completed" data-lang="orders.completed">Completed</option>
+                        <option value="cancelled" data-lang="orders.cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal('order-modal')" data-lang="orders.cancel">Cancel</button>
+                    <button type="button" class="btn-save" onclick="saveOrder()" data-lang="orders.save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateLanguage();
+            renderOrdersTable(ordersData);
+        });
+    </script>
+</body>
+</html>

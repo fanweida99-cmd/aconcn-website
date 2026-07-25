@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact ACONCN - Get in touch with our team for inquiries and quotes">
+    <title>Contact Us - ACONCN</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-lang="nav.home">Home</a></li>
+                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="products.html" data-lang="nav.products">Products</a></li>
+                <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
+                <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
+                <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contact Page -->
+    <section class="contact-page">
+        <div class="container">
+            <h1 class="section-title" data-lang="contact.title">Contact Us</h1>
+            <p class="section-subtitle" data-lang="contact.subtitle">Get in touch with our team</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 data-lang="contact.companyName">Hong Kong Xindong Industrial Co., Ltd.</h3>
+                    <p style="margin-bottom: 20px; color: #718096;" data-lang="contact.companyTagline">ACONCN Composite Infrastructure Solutions</p>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i><span data-lang="common.address">Address</span></h4>
+                        <p style="color: #4a5568;">NO.139, Qixin Road, Wulian Community, Longcheng Street, Longgang District, Shenzhen, China</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-phone" style="margin-right: 10px;"></i><span data-lang="contact.phone">Phone</span></h4>
+                        <p style="color: #4a5568;"><a href="tel:+8613603038913" style="color: #2F80D0; text-decoration: none;">+86 13603038913</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-envelope" style="margin-right: 10px;"></i><span data-lang="contact.email">Email</span></h4>
+                        <p style="color: #4a5568;"><a href="mailto:victor@aconcn.com" style="color: #2F80D0; text-decoration: none;">victor@aconcn.com</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fab fa-whatsapp" style="margin-right: 10px;"></i><span data-lang="contact.whatsapp">WhatsApp</span></h4>
+                        <p style="color: #4a5568;"><a href="https://wa.me/+8613603038913" style="color: #2F80D0; text-decoration: none;" target="_blank">+86 13603038913</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fab fa-linkedin" style="margin-right: 10px;"></i><span data-lang="contact.linkedin">LinkedIn</span></h4>
+                        <p style="color: #4a5568;"><a href="https://www.linkedin.com/in/aconcn666victor" style="color: #2F80D0; text-decoration: none;" target="_blank">Connect on LinkedIn</a></p>
+                    </div>
+
+                    <div style="background: #3182ce; padding: 20px; border-radius: 8px; color: white;">
+                        <h4 style="margin-bottom: 10px;" data-lang="common.businessHours">Business Hours</h4>
+                        <p data-lang="contact.businessHoursDesc">Monday - Friday: 9:00 - 18:00 (UTC+8)</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <div id="form-message" class="form-message" style="display: none; padding: 15px; border-radius: 8px; margin-bottom: 20px;"></div>
+                    <form class="contact-form" id="contactForm" onsubmit="handleContactForm(event)">
+                        <div class="form-group">
+                            <label data-lang="contact.name">Name</label>
+                            <input type="text" name="name" placeholder="Your name" data-lang-placeholder="contact.yourNamePlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-lang="contact.email">Email</label>
+                            <input type="email" name="email" placeholder="your@email.com" data-lang-placeholder="contact.emailPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-lang="contact.phone">Phone</label>
+                            <input type="tel" name="phone" placeholder="+86 xxx xxxx xxxx" data-lang-placeholder="contact.phonePlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-lang="contact.message">Message</label>
+                            <textarea name="message" placeholder="Tell us about your project requirements..." data-lang-placeholder="contact.messagePlaceholder" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" data-lang="contact.send">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ACONCN</h4>
+                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.products">Products</h4>
+                    <ul>
+                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
+                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
+                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.company">Company</h4>
+                    <ul>
+                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
+                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
+                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h4 data-lang="footer.contact">Contact</h4>
+                    <p><span data-lang="footer.phone">Phone:</span> <a href="tel:+8613603038913" style="color: #94a3b8;">+86 13603038913</a></p>
+                    <p><span data-lang="footer.email">Email:</span> <a href="mailto:victor@aconcn.com" style="color: #94a3b8;">victor@aconcn.com</a></p>
+                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4 data-lang="footer.followUs">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="assets/js/script.js?v=4"></script>
+</body>
+</html>

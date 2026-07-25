@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACONCN - Composite manhole cover products including D400, E600, F900 load classes.">
+    <meta name="keywords" content="composite manhole cover, D400, E600, F900, drainage grating">
+    <title>ACONCN - Products | Composite Manhole Covers</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-lang="nav.home">Home</a></li>
+                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="products.html" data-lang="nav.products">Products</a></li>
+                <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
+                <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
+                <li><a href="contact.html" data-lang="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-lang="products.title">Our Composite Manhole Cover Solutions</h1>
+            <p data-lang="products.subtitle">Engineered to meet EN 124 standards</p>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="products-grid">
+                <div class="product-card animate-fade-in-up">
+                    <div class="product-image">
+                        <img src="assets/images/product-d400.jpg" alt="D400 Manhole Cover" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-lang="products.d400.name">D400 Road Manhole Cover</h3>
+                        <p data-lang="products.d400.desc">Designed for urban roads and heavy traffic areas.</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.loadClass">Load Class</span>
+                                <span class="spec-value">D400</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.size">Size</span>
+                                <span class="spec-value">600-900mm</span>
+                            </div>
+                        </div>
+                        <a href="product-detail.html?id=d400" class="btn btn-primary" style="width: 100%; text-align: center;" data-lang="common.viewDetails">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card animate-fade-in-up delay-100">
+                    <div class="product-image">
+                        <img src="assets/images/product-e600.jpg" alt="E600 Manhole Cover" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-lang="products.e600.name">E600 Heavy Duty Cover</h3>
+                        <p data-lang="products.e600.desc">For highways and industrial applications.</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.loadClass">Load Class</span>
+                                <span class="spec-value">E600</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.size">Size</span>
+                                <span class="spec-value">700-1000mm</span>
+                            </div>
+                        </div>
+                        <a href="product-detail.html?id=e600" class="btn btn-primary" style="width: 100%; text-align: center;" data-lang="common.viewDetails">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card animate-fade-in-up delay-200">
+                    <div class="product-image">
+                        <img src="assets/images/product-d400-2.jpg" alt="F900 Manhole Cover" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-lang="products.f900.name">F900 Airport Cover</h3>
+                        <p data-lang="products.f900.desc">Heavy-duty covers for airports and ports.</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.loadClass">Load Class</span>
+                                <span class="spec-value">F900</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.size">Size</span>
+                                <span class="spec-value">800-1000mm</span>
+                            </div>
+                        </div>
+                        <a href="product-detail.html?id=f900" class="btn btn-primary" style="width: 100%; text-align: center;" data-lang="common.viewDetails">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card animate-fade-in-up delay-300">
+                    <div class="product-image">
+                        <img src="assets/images/product-e600-2.jpg" alt="Drainage Grating" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-lang="products.grating.name">Composite Drainage Grating</h3>
+                        <p data-lang="products.grating.desc">Efficient drainage solutions.</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.loadClass">Load Class</span>
+                                <span class="spec-value">C250/D400</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-lang="common.material">Material</span>
+                                <span class="spec-value">Composite</span>
+                            </div>
+                        </div>
+                        <a href="product-detail.html?id=grating" class="btn btn-primary" style="width: 100%; text-align: center;" data-lang="common.viewDetails">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section id="applications" class="applications">
+        <div class="container">
+            <h2 class="section-title" data-lang="applications.title">Applications</h2>
+            <p class="section-subtitle" data-lang="applications.subtitle">Versatile solutions for various infrastructure needs</p>
+            <div class="applications-grid">
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-road"></i></div>
+                    <h4 data-lang="applications.urban">Urban Roads</h4>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-ship"></i></div>
+                    <h4 data-lang="applications.ports">Ports & Harbors</h4>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-plane"></i></div>
+                    <h4 data-lang="applications.airports">Airports</h4>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-industry"></i></div>
+                    <h4 data-lang="applications.industrial">Industrial Zones</h4>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-cable"></i></div>
+                    <h4 data-lang="applications.utility">Utility Networks</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="case-studies">
+        <div class="container">
+            <h2 class="section-title" data-lang="caseStudies.title">Proven Infrastructure Projects</h2>
+            <p class="section-subtitle" data-lang="caseStudies.subtitle">Real-world success stories</p>
+            <div class="case-card">
+                <h3 data-lang="caseStudies.yichang">Yichang Municipal Project</h3>
+                <p data-lang="caseStudies.yichangDesc">Over 25,000 composite manhole covers installed since 2001 with failure rate below 0.05%.</p>
+                <div class="case-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">25,000+</div>
+                        <div class="metric-label" data-lang="caseStudies.unitsInstalled">Units Installed</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">2001</div>
+                        <div class="metric-label" data-lang="caseStudies.sinceYear">Since Year</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">&lt;0.05%</div>
+                        <div class="metric-label" data-lang="caseStudies.failureRate">Failure Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 data-lang="cta.title">Start Your Project With ACONCN</h2>
+            <p data-lang="cta.desc">Get expert advice and competitive pricing for your infrastructure projects.</p>
+            <a href="contact.html" class="btn btn-secondary" style="background: white; color: #3182ce;" data-lang="hero.requestQuote">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ACONCN</h4>
+                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.products">Products</h4>
+                    <ul>
+                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
+                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
+                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-lang="footer.company">Company</h4>
+                    <ul>
+                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
+                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
+                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h4 data-lang="footer.contact">Contact</h4>
+                    <p><span data-lang="footer.phone">Phone:</span> +86 13603038913</p>
+                    <p><span data-lang="footer.email">Email:</span> victor@aconcn.com</p>
+                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4 data-lang="footer.followUs">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

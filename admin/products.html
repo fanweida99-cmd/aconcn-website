@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Products</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="ACONCN Logo">
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span data-lang="nav.dashboard">Dashboard</span></a></li>
+                    <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> <span data-lang="nav.orders">Orders</span></a></li>
+                    <li><a href="products.html" class="active"><i class="fas fa-box"></i> <span data-lang="nav.products">Products</span></a></li>
+                    <li><a href="customers.html"><i class="fas fa-users"></i> <span data-lang="nav.customers">Customers</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 data-lang="products.title">Products Management</h1>
+                <div class="user-info">
+                    <span data-lang="header.welcome">Welcome, Admin</span>
+                    <button onclick="switchLang('en')" style="padding: 5px 12px; margin-right: 5px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">EN</button>
+                    <button onclick="switchLang('zh')" style="padding: 5px 12px; margin-right: 10px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">中文</button>
+                    <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span data-lang="header.logout">Logout</span></button>
+                </div>
+            </header>
+
+            <!-- Products Content -->
+            <div class="dashboard-content">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="search-products" data-lang="products.search" placeholder="Search products by name, category, or load class..." onkeyup="searchProducts()">
+                    <button class="btn-add" onclick="addProduct()"><i class="fas fa-plus"></i> <span data-lang="products.add">Add Product</span></button>
+                </div>
+
+                <!-- Products Table -->
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-lang="products.id">ID</th>
+                                <th data-lang="products.name">Name</th>
+                                <th data-lang="products.category">Category</th>
+                                <th data-lang="products.loadClass">Load Class</th>
+                                <th data-lang="products.price">Price ($)</th>
+                                <th data-lang="products.stock">Stock</th>
+                                <th data-lang="products.status">Status</th>
+                                <th data-lang="products.actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal">
+            <h3 data-lang="products.addEdit">Add/Edit Product</h3>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="product-name" data-lang="products.productName">Product Name</label>
+                    <input type="text" id="product-name" placeholder="Enter product name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-category" data-lang="products.category">Category</label>
+                    <select id="product-category">
+                        <option value="Manhole Covers">Manhole Covers</option>
+                        <option value="Drainage">Drainage</option>
+                        <option value="Custom">Custom</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product-loadclass" data-lang="products.loadClass">Load Class</label>
+                    <input type="text" id="product-loadclass" placeholder="e.g., D400, E600" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price" data-lang="products.price">Price ($)</label>
+                    <input type="number" id="product-price" placeholder="Enter price" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-stock" data-lang="products.stock">Stock</label>
+                    <input type="number" id="product-stock" placeholder="Enter stock quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-status" data-lang="products.status">Status</label>
+                    <select id="product-status">
+                        <option value="active" data-lang="products.active">Active</option>
+                        <option value="inactive" data-lang="products.inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal('product-modal')" data-lang="orders.cancel">Cancel</button>
+                    <button type="button" class="btn-save" onclick="saveProduct()" data-lang="orders.save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateLanguage();
+            renderProductsTable(productsData);
+        });
+    </script>
+</body>
+</html>

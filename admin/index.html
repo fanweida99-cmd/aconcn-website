@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="ACONCN Logo">
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="index.html" class="active"><i class="fas fa-tachometer-alt"></i> <span data-lang="nav.dashboard">Dashboard</span></a></li>
+                    <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> <span data-lang="nav.orders">Orders</span></a></li>
+                    <li><a href="products.html"><i class="fas fa-box"></i> <span data-lang="nav.products">Products</span></a></li>
+                    <li><a href="customers.html"><i class="fas fa-users"></i> <span data-lang="nav.customers">Customers</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <h1 data-lang="dashboard.title">Dashboard</h1>
+                <div class="user-info">
+                    <span data-lang="header.welcome">Welcome, Admin</span>
+                    <button onclick="switchLang('en')" style="padding: 5px 12px; margin-right: 5px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">EN</button>
+                    <button onclick="switchLang('zh')" style="padding: 5px 12px; margin-right: 10px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">中文</button>
+                    <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span data-lang="header.logout">Logout</span></button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-value" id="total-orders">0</div>
+                        <div class="stat-label" data-lang="dashboard.totalOrders">Total Orders</div>
+                        <div class="stat-change" id="orders-change">0%</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-value" id="total-revenue">$0</div>
+                        <div class="stat-label" data-lang="dashboard.totalRevenue">Total Revenue</div>
+                        <div class="stat-change" id="revenue-change">0%</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <div class="stat-value" id="total-customers">0</div>
+                        <div class="stat-label" data-lang="dashboard.totalCustomers">Total Customers</div>
+                        <div class="stat-change" id="customers-change">0%</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-value" id="total-products">0</div>
+                        <div class="stat-label" data-lang="dashboard.totalProducts">Total Products</div>
+                        <div class="stat-change" id="products-change">0%</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3 data-lang="dashboard.salesOverview">Sales Overview</h3>
+                        <canvas id="sales-chart" style="height: 250px;"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3 data-lang="dashboard.orderStatus">Order Status</h3>
+                        <canvas id="status-chart" style="height: 250px;"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="orders-table">
+                    <div class="table-header">
+                        <h3 data-lang="dashboard.recentOrders">Recent Orders</h3>
+                        <button class="btn-add" onclick="location.href='orders.html'"><i class="fas fa-plus"></i> <span data-lang="dashboard.viewAll">View All</span></button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-lang="orders.id">ID</th>
+                                <th data-lang="orders.customer">Customer</th>
+                                <th data-lang="orders.product">Product</th>
+                                <th data-lang="orders.quantity">Qty</th>
+                                <th data-lang="orders.amount">Amount</th>
+                                <th data-lang="orders.status">Status</th>
+                                <th data-lang="orders.date">Date</th>
+                                <th data-lang="orders.actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal">
+            <h3>Edit Order</h3>
+            <form id="order-form">
+                <input type="hidden" id="order-id">
+                <div class="form-group">
+                    <label for="order-customer">Customer</label>
+                    <input type="text" id="order-customer" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-product">Product</label>
+                    <input type="text" id="order-product" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-quantity">Quantity</label>
+                    <input type="number" id="order-quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-amount">Amount ($)</label>
+                    <input type="number" id="order-amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-status">Status</label>
+                    <select id="order-status">
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal('order-modal')">Cancel</button>
+                    <button type="button" class="btn-save" onclick="saveOrder()">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+    <script>
+        // Initialize dashboard on load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateLanguage();
+            renderDashboard();
+            
+            // Simple chart rendering using canvas
+            renderSalesChart();
+            renderStatusChart();
+        });
+
+        function renderSalesChart() {
+            const canvas = document.getElementById('sales-chart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+            const sales = [18000, 22000, 15000, 28000, 32000, 25000, 35000];
+            
+            ctx.fillStyle = '#F5F7FA';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const barWidth = canvas.width / months.length - 20;
+            const maxValue = Math.max(...sales);
+            
+            months.forEach((month, index) => {
+                const barHeight = (sales[index] / maxValue) * 200;
+                const x = index * (canvas.width / months.length) + 10;
+                const y = canvas.height - barHeight - 20;
+                
+                ctx.fillStyle = '#2F80D0';
+                ctx.fillRect(x, y, barWidth, barHeight);
+                
+                ctx.fillStyle = '#64748B';
+                ctx.font = '10px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText(month, x + barWidth/2, canvas.height - 5);
+            });
+        }
+
+        function renderStatusChart() {
+            const canvas = document.getElementById('status-chart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            
+            const statuses = [
+                { label: 'Pending', value: 3, color: '#F97316' },
+                { label: 'Processing', value: 2, color: '#2F80D0' },
+                { label: 'Completed', value: 4, color: '#22C55E' },
+                { label: 'Cancelled', value: 1, color: '#EF4444' }
+            ];
+            
+            const total = statuses.reduce((sum, s) => sum + s.value, 0);
+            let startAngle = -Math.PI / 2;
+            
+            ctx.fillStyle = '#F5F7FA';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            statuses.forEach(status => {
+                const sliceAngle = (status.value / total) * 2 * Math.PI;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = status.color;
+                ctx.fill();
+                
+                startAngle += sliceAngle;
+            });
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 50, 0, 2 * Math.PI);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            
+            ctx.fillStyle = '#0F172A';
+            ctx.font = 'bold 16px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText(total, centerX, centerY);
+            ctx.font = '10px Inter';
+            ctx.fillStyle = '#64748B';
+            ctx.fillText('Orders', centerX, centerY + 15);
+        }
+    </script>
+</body>
+</html>
