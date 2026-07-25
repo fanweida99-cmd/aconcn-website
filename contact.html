@@ -159,5 +159,65 @@
     </a>
 
     <script src="assets/js/script.js?v=4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://nutjgpsxepoguoxddfql.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function handleContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const messageDiv = document.getElementById('form-message');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            messageDiv.style.display = 'none';
+            
+            const name = form.querySelector('input[name="name"]').value;
+            const email = form.querySelector('input[name="email"]').value;
+            const phone = form.querySelector('input[name="phone"]').value || '';
+            const message = form.querySelector('textarea[name="message"]').value;
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showFormMessage(getTrans('contact.invalidEmail'), 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            try {
+                const { error } = await supabase
+                    .from('contact_submissions')
+                    .insert([{ name, email, phone, message, status: 'pending' }]);
+                
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+                
+                showFormMessage(getTrans('contact.success'), 'success');
+                
+                const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`);
+                window.location.href = `mailto:victor@aconcn.com?subject=${subject}&body=${body}&reply-to=${email}`;
+                
+                form.reset();
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showFormMessage(getTrans('contact.error'), 'error');
+                
+                const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`);
+                window.location.href = `mailto:victor@aconcn.com?subject=${subject}&body=${body}&reply-to=${email}`;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+    </script>
 </body>
 </html>

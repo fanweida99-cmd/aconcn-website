@@ -230,6 +230,7 @@ const translations = {
             phonePlaceholder: '+86 xxx xxxx xxxx',
             messagePlaceholder: 'Tell us about your project requirements...',
             success: 'Thank you! Your email client will open shortly. We will contact you within 24 hours.',
+            error: 'Oops! Something went wrong. Please try again later.',
             invalidEmail: 'Please enter a valid email address.'
         }
     },
@@ -463,6 +464,7 @@ const translations = {
             phonePlaceholder: '+86 xxx xxxx xxxx',
             messagePlaceholder: '请告诉我们您的项目需求...',
             success: '感谢您的留言！您的邮件客户端将立即打开。我们将在24小时内与您联系。',
+            error: '发送失败！请稍后重试。',
             invalidEmail: '请输入有效的邮箱地址。'
         }
     },
@@ -696,6 +698,7 @@ const translations = {
             phonePlaceholder: '+86 xxx xxxx xxxx',
             messagePlaceholder: 'Beschreiben Sie Ihre Projektanforderungen...',
             success: 'Vielen Dank! Ihr E-Mail-Client wird bald geöffnet. Wir kontaktieren Sie innerhalb von 24 Stunden.',
+            error: 'Oops! Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.',
             invalidEmail: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.'
         }
     },
@@ -929,6 +932,7 @@ const translations = {
             phonePlaceholder: '+86 xxx xxxx xxxx',
             messagePlaceholder: 'Décrivez vos exigences de projet...',
             success: 'Merci ! Votre client de messagerie va s\'ouvrir bientôt. Nous vous contacterons dans les 24 heures.',
+            error: 'Oups ! Quelque chose a mal fonctionné. Veuillez réessayer plus tard.',
             invalidEmail: 'Veuillez entrer une adresse e-mail valide.'
         }
     }

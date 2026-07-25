@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Messages</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="ACONCN Logo">
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> <span data-lang="nav.dashboard">Dashboard</span></a></li>
+                    <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> <span data-lang="nav.orders">Orders</span></a></li>
+                    <li><a href="products.html"><i class="fas fa-box"></i> <span data-lang="nav.products">Products</span></a></li>
+                    <li><a href="customers.html"><i class="fas fa-users"></i> <span data-lang="nav.customers">Customers</span></a></li>
+                    <li><a href="messages.html" class="active"><i class="fas fa-envelope"></i> <span data-lang="nav.messages">Messages</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="admin-header">
+                <h1 data-lang="messages.title">Messages Management</h1>
+                <div class="user-info">
+                    <span data-lang="header.welcome">Welcome, Admin</span>
+                    <button onclick="switchLang('en')" style="padding: 5px 12px; margin-right: 5px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">EN</button>
+                    <button onclick="switchLang('zh')" style="padding: 5px 12px; margin-right: 10px; border: 1px solid #E2E8F0; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">中文</button>
+                    <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span data-lang="header.logout">Logout</span></button>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="search-bar">
+                    <input type="text" id="search-messages" data-lang="messages.search" placeholder="Search messages by name, email, or content..." onkeyup="searchMessages()">
+                    <button class="btn-add" onclick="loadMessages()"><i class="fas fa-sync"></i> <span data-lang="messages.refresh">Refresh</span></button>
+                </div>
+
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-lang="messages.id">ID</th>
+                                <th data-lang="messages.name">Name</th>
+                                <th data-lang="messages.email">Email</th>
+                                <th data-lang="messages.phone">Phone</th>
+                                <th data-lang="messages.message">Message</th>
+                                <th data-lang="messages.status">Status</th>
+                                <th data-lang="messages.date">Date</th>
+                                <th data-lang="messages.actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="message-modal" class="modal-overlay">
+        <div class="modal">
+            <h3 data-lang="messages.viewMessage">View Message</h3>
+            <div id="message-details" style="margin-bottom: 20px;">
+            </div>
+            <div style="text-align: right;">
+                <button class="btn-cancel" onclick="closeModal('message-modal')" data-lang="messages.close">Close</button>
+                <button class="btn-save" onclick="markAsRead()" data-lang="messages.markRead">Mark as Read</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/admin.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://nutjgpsxepoguoxddfql.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
+        const supabaseMsg = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentMessageId = null;
+        let allMessages = [];
+
+        async function loadMessages() {
+            const tbody = document.getElementById('messages-table-body');
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>';
+
+            try {
+                const { data, error } = await supabaseMsg
+                    .from('contact_submissions')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allMessages = data || [];
+                renderMessages(allMessages);
+            } catch (error) {
+                console.error('Error loading messages:', error);
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px; color: #EF4444;">Failed to load messages. Please refresh.</td></tr>';
+            }
+        }
+
+        function renderMessages(messages) {
+            const tbody = document.getElementById('messages-table-body');
+
+            if (messages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px; color: #64748B;">No messages yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = messages.map(msg => {
+                const statusClass = msg.status === 'pending' ? 'status-pending' : 'status-completed';
+                const statusText = getTrans('messages.' + msg.status) || msg.status;
+                const shortMsg = msg.message.length > 50 ? msg.message.substring(0, 50) + '...' : msg.message;
+                const date = new Date(msg.created_at).toLocaleString();
+
+                return `
+                    <tr>
+                        <td>#${msg.id}</td>
+                        <td>${escapeHtml(msg.name)}</td>
+                        <td>${escapeHtml(msg.email)}</td>
+                        <td>${escapeHtml(msg.phone || '-')}</td>
+                        <td>${escapeHtml(shortMsg)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>${date}</td>
+                        <td>
+                            <button class="action-btn view" onclick="viewMessage(${msg.id})" title="View"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn delete" onclick="deleteMessage(${msg.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function viewMessage(id) {
+            const msg = allMessages.find(m => m.id === id);
+            if (!msg) return;
+
+            currentMessageId = id;
+            const details = document.getElementById('message-details');
+            const date = new Date(msg.created_at).toLocaleString();
+            const statusText = getTrans('messages.' + msg.status) || msg.status;
+            const statusClass = msg.status === 'pending' ? 'status-pending' : 'status-completed';
+
+            details.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #0F172A;">${getTrans('messages.name')}:</strong> ${escapeHtml(msg.name)}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #0F172A;">${getTrans('messages.email')}:</strong>
+                    <a href="mailto:${escapeHtml(msg.email)}" style="color: #2F80D0;">${escapeHtml(msg.email)}</a>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #0F172A;">${getTrans('messages.phone')}:</strong>
+                    ${msg.phone ? `<a href="tel:${escapeHtml(msg.phone)}" style="color: #2F80D0;">${escapeHtml(msg.phone)}</a>` : '-'}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #0F172A;">${getTrans('messages.date')}:</strong> ${date}
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #0F172A;">${getTrans('messages.status')}:</strong>
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                </div>
+                <div>
+                    <strong style="color: #0F172A;">${getTrans('messages.message')}:</strong>
+                    <p style="margin-top: 10px; padding: 15px; background: #F5F7FA; border-radius: 8px; line-height: 1.6; color: #334155;">${escapeHtml(msg.message)}</p>
+                </div>
+            `;
+
+            openModal('message-modal');
+        }
+
+        async function markAsRead() {
+            if (!currentMessageId) return;
+
+            try {
+                const { error } = await supabaseMsg
+                    .from('contact_submissions')
+                    .update({ status: 'read' })
+                    .eq('id', currentMessageId);
+
+                if (error) throw error;
+
+                closeModal('message-modal');
+                loadMessages();
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Failed to update status. Please try again.');
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (!confirm('Are you sure you want to delete this message?')) return;
+
+            try {
+                const { error } = await supabaseMsg
+                    .from('contact_submissions')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                loadMessages();
+            } catch (error) {
+                console.error('Error deleting message:', error);
+                alert('Failed to delete message. Please try again.');
+            }
+        }
+
+        function searchMessages() {
+            const query = document.getElementById('search-messages').value.toLowerCase();
+            const filtered = allMessages.filter(msg =>
+                msg.name.toLowerCase().includes(query) ||
+                msg.email.toLowerCase().includes(query) ||
+                msg.message.toLowerCase().includes(query)
+            );
+            renderMessages(filtered);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkAuth()) {
+                loadMessages();
+            }
+        });
+    </script>
+</body>
+</html>

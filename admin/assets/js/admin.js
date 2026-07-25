@@ -90,7 +90,26 @@ const translations = {
             dashboard: 'Dashboard',
             orders: 'Orders',
             products: 'Products',
-            customers: 'Customers'
+            customers: 'Customers',
+            messages: 'Messages'
+        },
+        messages: {
+            title: 'Messages Management',
+            id: 'ID',
+            name: 'Name',
+            email: 'Email',
+            phone: 'Phone',
+            message: 'Message',
+            status: 'Status',
+            date: 'Date',
+            actions: 'Actions',
+            search: 'Search messages by name, email, or content...',
+            refresh: 'Refresh',
+            viewMessage: 'View Message',
+            close: 'Close',
+            markRead: 'Mark as Read',
+            pending: 'Pending',
+            read: 'Read'
         }
     },
     zh: {
@@ -183,7 +202,26 @@ const translations = {
             dashboard: '仪表盘',
             orders: '订单',
             products: '产品',
-            customers: '客户'
+            customers: '客户',
+            messages: '留言'
+        },
+        messages: {
+            title: '留言管理',
+            id: '编号',
+            name: '姓名',
+            email: '邮箱',
+            phone: '电话',
+            message: '留言内容',
+            status: '状态',
+            date: '日期',
+            actions: '操作',
+            search: '按姓名、邮箱或内容搜索...',
+            refresh: '刷新',
+            viewMessage: '查看留言',
+            close: '关闭',
+            markRead: '标记已读',
+            pending: '未读',
+            read: '已读'
         }
     }
 };
