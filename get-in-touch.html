@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .form-message.success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .form-message.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -75,24 +96,25 @@
                 </div>
                 
                 <div>
-                    <form class="contact-form" action="mailto:victor@aconcn.com?subject=Contact%20Form%20Submission" method="post" enctype="text/plain">
+                    <div id="form-message" class="form-message"></div>
+                    <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label id="t12">Name</label>
-                            <input type="text" name="Name" placeholder="Your name" required>
+                            <input type="text" name="name" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
                             <label id="t13">Email</label>
-                            <input type="email" name="Email" placeholder="your@email.com" required>
+                            <input type="email" name="email" placeholder="your@email.com" required>
                         </div>
                         <div class="form-group">
                             <label id="t14">Phone</label>
-                            <input type="tel" name="Phone" placeholder="+86 xxx xxxx xxxx">
+                            <input type="tel" name="phone" placeholder="+86 xxx xxxx xxxx">
                         </div>
                         <div class="form-group">
                             <label id="t15">Message</label>
-                            <textarea name="Message" placeholder="Tell us about your project requirements..." required></textarea>
+                            <textarea name="message" placeholder="Tell us about your project requirements..." required></textarea>
                         </div>
-                        <button type="button" class="btn btn-primary" style="width: 100%;" id="t16" onclick="submitForm()">Send Message</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="t16">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -156,10 +178,10 @@
     <script>
 var lang = 'en';
 var texts = {
-    en: ['Contact Us','Get in touch with our team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Composite Infrastructure Solutions','Address','Phone','Email','WhatsApp','LinkedIn','Business Hours','Monday - Friday: 9:00 - 18:00 (UTC+8)','Name','Email','Phone','Message','Send Message','High-performance composite infrastructure solutions for global markets.','Products','Manhole Covers','Drainage Grates','Custom Solutions','Company','About Us','Case Studies','Certifications','Contact','Phone:','Email:','Address:','Follow Us','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.'],
-    zh: ['联系我们','与我们的团队联系','香港欣东实业有限公司','ACONCN复合材料基础设施解决方案','地址','电话','邮箱','WhatsApp','领英','营业时间','周一至周五: 9:00 - 18:00 (UTC+8)','姓名','邮箱','电话','留言','发送消息','高性能复合材料基础设施解决方案，服务全球市场。','产品','井盖','排水格栅','定制方案','公司','关于我们','工程案例','认证资质','联系','电话:','邮箱:','地址:','关注我们','&copy; 2024 香港欣东实业有限公司 版权所有。'],
-    de: ['Kontakt','Kontaktieren Sie unser Team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Verbundwerkstoff-Infrastrukturlösungen','Adresse','Telefon','E-Mail','WhatsApp','LinkedIn','Geschäftszeiten','Montag - Freitag: 9:00 - 18:00 (UTC+8)','Name','E-Mail','Telefon','Nachricht','Nachricht senden','Hochleistungs-Verbundwerkstoff-Infrastrukturlösungen für globale Märkte.','Produkte','Deckel','Entwässerungsgitter','Maßanfertigungen','Firma','Über Uns','Fallstudien','Zertifizierungen','Kontakt','Telefon:','E-Mail:','Adresse:','Folgen Sie uns','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Alle Rechte vorbehalten.'],
-    fr: ['Contact','Contactez notre équipe','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Solutions d\'infrastructure en composites','Adresse','Téléphone','Email','WhatsApp','LinkedIn','Heures d\'ouverture','Lundi - Vendredi: 9:00 - 18:00 (UTC+8)','Nom','Email','Téléphone','Message','Envoyer le message','Solutions d\'infrastructure en matériaux composites de haute performance pour les marchés mondiaux.','Produits','Couvercles','Grilles de drainage','Solutions sur mesure','Entreprise','À Propos','Études de Cas','Certifications','Contact','Téléphone:','Email:','Adresse:','Suivez-nous','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Tous droits réservés.']
+    en: ['Contact Us','Get in touch with our team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Composite Infrastructure Solutions','Address','Phone','Email','WhatsApp','LinkedIn','Business Hours','Monday - Friday: 9:00 - 18:00 (UTC+8)','Name','Email','Phone','Message','Send Message','High-performance composite infrastructure solutions for global markets.','Products','Manhole Covers','Drainage Grates','Custom Solutions','Company','About Us','Case Studies','Certifications','Contact','Phone:','Email:','Address:','Follow Us','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.','Thank you! Your message has been sent successfully.','Failed to send message. Please try again.','Invalid email address'],
+    zh: ['联系我们','与我们的团队联系','香港欣东实业有限公司','ACONCN复合材料基础设施解决方案','地址','电话','邮箱','WhatsApp','领英','营业时间','周一至周五: 9:00 - 18:00 (UTC+8)','姓名','邮箱','电话','留言','发送消息','高性能复合材料基础设施解决方案，服务全球市场。','产品','井盖','排水格栅','定制方案','公司','关于我们','工程案例','认证资质','联系','电话:','邮箱:','地址:','关注我们','&copy; 2024 香港欣东实业有限公司 版权所有。','谢谢！您的消息已成功发送。','发送失败，请重试。','无效的邮箱地址'],
+    de: ['Kontakt','Kontaktieren Sie unser Team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Verbundwerkstoff-Infrastrukturlösungen','Adresse','Telefon','E-Mail','WhatsApp','LinkedIn','Geschäftszeiten','Montag - Freitag: 9:00 - 18:00 (UTC+8)','Name','E-Mail','Telefon','Nachricht','Nachricht senden','Hochleistungs-Verbundwerkstoff-Infrastrukturlösungen für globale Märkte.','Produkte','Deckel','Entwässerungsgitter','Maßanfertigungen','Firma','Über Uns','Fallstudien','Zertifizierungen','Kontakt','Telefon:','E-Mail:','Adresse:','Folgen Sie uns','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Alle Rechte vorbehalten.','Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.','Senden fehlgeschlagen. Bitte versuchen Sie es erneut.','Ungültige E-Mail-Adresse'],
+    fr: ['Contact','Contactez notre équipe','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Solutions d\'infrastructure en composites','Adresse','Téléphone','Email','WhatsApp','LinkedIn','Heures d\'ouverture','Lundi - Vendredi: 9:00 - 18:00 (UTC+8)','Nom','Email','Téléphone','Message','Envoyer le message','Solutions d\'infrastructure en matériaux composites de haute performance pour les marchés mondiaux.','Produits','Couvercles','Grilles de drainage','Solutions sur mesure','Entreprise','À Propos','Études de Cas','Certifications','Contact','Téléphone:','Email:','Adresse:','Suivez-nous','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Tous droits réservés.','Merci ! Votre message a été envoyé avec succès.','Échec de l\'envoi. Veuillez réessayer.','Adresse email invalide']
 };
 
 function setLang(l) {
@@ -206,25 +228,84 @@ function updateText() {
     });
 }
 
-function submitForm() {
-    var form = document.querySelector('form');
-    var name = form.querySelector('input[name="Name"]').value;
-    var email = form.querySelector('input[name="Email"]').value;
-    var phone = form.querySelector('input[name="Phone"]').value || '';
-    var message = form.querySelector('textarea[name="Message"]').value;
-    
-    var subject = 'Contact Form Submission - ' + name;
-    var body = 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message;
-    
-    var mailtoLink = 'mailto:victor@aconcn.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) + '&reply-to=' + encodeURIComponent(email);
-    
-    var win = window.open(mailtoLink, '_blank');
-    if (win) {
-        win.focus();
-    } else {
-        window.location.href = mailtoLink;
-    }
+function showMessage(msg, type) {
+    var div = document.getElementById('form-message');
+    div.textContent = msg;
+    div.className = 'form-message ' + type;
+    div.style.display = 'block';
 }
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var btn = form.querySelector('button[type="submit"]');
+    var name = form.querySelector('input[name="name"]').value;
+    var email = form.querySelector('input[name="email"]').value;
+    var phone = form.querySelector('input[name="phone"]').value || '';
+    var message = form.querySelector('textarea[name="message"]').value;
+    
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage(texts[lang][33], 'error');
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    
+    // Create FormData for Formsubmit
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('message', message);
+    formData.append('_replyto', email);
+    formData.append('_subject', 'Contact Form Submission from ' + name);
+    
+    // Create JSON for Supabase
+    var supabaseData = { name: name, email: email, phone: phone, message: message, status: 'pending' };
+    
+    // Parallel requests: Formsubmit (send email) + Supabase (save to database)
+    var emailPromise = fetch('https://formsubmit.co/victor@aconcn.com', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+        if (!r.ok) throw new Error('Email failed');
+        return r.json();
+    });
+    
+    var dbPromise = fetch('https://nutgspxepoguoxdicjqh.supabase.co/rest/v1/contact_submissions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM',
+            'Authorization': 'Bearer sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM'
+        },
+        body: JSON.stringify(supabaseData)
+    }).then(function(r) {
+        if (!r.ok) throw new Error('Database failed');
+        return r.text();
+    }).catch(function() {
+        // Database failure is not critical - email is the main goal
+        console.log('Database save failed (continuing anyway)');
+        return 'ok';
+    });
+    
+    Promise.all([emailPromise, dbPromise])
+    .then(function() {
+        showMessage(texts[lang][31], 'success');
+        form.reset();
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+        showMessage(texts[lang][32], 'error');
+    })
+    .finally(function() {
+        btn.disabled = false;
+        btn.textContent = texts[lang][15];
+    });
+});
 
 function toggleMenu() {
     document.querySelector('.nav-links').classList.toggle('active');
