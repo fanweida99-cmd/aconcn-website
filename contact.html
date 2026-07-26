@@ -336,43 +336,34 @@ function handleContactForm(event) {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     }
     
-    var sbUrl = 'https://nutgspxepoguoxdicjqh.supabase.co';
-    var sbKey = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
     var subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
     var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
     var mailtoLink = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
     
-    fetch(sbUrl + '/rest/v1/contact_submissions', {
+    // First, save to database (async, don't wait)
+    var sbUrl = 'https://nutgspxepoguoxdicjqh.supabase.co/rest/v1/contact_submissions';
+    var sbKey = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
+    
+    fetch(sbUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'apikey': sbKey, 'Authorization': 'Bearer ' + sbKey },
         body: JSON.stringify({ name: name, email: email, phone: phone, message: message, status: 'pending' })
-    })
-    .then(function(response) {
-        if (!response.ok) {
-            return response.text().then(function(text) {
-                try { return JSON.parse(text); } catch(e) { return { message: text }; }
-            }).then(function(errorData) {
-                throw new Error(errorData.message || 'Failed to submit');
-            });
-        }
-        return response.text();
-    })
-    .then(function() {
-        showFormMessage(getTranslation('contact.success'), 'success');
-        form.reset();
-        setTimeout(function() { window.location.href = mailtoLink; }, 2000);
-    })
-    .catch(function(error) {
-        console.error('Form submission error:', error);
-        showFormMessage(getTranslation('contact.error'), 'error');
-        setTimeout(function() { window.location.href = mailtoLink; }, 2000);
-    })
-    .finally(function() {
-        if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = getTranslation('contact.send');
-        }
+    }).catch(function(err) {
+        console.log('Database save failed (not critical):', err);
     });
+    
+    // Then, show success message and open email client
+    showFormMessage(getTranslation('contact.success'), 'success');
+    form.reset();
+    
+    setTimeout(function() {
+        window.location.href = mailtoLink;
+    }, 1000);
+    
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = getTranslation('contact.send');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
