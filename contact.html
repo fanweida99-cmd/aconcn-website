@@ -158,10 +158,8 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="assets/js/script.js?v=7"></script>
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-        
+    <script src="assets/js/script.js?v=8"></script>
+    <script>
         const SUPABASE_URL = 'https://nutgspxepoguoxdicjqh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
         
@@ -190,14 +188,20 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
             try {
-                const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                const { error } = await sb
-                    .from('contact_submissions')
-                    .insert([{ name, email, phone, message, status: 'pending' }]);
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({ name, email, phone, message, status: 'pending' })
+                });
                 
-                if (error) {
-                    console.error('Supabase error:', error);
-                    throw error;
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Supabase error:', errorData);
+                    throw new Error(errorData.message || 'Failed to submit');
                 }
                 
                 showFormMessage(getTrans('contact.success'), 'success');
@@ -219,8 +223,6 @@
                 submitBtn.innerHTML = originalText;
             }
         }
-        
-        window.handleContactForm = handleContactForm;
     </script>
 </body>
 </html>
