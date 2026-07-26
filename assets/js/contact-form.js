@@ -1,9 +1,11 @@
 // Contact Form Handler
 // This file is separate to avoid any variable conflicts with script.js
 
-var currentLang = 'en';
+// Error handling wrapper to prevent script errors from breaking the form
+try {
+    var currentLang = 'en';
 
-var translations = {
+    var translations = {
     en: {
         nav: {
             home: 'Home',
@@ -395,3 +397,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+} catch(e) {
+    console.error('Error in contact-form.js:', e);
+    // Fallback: simple form submission
+    window.handleContactForm = function(event) {
+        event.preventDefault();
+        var form = event.target;
+        var name = form.querySelector('input[name="name"]').value;
+        var email = form.querySelector('input[name="email"]').value;
+        var phone = form.querySelector('input[name="phone"]').value || '';
+        var message = form.querySelector('textarea[name="message"]').value;
+        
+        var subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
+        var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
+        window.location.href = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
+    };
+}
