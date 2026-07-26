@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact ACONCN - Get in touch with our team for inquiries and quotes">
+    <title>Contact Us - ACONCN</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="comparison.html">Comparison</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="get-in-touch.html" style="color: #22d3ee;">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('zh')">中</button>
+                <button class="lang-btn" onclick="setLang('de')">DE</button>
+                <button class="lang-btn" onclick="setLang('fr')">FR</button>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="contact-page">
+        <div class="container">
+            <h1 class="section-title" id="t1">Contact Us</h1>
+            <p class="section-subtitle" id="t2">Get in touch with our team</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 id="t3">Hong Kong Xindong Industrial Co., Ltd.</h3>
+                    <p style="margin-bottom: 20px; color: #718096;" id="t4">ACONCN Composite Infrastructure Solutions</p>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i><span id="t5">Address</span></h4>
+                        <p style="color: #4a5568;">NO.139, Qixin Road, Wulian Community, Longcheng Street, Longgang District, Shenzhen, China</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-phone" style="margin-right: 10px;"></i><span id="t6">Phone</span></h4>
+                        <p style="color: #4a5568;"><a href="tel:+8613603038913" style="color: #2F80D0; text-decoration: none;">+86 13603038913</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fas fa-envelope" style="margin-right: 10px;"></i><span id="t7">Email</span></h4>
+                        <p style="color: #4a5568;"><a href="mailto:victor@aconcn.com" style="color: #2F80D0; text-decoration: none;">victor@aconcn.com</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fab fa-whatsapp" style="margin-right: 10px;"></i><span id="t8">WhatsApp</span></h4>
+                        <p style="color: #4a5568;"><a href="https://wa.me/+8613603038913" style="color: #2F80D0; text-decoration: none;" target="_blank">+86 13603038913</a></p>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="margin-bottom: 10px; font-size: 1rem;"><i class="fab fa-linkedin" style="margin-right: 10px;"></i><span id="t9">LinkedIn</span></h4>
+                        <p style="color: #4a5568;"><a href="https://www.linkedin.com/in/aconcn666victor" style="color: #2F80D0; text-decoration: none;" target="_blank">Connect on LinkedIn</a></p>
+                    </div>
+
+                    <div style="background: #3182ce; padding: 20px; border-radius: 8px; color: white;">
+                        <h4 style="margin-bottom: 10px;" id="t10">Business Hours</h4>
+                        <p id="t11">Monday - Friday: 9:00 - 18:00 (UTC+8)</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="contact-form" action="mailto:victor@aconcn.com?subject=Contact%20Form%20Submission" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label id="t12">Name</label>
+                            <input type="text" name="Name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label id="t13">Email</label>
+                            <input type="email" name="Email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label id="t14">Phone</label>
+                            <input type="tel" name="Phone" placeholder="+86 xxx xxxx xxxx">
+                        </div>
+                        <div class="form-group">
+                            <label id="t15">Message</label>
+                            <textarea name="Message" placeholder="Tell us about your project requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="t16">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ACONCN</h4>
+                    <p id="t17">High-performance composite infrastructure solutions for global markets.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 id="t18">Products</h4>
+                    <ul>
+                        <li><a href="products.html" id="t19">Manhole Covers</a></li>
+                        <li><a href="products.html" id="t20">Drainage Grates</a></li>
+                        <li><a href="products.html" id="t21">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 id="t22">Company</h4>
+                    <ul>
+                        <li><a href="about.html" id="t23">About Us</a></li>
+                        <li><a href="products.html#case-studies" id="t24">Case Studies</a></li>
+                        <li><a href="certifications.html" id="t25">Certifications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h4 id="t26">Contact</h4>
+                    <p><span id="t27">Phone:</span> <a href="tel:+8613603038913" style="color: #94a3b8;">+86 13603038913</a></p>
+                    <p><span id="t28">Email:</span> <a href="mailto:victor@aconcn.com" style="color: #94a3b8;">victor@aconcn.com</a></p>
+                    <p><span id="t29">Address:</span> Shenzhen, China</p>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4 id="t30">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p id="t31">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+var lang = 'en';
+var texts = {
+    en: ['Contact Us','Get in touch with our team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Composite Infrastructure Solutions','Address','Phone','Email','WhatsApp','LinkedIn','Business Hours','Monday - Friday: 9:00 - 18:00 (UTC+8)','Name','Email','Phone','Message','Send Message','High-performance composite infrastructure solutions for global markets.','Products','Manhole Covers','Drainage Grates','Custom Solutions','Company','About Us','Case Studies','Certifications','Contact','Phone:','Email:','Address:','Follow Us','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.'],
+    zh: ['联系我们','与我们的团队联系','香港欣东实业有限公司','ACONCN复合材料基础设施解决方案','地址','电话','邮箱','WhatsApp','领英','营业时间','周一至周五: 9:00 - 18:00 (UTC+8)','姓名','邮箱','电话','留言','发送消息','高性能复合材料基础设施解决方案，服务全球市场。','产品','井盖','排水格栅','定制方案','公司','关于我们','工程案例','认证资质','联系','电话:','邮箱:','地址:','关注我们','&copy; 2024 香港欣东实业有限公司 版权所有。'],
+    de: ['Kontakt','Kontaktieren Sie unser Team','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Verbundwerkstoff-Infrastrukturlösungen','Adresse','Telefon','E-Mail','WhatsApp','LinkedIn','Geschäftszeiten','Montag - Freitag: 9:00 - 18:00 (UTC+8)','Name','E-Mail','Telefon','Nachricht','Nachricht senden','Hochleistungs-Verbundwerkstoff-Infrastrukturlösungen für globale Märkte.','Produkte','Deckel','Entwässerungsgitter','Maßanfertigungen','Firma','Über Uns','Fallstudien','Zertifizierungen','Kontakt','Telefon:','E-Mail:','Adresse:','Folgen Sie uns','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Alle Rechte vorbehalten.'],
+    fr: ['Contact','Contactez notre équipe','Hong Kong Xindong Industrial Co., Ltd.','ACONCN Solutions d\'infrastructure en composites','Adresse','Téléphone','Email','WhatsApp','LinkedIn','Heures d\'ouverture','Lundi - Vendredi: 9:00 - 18:00 (UTC+8)','Nom','Email','Téléphone','Message','Envoyer le message','Solutions d\'infrastructure en matériaux composites de haute performance pour les marchés mondiaux.','Produits','Couvercles','Grilles de drainage','Solutions sur mesure','Entreprise','À Propos','Études de Cas','Certifications','Contact','Téléphone:','Email:','Adresse:','Suivez-nous','&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. Tous droits réservés.']
+};
+
+function setLang(l) {
+    lang = l;
+    localStorage.setItem('lang', l);
+    updateText();
+}
+
+function updateText() {
+    var t = texts[lang];
+    document.getElementById('t1').textContent = t[0];
+    document.getElementById('t2').textContent = t[1];
+    document.getElementById('t3').textContent = t[2];
+    document.getElementById('t4').textContent = t[3];
+    document.getElementById('t5').textContent = t[4];
+    document.getElementById('t6').textContent = t[5];
+    document.getElementById('t7').textContent = t[6];
+    document.getElementById('t8').textContent = t[7];
+    document.getElementById('t9').textContent = t[8];
+    document.getElementById('t10').textContent = t[9];
+    document.getElementById('t11').textContent = t[10];
+    document.getElementById('t12').textContent = t[11];
+    document.getElementById('t13').textContent = t[12];
+    document.getElementById('t14').textContent = t[13];
+    document.getElementById('t15').textContent = t[14];
+    document.getElementById('t16').textContent = t[15];
+    document.getElementById('t17').textContent = t[16];
+    document.getElementById('t18').textContent = t[17];
+    document.getElementById('t19').textContent = t[18];
+    document.getElementById('t20').textContent = t[19];
+    document.getElementById('t21').textContent = t[20];
+    document.getElementById('t22').textContent = t[21];
+    document.getElementById('t23').textContent = t[22];
+    document.getElementById('t24').textContent = t[23];
+    document.getElementById('t25').textContent = t[24];
+    document.getElementById('t26').textContent = t[25];
+    document.getElementById('t27').textContent = t[26];
+    document.getElementById('t28').textContent = t[27];
+    document.getElementById('t29').textContent = t[28];
+    document.getElementById('t30').textContent = t[29];
+    document.getElementById('t31').innerHTML = t[30];
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+        b.classList.toggle('active', b.textContent === (lang === 'en' ? 'EN' : lang === 'zh' ? '中' : lang === 'de' ? 'DE' : 'FR'));
+    });
+}
+
+function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var saved = localStorage.getItem('lang');
+    if (saved) lang = saved;
+    updateText();
+});
+    </script>
+</body>
+</html>
