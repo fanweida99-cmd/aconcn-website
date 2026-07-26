@@ -1017,44 +1017,72 @@ function scrollToSection(sectionId) {
     document.querySelector('.nav-links').classList.remove('active');
 }
 
-// Contact Form Handling (basic version)
-function basicHandleContactForm(event) {
+// Contact Form Handling
+function handleContactForm(event) {
     event.preventDefault();
     
     const form = event.target;
     const messageDiv = document.getElementById('form-message');
+    const submitBtn = form.querySelector('button[type="submit"]');
     
-    // Hide previous messages
-    messageDiv.style.display = 'none';
+    if (messageDiv) messageDiv.style.display = 'none';
     
-    // Validate email format
-    const emailInput = form.querySelector('input[name="email"]');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailInput.value)) {
-        showFormMessage(getTrans('contact.invalidEmail'), 'error');
-        return;
-    }
-    
-    // Get form data
     const name = form.querySelector('input[name="name"]').value;
     const email = form.querySelector('input[name="email"]').value;
     const phone = form.querySelector('input[name="phone"]').value || '';
     const message = form.querySelector('textarea[name="message"]').value;
     
-    // Create mailto link
-    const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showFormMessage(getTrans('contact.invalidEmail'), 'error');
+        return;
+    }
     
-    const mailtoLink = `mailto:victor@aconcn.com?subject=${subject}&body=${body}&reply-to=${email}`;
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    }
     
-    // Open email client
-    window.location.href = mailtoLink;
+    const sbUrl = 'https://nutgspxepoguoxdicjqh.supabase.co';
+    const sbKey = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
     
-    // Show success message
-    showFormMessage(getTrans('contact.success'), 'success');
-    
-    // Reset form
-    form.reset();
+    fetch(`${sbUrl}/rest/v1/contact_submissions`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': sbKey,
+            'Authorization': 'Bearer ' + sbKey
+        },
+        body: JSON.stringify({ name, email, phone, message, status: 'pending' })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.message || 'Failed to submit');
+            });
+        }
+        return response.json();
+    })
+    .then(() => {
+        showFormMessage(getTrans('contact.success'), 'success');
+    })
+    .catch(error => {
+        console.error('Form submission error:', error);
+        showFormMessage(getTrans('contact.error'), 'error');
+    })
+    .finally(() => {
+        const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
+        const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
+        window.location.href = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
+        
+        form.reset();
+        
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = getTrans('contact.send');
+        }
+    });
 }
 
 function showFormMessage(message, type) {
