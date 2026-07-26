@@ -159,7 +159,7 @@
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/js/script.js?v=5"></script>
+    <script src="assets/js/script.js?v=6"></script>
     <script>
         const SUPABASE_URL = 'https://nutgspxepoguoxdicjqh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
@@ -189,8 +189,8 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
             try {
-                const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                const { error } = await supabaseClient
+                const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const { error } = await sb
                     .from('contact_submissions')
                     .insert([{ name, email, phone, message, status: 'pending' }]);
                 
