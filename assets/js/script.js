@@ -1,8 +1,3 @@
-// Clean up any existing supabase variable to prevent conflicts
-if (typeof supabase !== 'undefined') {
-    delete window.supabase;
-}
-
 // Language data
 const translations = {
     en: {
@@ -1020,80 +1015,6 @@ function scrollToSection(sectionId) {
     }
     // Close mobile menu if open
     document.querySelector('.nav-links').classList.remove('active');
-}
-
-// Contact Form Handling
-function handleContactForm(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const messageDiv = document.getElementById('form-message');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    if (messageDiv) messageDiv.style.display = 'none';
-    
-    const name = form.querySelector('input[name="name"]').value;
-    const email = form.querySelector('input[name="email"]').value;
-    const phone = form.querySelector('input[name="phone"]').value || '';
-    const message = form.querySelector('textarea[name="message"]').value;
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showFormMessage(getTrans('contact.invalidEmail'), 'error');
-        return;
-    }
-    
-    if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    }
-    
-    const sbUrl = 'https://nutgspxepoguoxdicjqh.supabase.co';
-    const sbKey = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
-    
-    const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
-    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
-    const mailtoLink = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
-    
-    fetch(`${sbUrl}/rest/v1/contact_submissions`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': sbKey,
-            'Authorization': 'Bearer ' + sbKey
-        },
-        body: JSON.stringify({ name, email, phone, message, status: 'pending' })
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => {
-                throw new Error(errorData.message || 'Failed to submit');
-            });
-        }
-        return response.json();
-    })
-    .then(() => {
-        showFormMessage(getTrans('contact.success'), 'success');
-        form.reset();
-        // Delay opening mailto to allow success message to be seen
-        setTimeout(() => {
-            window.location.href = mailtoLink;
-        }, 2000);
-    })
-    .catch(error => {
-        console.error('Form submission error:', error);
-        showFormMessage(getTrans('contact.error'), 'error');
-        // Even on error, try to open mailto as fallback
-        setTimeout(() => {
-            window.location.href = mailtoLink;
-        }, 2000);
-    })
-    .finally(() => {
-        if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = getTrans('contact.send');
-        }
-    });
 }
 
 function showFormMessage(message, type) {
