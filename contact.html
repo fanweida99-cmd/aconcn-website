@@ -77,19 +77,18 @@
                 </div>
                 
                 <div>
-                    <div id="form-message" class="form-message" style="display: none; padding: 15px; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <form class="contact-form" id="contactForm" onsubmit="handleContactForm(event)">
+                    <form class="contact-form" action="mailto:victor@aconcn.com" method="post" enctype="text/plain">
                         <div class="form-group">
                             <label data-lang="contact.name">Name</label>
-                            <input type="text" name="name" placeholder="Your name" data-lang-placeholder="contact.yourNamePlaceholder" required>
+                            <input type="text" name="Name" placeholder="Your name" data-lang-placeholder="contact.yourNamePlaceholder" required>
                         </div>
                         <div class="form-group">
                             <label data-lang="contact.email">Email</label>
-                            <input type="email" name="email" placeholder="your@email.com" data-lang-placeholder="contact.emailPlaceholder" required>
+                            <input type="email" name="Email" placeholder="your@email.com" data-lang-placeholder="contact.emailPlaceholder" required>
                         </div>
                         <div class="form-group">
                             <label data-lang="contact.phone">Phone</label>
-                            <input type="tel" name="phone" placeholder="+86 xxx xxxx xxxx" data-lang-placeholder="contact.phonePlaceholder">
+                            <input type="tel" name="Phone" placeholder="+86 xxx xxxx xxxx" data-lang-placeholder="contact.phonePlaceholder">
                         </div>
                         <div class="form-group">
                             <label data-lang="contact.message">Message</label>
