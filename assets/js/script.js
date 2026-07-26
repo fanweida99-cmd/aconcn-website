@@ -1,3 +1,8 @@
+// Clean up any existing supabase variable to prevent conflicts
+if (typeof supabase !== 'undefined') {
+    delete window.supabase;
+}
+
 // Language data
 const translations = {
     en: {
