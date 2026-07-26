@@ -1045,12 +1045,15 @@ function handleContactForm(event) {
     
     if (submitBtn) {
         submitBtn.disabled = true;
-        const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     }
     
     const sbUrl = 'https://nutgspxepoguoxdicjqh.supabase.co';
     const sbKey = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
+    
+    const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
+    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
+    const mailtoLink = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
     
     fetch(`${sbUrl}/rest/v1/contact_submissions`, {
         method: 'POST',
@@ -1071,18 +1074,21 @@ function handleContactForm(event) {
     })
     .then(() => {
         showFormMessage(getTrans('contact.success'), 'success');
+        form.reset();
+        // Delay opening mailto to allow success message to be seen
+        setTimeout(() => {
+            window.location.href = mailtoLink;
+        }, 2000);
     })
     .catch(error => {
         console.error('Form submission error:', error);
         showFormMessage(getTrans('contact.error'), 'error');
+        // Even on error, try to open mailto as fallback
+        setTimeout(() => {
+            window.location.href = mailtoLink;
+        }, 2000);
     })
     .finally(() => {
-        const subject = encodeURIComponent('Contact Form Submission - ACONCN Website');
-        const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message);
-        window.location.href = 'mailto:victor@aconcn.com?subject=' + subject + '&body=' + body + '&reply-to=' + email;
-        
-        form.reset();
-        
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = getTrans('contact.send');
