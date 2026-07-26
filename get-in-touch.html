@@ -218,7 +218,12 @@ function submitForm() {
     
     var mailtoLink = 'mailto:victor@aconcn.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) + '&reply-to=' + encodeURIComponent(email);
     
-    window.location.href = mailtoLink;
+    var win = window.open(mailtoLink, '_blank');
+    if (win) {
+        win.focus();
+    } else {
+        window.location.href = mailtoLink;
+    }
 }
 
 function toggleMenu() {
