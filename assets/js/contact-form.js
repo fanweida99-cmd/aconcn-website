@@ -1,6 +1,16 @@
 // Contact Form Handler
 // This file is separate to avoid any variable conflicts with script.js
 
+// Handle supabase variable conflict before any other code runs
+try {
+    // Check if supabase is already declared and delete it
+    if (typeof supabase !== 'undefined') {
+        delete window.supabase;
+    }
+} catch(e) {
+    console.log('No supabase conflict to handle');
+}
+
 // Error handling wrapper to prevent script errors from breaking the form
 try {
     var currentLang = 'en';
