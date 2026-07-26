@@ -92,7 +92,7 @@
                             <label id="t15">Message</label>
                             <textarea name="Message" placeholder="Tell us about your project requirements..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="t16">Send Message</button>
+                        <button type="button" class="btn btn-primary" style="width: 100%;" id="t16" onclick="submitForm()">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -204,6 +204,21 @@ function updateText() {
     document.querySelectorAll('.lang-btn').forEach(function(b) {
         b.classList.toggle('active', b.textContent === (lang === 'en' ? 'EN' : lang === 'zh' ? '中' : lang === 'de' ? 'DE' : 'FR'));
     });
+}
+
+function submitForm() {
+    var form = document.querySelector('form');
+    var name = form.querySelector('input[name="Name"]').value;
+    var email = form.querySelector('input[name="Email"]').value;
+    var phone = form.querySelector('input[name="Phone"]').value || '';
+    var message = form.querySelector('textarea[name="Message"]').value;
+    
+    var subject = 'Contact Form Submission - ' + name;
+    var body = 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\nMessage:\n' + message;
+    
+    var mailtoLink = 'mailto:victor@aconcn.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) + '&reply-to=' + encodeURIComponent(email);
+    
+    window.location.href = mailtoLink;
 }
 
 function toggleMenu() {
