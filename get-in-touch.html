@@ -98,6 +98,7 @@
                 <div>
                     <div id="form-message" class="form-message"></div>
                     <form class="contact-form" id="contactForm">
+                        <input type="hidden" name="access_key" value="a4a65bc2-9a7e-40af-a998-5cf219a4ddff">
                         <div class="form-group">
                             <label id="t12">Name</label>
                             <input type="text" name="name" placeholder="Your name" required>
@@ -253,23 +254,16 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     
-    // Create FormData for Formsubmit
-    var formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('message', message);
-    formData.append('_replyto', email);
-    formData.append('_subject', 'Contact Form Submission from ' + name);
+    // Create FormData for Web3Forms (includes access_key from hidden input)
+    var formData = new FormData(form);
     
     // Create JSON for Supabase
     var supabaseData = { name: name, email: email, phone: phone, message: message, status: 'pending' };
     
-    // Parallel requests: Formsubmit (send email) + Supabase (save to database)
-    var emailPromise = fetch('https://formsubmit.co/victor@aconcn.com', {
+    // Parallel requests: Web3Forms (send email) + Supabase (save to database)
+    var emailPromise = fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        body: formData
     }).then(function(r) {
         if (!r.ok) throw new Error('Email failed');
         return r.json();
@@ -293,9 +287,13 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     });
     
     Promise.all([emailPromise, dbPromise])
-    .then(function() {
-        showMessage(texts[lang][31], 'success');
-        form.reset();
+    .then(function(results) {
+        if (results[0].success) {
+            showMessage(texts[lang][31], 'success');
+            form.reset();
+        } else {
+            throw new Error(results[0].message || 'Submission failed');
+        }
     })
     .catch(function(error) {
         console.error('Error:', error);
