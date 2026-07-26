@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - ACONCN</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .thank-you-container {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .thank-you-icon {
+            font-size: 64px;
+            color: #22d3ee;
+            margin-bottom: 20px;
+        }
+        .thank-you-title {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+        .thank-you-text {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        .btn-home {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #22d3ee;
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .btn-home:hover {
+            background: #06b6d4;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="comparison.html">Comparison</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="get-in-touch.html">Contact</a></li>
+            </ul>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="thank-you-container">
+        <i class="fas fa-check-circle thank-you-icon"></i>
+        <h1 class="thank-you-title">Thank You!</h1>
+        <p class="thank-you-text">Your message has been successfully submitted. We will review your inquiry and get back to you within 24 hours.</p>
+        <a href="index.html" class="btn-home"><i class="fas fa-home"></i> Return to Home</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div style="text-align: center; padding: 20px;">
+                <p>&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
