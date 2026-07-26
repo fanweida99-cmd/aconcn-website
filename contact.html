@@ -158,12 +158,13 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="assets/js/script.js?v=8"></script>
+    <script src="assets/js/script.js?v=9"></script>
     <script>
         const SUPABASE_URL = 'https://nutgspxepoguoxdicjqh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
         
-        async function handleContactForm(event) {
+        // Override handleContactForm with full version that saves to Supabase
+        window.handleContactForm = async function(event) {
             event.preventDefault();
             
             const form = event.target;
@@ -222,7 +223,7 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
             }
-        }
+        };
     </script>
 </body>
 </html>

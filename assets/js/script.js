@@ -1017,8 +1017,8 @@ function scrollToSection(sectionId) {
     document.querySelector('.nav-links').classList.remove('active');
 }
 
-// Contact Form Handling
-function handleContactForm(event) {
+// Contact Form Handling (basic version)
+function basicHandleContactForm(event) {
     event.preventDefault();
     
     const form = event.target;
