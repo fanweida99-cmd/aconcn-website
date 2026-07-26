@@ -158,9 +158,10 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/js/script.js?v=6"></script>
-    <script>
+    <script src="assets/js/script.js?v=7"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        
         const SUPABASE_URL = 'https://nutgspxepoguoxdicjqh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
         
@@ -189,7 +190,7 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
             try {
-                const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const { error } = await sb
                     .from('contact_submissions')
                     .insert([{ name, email, phone, message, status: 'pending' }]);
@@ -218,6 +219,8 @@
                 submitBtn.innerHTML = originalText;
             }
         }
+        
+        window.handleContactForm = handleContactForm;
     </script>
 </body>
 </html>
