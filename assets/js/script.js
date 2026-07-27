@@ -993,8 +993,14 @@ function getTrans(key) {
 
 // Mobile menu toggle
 function toggleMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    navLinks.classList.toggle('active');
+    try {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            navLinks.classList.toggle('active');
+        }
+    } catch (e) {
+        console.error('Mobile menu toggle error:', e);
+    }
 }
 
 // Scroll effects
@@ -1037,30 +1043,62 @@ function showFormMessage(message, type) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    initLanguage();
+    try {
+        initLanguage();
+    } catch (e) {
+        console.error('Language init error:', e);
+    }
     
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScroll);
+    try {
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+    } catch (e) {
+        console.error('Scroll listener error:', e);
+    }
     
-    // Add click listeners to language buttons
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            setLanguage(btn.dataset.lang);
-        });
-    });
-    
-    // Add click listener to hamburger menu
-    document.querySelector('.hamburger')?.addEventListener('click', toggleMobileMenu);
-    
-    // Add smooth scroll to navigation links
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (href.startsWith('#')) {
+    try {
+        // Add click listeners to language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                scrollToSection(href.substring(1));
-            }
+                setLanguage(btn.dataset.lang);
+            });
         });
-    });
+    } catch (e) {
+        console.error('Language buttons error:', e);
+    }
+    
+    try {
+        // Add click listener to hamburger menu using ID selector
+        const hamburgerBtn = document.getElementById('mobile-menu-btn');
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('click', toggleMobileMenu);
+        }
+    } catch (e) {
+        console.error('Hamburger menu error:', e);
+    }
+    
+    try {
+        // Add smooth scroll to navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    scrollToSection(href.substring(1));
+                }
+                // Close mobile menu after clicking a link
+                try {
+                    const navLinks = document.querySelector('.nav-links');
+                    if (navLinks) {
+                        navLinks.classList.remove('active');
+                    }
+                } catch (e) {
+                    console.error('Close menu error:', e);
+                }
+            });
+        });
+    } catch (e) {
+        console.error('Nav links error:', e);
+    }
 });

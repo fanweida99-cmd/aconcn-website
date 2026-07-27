@@ -20,6 +20,8 @@
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -28,6 +30,8 @@ body {
     color: var(--text-primary);
     background-color: var(--light-gray);
     -webkit-text-size-adjust: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 img {
@@ -184,8 +188,8 @@ nav.scrolled {
     content: '';
     position: absolute;
     top: 0;
-    left: -50%;
-    width: 200%;
+    left: 0;
+    width: 100%;
     height: 100%;
     background: radial-gradient(circle at 30% 50%, rgba(49, 130, 206, 0.15) 0%, transparent 50%);
     z-index: 1;
