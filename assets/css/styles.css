@@ -708,7 +708,15 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero {
-        height: 600px;
+        height: auto;
+        min-height: 550px;
+        padding: 120px 0 60px;
+    }
+
+    .hero-bg img {
+        width: 100%;
+        height: auto;
+        min-height: 100%;
     }
 
     .nav-links {
@@ -739,10 +747,24 @@ footer {
     .hero-content {
         flex-direction: column;
         text-align: center;
+        gap: 30px;
+        width: 100%;
     }
 
     .hero-text {
         text-align: center;
+        width: 100%;
+    }
+
+    .hero-image-showcase {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-product-img {
+        width: 180px;
+        height: 180px;
     }
 
     .hero h1 {
@@ -760,12 +782,14 @@ footer {
 
     .certifications {
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 30px;
     }
 
     .cert-icon {
-        padding: 15px 20px;
-        font-size: 0.8rem;
+        padding: 12px 18px;
+        font-size: 0.75rem;
     }
 
     .section-title {
@@ -787,12 +811,17 @@ footer {
 
 @media (max-width: 480px) {
     .hero {
-        padding: 120px 0 80px;
-        height: 550px;
+        padding: 120px 0 60px;
+        height: auto;
+        min-height: 500px;
     }
 
     .hero h1 {
         font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
     }
 
     .features, .products, .applications, .case-studies, .certifications-section, .comparison-section, .test-reports {
@@ -806,15 +835,17 @@ footer {
     .hero-content {
         flex-direction: column;
         text-align: center;
+        gap: 25px;
     }
 
     .hero-text {
         text-align: center;
+        width: 100%;
     }
 
     .hero-product-img {
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
     }
 
     .comparison-grid {
@@ -823,6 +854,16 @@ footer {
 
     .reports-grid {
         grid-template-columns: 1fr;
+    }
+
+    .certifications {
+        margin-top: 20px;
+        gap: 8px;
+    }
+
+    .cert-icon {
+        padding: 10px 15px;
+        font-size: 0.7rem;
     }
 }
 
