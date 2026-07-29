@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
     <meta name="description" content="ACONCN Composite Manhole Covers - Technical specifications and product details">
     <title>Product Detail - ACONCN</title>
-    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="topbar">
+        <span>ACONCN - High-performance composite manhole covers for global markets</span>
+        <div>
+            <a href="tel:+8613603038913"><i class="fas fa-phone"></i> +86 13603038913</a>
+            <a href="mailto:victor@aconcn.com"><i class="fas fa-envelope"></i> victor@aconcn.com</a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html" data-lang="nav.home">Home</a></li>
                 <li><a href="about.html" data-lang="nav.about">About Us</a></li>
@@ -27,10 +36,8 @@
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="en">EN</button>
                 <button class="lang-btn" data-lang="zh">中</button>
-                <button class="lang-btn" data-lang="de">DE</button>
-                <button class="lang-btn" data-lang="fr">FR</button>
             </div>
-            <button class="hamburger" onclick="toggleMobileMenu()">
+            <button class="hamburger" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -99,51 +106,43 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>ACONCN</h4>
-                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
-                </div>
-                <div class="footer-section">
-                    <h4 data-lang="footer.products">Products</h4>
-                    <ul>
-                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
-                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
-                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 data-lang="footer.company">Company</h4>
-                    <ul>
-                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
-                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
-                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4 data-lang="footer.contact">Contact</h4>
-                    <p><span data-lang="footer.phone">Phone:</span> +86 13603038913</p>
-                    <p><span data-lang="footer.email">Email:</span> victor@aconcn.com</p>
-                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
-                </div>
+        <div class="foot-brand">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 40px; filter: brightness(0) invert(1);">
             </div>
-            <div class="footer-social">
-                <h4 data-lang="footer.followUs">Follow Us</h4>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+        </div>
+        <div>
+            <b data-lang="footer.products">Products</b>
+            <a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a>
+            <a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a>
+            <a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a>
+        </div>
+        <div>
+            <b data-lang="footer.contact">Contact</b>
+            <a href="https://wa.me/+8613603038913" target="_blank">WhatsApp: +86 13603038913</a>
+            <a href="tel:+8613603038913">+86 13603038913</a>
+            <a href="mailto:victor@aconcn.com">victor@aconcn.com</a>
+        </div>
+        <div>
+            <b>Navigation</b>
+            <a href="about.html" data-lang="footer.aboutUs">About Us</a>
+            <a href="certifications.html" data-lang="footer.certifications">Certifications</a>
+            <a href="comparison.html" data-lang="nav.comparison">Comparison</a>
+        </div>
+        <p class="copyright" data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+        <div class="footer-social">
+            <h4 data-lang="footer.followUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </div>
     </footer>
@@ -153,9 +152,8 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=4"></script>
     <script>
-        // Load product data based on URL parameter
         const productData = {
             d400: {
                 image: 'assets/images/product-d400.jpg',
@@ -188,7 +186,7 @@
                 apps: ['highways', 'industrialFacilities', 'ports', 'airports']
             },
             f900: {
-                image: 'assets/images/product-d400-2.jpg',
+                image: 'assets/images/product-f900.jpg',
                 titleKey: 'productDetail.f900Title',
                 descKey: 'productDetail.f900Desc',
                 specs: {
@@ -228,10 +226,8 @@
             const productId = urlParams.get('id') || 'd400';
             const data = productData[productId] || productData.d400;
 
-            // Set image
             document.getElementById('product-image').src = data.image;
 
-            // Set title and description with translations
             const langData = translations[currentLang];
             const titleEl = document.getElementById('product-title');
             const descEl = document.getElementById('product-desc');
@@ -245,7 +241,6 @@
             if (titleValue) titleEl.textContent = titleValue;
             if (descValue) descEl.textContent = descValue;
 
-            // Set specs
             document.getElementById('spec-opening').textContent = data.specs.opening;
             document.getElementById('spec-frame').textContent = data.specs.frame;
             document.getElementById('spec-material').textContent = data.specs.material;
@@ -254,23 +249,19 @@
             document.getElementById('spec-recycled').textContent = data.specs.recycled;
             document.getElementById('spec-weight').textContent = data.specs.weight;
 
-            // Set applications
             const appsList = document.getElementById('product-applications');
             appsList.innerHTML = data.apps.map(app => 
                 `<li data-lang="productDetail.${app}">${getNestedValue(langData, 'productDetail.' + app) || app}</li>`
             ).join('');
         }
 
-        // Load product on page ready
         document.addEventListener('DOMContentLoaded', () => {
             loadProduct();
         });
 
-        // Override updateLanguage to also update product-specific translations
         const originalUpdateLanguage = updateLanguage;
         updateLanguage = function() {
             originalUpdateLanguage();
-            // Re-load product translations when language changes
             if (document.getElementById('product-title')) {
                 loadProduct();
             }

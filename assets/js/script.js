@@ -13,6 +13,7 @@ const translations = {
         },
         hero: {
             title: 'Eco-Friendly Manhole Covers',
+            titlePrefix: 'Sustainable & Durable',
             subtitle: 'High-strength phenolic composite covers engineered for municipal roads, ports and industrial applications.',
             viewProducts: 'View Products',
             requestQuote: 'Request a Quote'
@@ -135,6 +136,7 @@ const translations = {
         },
         cta: {
             title: 'Start Your Project With ACONCN',
+            titlePrefix: 'GET STARTED',
             desc: 'Get expert advice and competitive pricing for your infrastructure projects.'
         },
         common: {
@@ -247,6 +249,7 @@ const translations = {
         },
         hero: {
             title: '环保复合材料井盖',
+            titlePrefix: '可持续且耐用',
             subtitle: '高强度酚醛复合材料井盖，专为市政道路、港口及工业应用设计。',
             viewProducts: '查看产品',
             requestQuote: '获取报价'
@@ -369,6 +372,7 @@ const translations = {
         },
         cta: {
             title: '与ACONCN一起开始您的项目',
+            titlePrefix: '开始合作',
             desc: '获取专业建议和有竞争力的价格。'
         },
         common: {
@@ -481,6 +485,7 @@ const translations = {
         },
         hero: {
             title: 'Umweltfreundliche Deckel',
+            titlePrefix: 'Nachhaltig & Langlebig',
             subtitle: 'Hochfeste Phenolverbunddeckel für städtische Straßen, Häfen und industrielle Anwendungen.',
             viewProducts: 'Produkte ansehen',
             requestQuote: 'Angebot anfordern'
@@ -603,6 +608,7 @@ const translations = {
         },
         cta: {
             title: 'Starten Sie Ihr Projekt mit ACONCN',
+            titlePrefix: 'JETZT STARTEN',
             desc: 'Erhalten Sie Expertenrat und wettbewerbsfähige Preise.'
         },
         common: {
@@ -715,6 +721,7 @@ const translations = {
         },
         hero: {
             title: 'Couvercles écologiques',
+            titlePrefix: 'Durable & Fiable',
             subtitle: 'Couvercles composites phénoliques haute résistance conçus pour les routes municipales, ports et applications industrielles.',
             viewProducts: 'Voir les produits',
             requestQuote: 'Demander un devis'
@@ -837,6 +844,7 @@ const translations = {
         },
         cta: {
             title: 'Lancez votre projet avec ACONCN',
+            titlePrefix: 'COMMENCEZ',
             desc: 'Obtenez des conseils d\'experts et des prix compétitifs.'
         },
         common: {
@@ -1100,5 +1108,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } catch (e) {
         console.error('Nav links error:', e);
+    }
+    
+    // Form submission handler
+    try {
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formMessage = document.getElementById('form-message');
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                // Simple email validation
+                const emailInput = contactForm.querySelector('input[name="email"]');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput && !emailRegex.test(emailInput.value)) {
+                    showFormMessage(getTrans('contact.invalidEmail') || 'Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const formData = new FormData(contactForm);
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        showFormMessage(getTrans('contact.success') || 'Thank you! Your message has been sent.', 'success');
+                        contactForm.reset();
+                    } else {
+                        showFormMessage(getTrans('contact.error') || 'Failed to send message. Please try again.', 'error');
+                    }
+                } catch (error) {
+                    showFormMessage(getTrans('contact.error') || 'Failed to send message. Please try again.', 'error');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+    } catch (e) {
+        console.error('Form handler error:', e);
     }
 });

@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
     <meta name="description" content="About ACONCN - Hong Kong Xindong Industrial Co., Ltd. - Composite infrastructure solutions">
     <title>About Us - ACONCN</title>
-    <link rel="stylesheet" href="assets/css/styles.css?v=3">
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="topbar">
+        <span>ACONCN - High-performance composite manhole covers for global markets</span>
+        <div>
+            <a href="tel:+8613603038913"><i class="fas fa-phone"></i> +86 13603038913</a>
+            <a href="mailto:victor@aconcn.com"><i class="fas fa-envelope"></i> victor@aconcn.com</a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 50px;"></a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html" data-lang="nav.home">Home</a></li>
-                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="about.html" class="active" data-lang="nav.about">About Us</a></li>
                 <li><a href="products.html" data-lang="nav.products">Products</a></li>
                 <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
                 <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
@@ -27,10 +36,8 @@
             <div class="language-switcher">
                 <button class="lang-btn active" data-lang="en">EN</button>
                 <button class="lang-btn" data-lang="zh">中</button>
-                <button class="lang-btn" data-lang="de">DE</button>
-                <button class="lang-btn" data-lang="fr">FR</button>
             </div>
-            <button class="hamburger" onclick="toggleMobileMenu()">
+            <button class="hamburger" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -55,8 +62,8 @@
                 <p data-lang="about.qualityDesc1">ACONCN products are engineered according to the requirements of the EN 124 load classification system, with available load classes ranging from A15 to F900 for pedestrian areas, roadways, ports, and heavy-duty infrastructure. Typical clear opening sizes include 600 mm, 700 mm, 800 mm, 900 mm, and 1000 mm, with additional custom specifications available upon request.</p>
                 <p data-lang="about.qualityDesc2">Quality assurance is supported through rigorous testing and third-party verification by accredited institutions such as the Shenzhen Academy of Metrology & Quality Inspection. Products undergo structural load testing, durability evaluation, and material performance verification to ensure consistent quality and safety.</p>
 
-                <div style="background: #f7fafc; padding: 30px; border-radius: 12px; margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px;" data-lang="about.globalPresence">Global Presence</h3>
+                <div class="global-presence">
+                    <h3 data-lang="about.globalPresence">Global Presence</h3>
                     <p data-lang="about.globalPresenceDesc">Today, Hong Kong Xindong Industrial Co., Ltd. continues to expand its international presence by providing reliable, environmentally responsible infrastructure materials for partners in Europe, North America, and other global markets. Through continuous innovation in composite technology and sustainable manufacturing, the company is committed to supporting the development of safer, longer-lasting, and more sustainable urban infrastructure.</p>
                 </div>
             </div>
@@ -65,51 +72,43 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>ACONCN</h4>
-                    <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
-                </div>
-                <div class="footer-section">
-                    <h4 data-lang="footer.products">Products</h4>
-                    <ul>
-                        <li><a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a></li>
-                        <li><a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a></li>
-                        <li><a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 data-lang="footer.company">Company</h4>
-                    <ul>
-                        <li><a href="about.html" data-lang="footer.aboutUs">About Us</a></li>
-                        <li><a href="products.html#case-studies" data-lang="footer.caseStudies">Case Studies</a></li>
-                        <li><a href="certifications.html" data-lang="footer.certifications">Certifications</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section footer-contact">
-                    <h4 data-lang="footer.contact">Contact</h4>
-                    <p><span data-lang="footer.phone">Phone:</span> +86 13603038913</p>
-                    <p><span data-lang="footer.email">Email:</span> victor@aconcn.com</p>
-                    <p><span data-lang="footer.address">Address:</span> Shenzhen, China</p>
-                </div>
+        <div class="foot-brand">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 40px; filter: brightness(0) invert(1);">
             </div>
-            <div class="footer-social">
-                <h4 data-lang="footer.followUs">Follow Us</h4>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+            <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+        </div>
+        <div>
+            <b data-lang="footer.products">Products</b>
+            <a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a>
+            <a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a>
+            <a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a>
+        </div>
+        <div>
+            <b data-lang="footer.contact">Contact</b>
+            <a href="https://wa.me/+8613603038913" target="_blank">WhatsApp: +86 13603038913</a>
+            <a href="tel:+8613603038913">+86 13603038913</a>
+            <a href="mailto:victor@aconcn.com">victor@aconcn.com</a>
+        </div>
+        <div>
+            <b>Navigation</b>
+            <a href="about.html" data-lang="footer.aboutUs">About Us</a>
+            <a href="certifications.html" data-lang="footer.certifications">Certifications</a>
+            <a href="comparison.html" data-lang="nav.comparison">Comparison</a>
+        </div>
+        <p class="copyright" data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+        <div class="footer-social">
+            <h4 data-lang="footer.followUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </div>
     </footer>
@@ -119,6 +118,6 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=4"></script>
 </body>
 </html>
