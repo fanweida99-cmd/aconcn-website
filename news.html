@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACONCN news, blog and company updates. Latest developments in composite manhole cover technology, industry insights and factory showcases.">
+    <meta name="keywords" content="ACONCN news, composite manhole cover blog, infrastructure news, industry updates, factory tour, manhole cover technology">
+    <title>News & Blog | ACONCN - Composite Manhole Covers</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .news-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .news-card:hover {
+            box-shadow: 0 12px 28px #204b731c;
+            transform: translateY(-3px);
+        }
+        .news-card-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .news-card:hover .news-card-image img {
+            transform: scale(1.05);
+        }
+        .news-card-body {
+            padding: 25px;
+        }
+        .news-card-date {
+            font-size: 12px;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .news-card-category {
+            display: inline-block;
+            background: #eef5fa;
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .news-card-body h3 {
+            font-size: 18px;
+            margin: 10px 0 12px;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+        .news-card-body p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0 0 15px;
+        }
+        .news-card-link {
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .news-card-link:hover {
+            color: var(--orange);
+        }
+
+        /* Factory Gallery */
+        .factory-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .factory-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            aspect-ratio: 4/3;
+            transition: var(--transition);
+        }
+        .factory-item:hover {
+            box-shadow: 0 12px 28px #204b731c;
+            transform: translateY(-3px);
+        }
+        .factory-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .factory-item:hover img {
+            transform: scale(1.08);
+        }
+        .factory-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(13, 61, 120, 0.92));
+            color: white;
+            padding: 30px 22px 22px;
+            transform: translateY(40%);
+            transition: transform 0.3s ease;
+        }
+        .factory-item:hover .factory-overlay {
+            transform: translateY(0);
+        }
+        .factory-overlay h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--white);
+        }
+        .factory-overlay p {
+            font-size: 13px;
+            color: #d6e4ed;
+            margin: 0;
+        }
+
+        /* Blog Article */
+        .blog-article {
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 40px;
+            margin-bottom: 20px;
+        }
+        .blog-article h2 {
+            font-size: 24px;
+            color: var(--blue2);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--line);
+        }
+        .blog-article p {
+            color: var(--ink);
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+        .blog-article ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        .blog-article li {
+            color: var(--ink);
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 10px;
+        }
+
+        /* Stats bar */
+        .news-stats {
+            background: var(--white);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 30px 20px;
+            gap: 15px;
+        }
+        .news-stats > div {
+            text-align: center;
+            border-right: 1px solid var(--line);
+            padding: 0 15px;
+        }
+        .news-stats > div:last-child {
+            border: 0;
+        }
+        .news-stats .stat-num {
+            font: 38px Arial;
+            color: var(--blue);
+            line-height: 1;
+        }
+        .news-stats .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .news-section {
+            padding: 90px 0;
+        }
+        .news-section:nth-child(even) {
+            background: var(--white);
+        }
+        .news-section:nth-child(odd) {
+            background: var(--bg);
+        }
+
+        @media (max-width: 900px) {
+            .news-stats { grid-template-columns: 1fr 1fr; }
+            .news-stats > div:nth-child(2) { border: 0; }
+        }
+        @media (max-width: 520px) {
+            .news-stats { grid-template-columns: 1fr; }
+            .news-stats > div { border: 0 !important; padding: 10px 0; }
+            .blog-article { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="topbar">
+        <span>ACONCN - High-performance composite manhole covers for global markets</span>
+        <div>
+            <a href="tel:+8613603038913"><i class="fas fa-phone"></i> +86 13603038913</a>
+            <a href="mailto:victor@aconcn.com"><i class="fas fa-envelope"></i> victor@aconcn.com</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-lang="nav.home">Home</a></li>
+                <li><a href="about.html" data-lang="nav.about">About Us</a></li>
+                <li><a href="products.html" data-lang="nav.products">Products</a></li>
+                <li><a href="comparison.html" data-lang="nav.comparison">Comparison</a></li>
+                <li><a href="certifications.html" data-lang="nav.certifications">Certifications</a></li>
+                <li><a href="news.html" class="active" data-lang="nav.news">News</a></li>
+                <li><a href="get-in-touch.html" data-lang="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中</button>
+            </div>
+            <button class="hamburger" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-head">
+        <div class="container">
+            <span data-lang="news.pageKicker">NEWS & BLOG</span>
+            <h1 data-lang="news.pageTitle">Company News & Industry Insights</h1>
+            <p data-lang="news.pageDesc">Stay updated with the latest developments in composite manhole cover technology, company news and factory showcases.</p>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="news-stats">
+        <div>
+            <div class="stat-num">25+</div>
+            <div class="stat-label" data-lang="news.stats.years">Years of Experience</div>
+        </div>
+        <div>
+            <div class="stat-num">200K+</div>
+            <div class="stat-label" data-lang="news.stats.covers">Manhole Covers Installed</div>
+        </div>
+        <div>
+            <div class="stat-num">50+</div>
+            <div class="stat-label" data-lang="news.stats.projects">Infrastructure Projects</div>
+        </div>
+        <div>
+            <div class="stat-num">99.95%</div>
+            <div class="stat-label" data-lang="news.stats.quality">Quality Pass Rate</div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="news-section" style="background: var(--bg);">
+        <div class="container">
+            <div class="section-title">
+                <div>
+                    <span data-lang="news.latestKicker">LATEST NEWS</span>
+                    <h2 data-lang="news.latestTitle">Recent Updates & Announcements</h2>
+                </div>
+            </div>
+            <p class="section-subtitle" data-lang="news.latestDesc">Recent developments and milestones from ACONCN</p>
+            <div class="news-grid">
+                <article class="news-card animate-fade-in-up">
+                    <div class="news-card-image">
+                        <img src="assets/images/井盖图片.jpg" alt="Infrastructure Project" loading="lazy">
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-card-date">2024-12-15</div>
+                        <span class="news-card-category" data-lang="news.category.company">Company</span>
+                        <h3 data-lang="news.article1.title">ACONCN Completes Major Infrastructure Project in South China</h3>
+                        <p data-lang="news.article1.desc">Our composite manhole covers have been successfully installed in a large-scale urban development project in Guangdong province, demonstrating superior performance...</p>
+                        <a href="#" class="news-card-link" data-lang="news.readMore">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card animate-fade-in-up delay-100">
+                    <div class="news-card-image">
+                        <img src="assets/images/product-f900.jpg" alt="Product Innovation" loading="lazy">
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-card-date">2024-11-28</div>
+                        <span class="news-card-category" data-lang="news.category.product">Product</span>
+                        <h3 data-lang="news.article2.title">New Generation F900 Heavy-Duty Manhole Cover Launched</h3>
+                        <p data-lang="news.article2.desc">Introducing our upgraded F900 manhole cover with enhanced load capacity and improved durability for airport and port applications...</p>
+                        <a href="#" class="news-card-link" data-lang="news.readMore">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card animate-fade-in-up delay-200">
+                    <div class="news-card-image">
+                        <img src="assets/images/香港井盖图片.jpg" alt="Industry News" loading="lazy">
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-card-date">2024-11-10</div>
+                        <span class="news-card-category" data-lang="news.category.industry">Industry</span>
+                        <h3 data-lang="news.article3.title">Composite Materials Revolutionizing Urban Infrastructure</h3>
+                        <p data-lang="news.article3.desc">How composite manhole covers are replacing traditional cast iron solutions in modern municipal infrastructure projects across Asia...</p>
+                        <a href="#" class="news-card-link" data-lang="news.readMore">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Factory Gallery -->
+    <section class="news-section" style="background: var(--white);">
+        <div class="container">
+            <div class="section-title">
+                <div>
+                    <span data-lang="news.factoryKicker">FACTORY TOUR</span>
+                    <h2 data-lang="news.factoryTitle">Inside Our Manufacturing Facility</h2>
+                </div>
+            </div>
+            <p class="section-subtitle" data-lang="news.factoryDesc">Take a visual tour of our modern production facility spanning 45,000 m²</p>
+            <div class="factory-gallery">
+                <div class="factory-item animate-fade-in-up">
+                    <img src="assets/images/图片精修.png" alt="Factory Entrance" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.entrance">Modern Factory Entrance</h4>
+                        <p data-lang="news.factory.entranceDesc">45,000 m² production facility in Shenzhen</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-100">
+                    <img src="assets/images/图片精修 (1).png" alt="Production Line" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.production">Automated Production Line</h4>
+                        <p data-lang="news.factory.productionDesc">Advanced compression molding technology</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-200">
+                    <img src="assets/images/图片精修 (2).png" alt="Quality Control" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.quality">Quality Control Center</h4>
+                        <p data-lang="news.factory.qualityDesc">ISO 9001 certified testing laboratory</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-300">
+                    <img src="assets/images/图片精修 (3).png" alt="Raw Material Storage" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.raw">Raw Material Warehouse</h4>
+                        <p data-lang="news.factory.rawDesc">80% recycled materials storage</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-400">
+                    <img src="assets/images/图片精修 (4).png" alt="Finished Products" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.finished">Finished Products Area</h4>
+                        <p data-lang="news.factory.finishedDesc">Ready for global shipment</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-500">
+                    <img src="assets/images/图片精修 (5).png" alt="Testing Facility" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.testing">Load Testing Facility</h4>
+                        <p data-lang="news.factory.testingDesc">EN 124 standard compliance testing</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-600">
+                    <img src="assets/images/图片精修 (6).png" alt="Workshop" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.workshop">Precision Workshop</h4>
+                        <p data-lang="news.factory.workshopDesc">Custom mold manufacturing</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-700">
+                    <img src="assets/images/图片精修 (7).png" alt="Packaging" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.packaging">Packaging Line</h4>
+                        <p data-lang="news.factory.packagingDesc">Eco-friendly packaging solutions</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up">
+                    <img src="assets/images/图片精修 (8).png" alt="Logistics" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.logistics">Logistics Center</h4>
+                        <p data-lang="news.factory.logisticsDesc">Global shipping and distribution</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-100">
+                    <img src="assets/images/图片精修 (9).png" alt="R&D" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.rd">R&D Department</h4>
+                        <p data-lang="news.factory.rdDesc">Continuous technology innovation</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-200">
+                    <img src="assets/images/图片精修 (10).png" alt="Machinery" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.machinery">Heavy Machinery</h4>
+                        <p data-lang="news.factory.machineryDesc">High-capacity production equipment</p>
+                    </div>
+                </div>
+                <div class="factory-item animate-fade-in-up delay-300">
+                    <img src="assets/images/图片精修 (11).png" alt="Production Floor" loading="lazy">
+                    <div class="factory-overlay">
+                        <h4 data-lang="news.factory.floor">Production Floor</h4>
+                        <p data-lang="news.factory.floorDesc">Large-scale manufacturing operations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Articles -->
+    <section class="news-section" style="background: var(--bg);">
+        <div class="container">
+            <div class="section-title">
+                <div>
+                    <span data-lang="news.blogKicker">TECHNICAL BLOG</span>
+                    <h2 data-lang="news.blogTitle">Insights & Knowledge</h2>
+                </div>
+            </div>
+            <p class="section-subtitle" data-lang="news.blogDesc">Technical articles and industry knowledge sharing</p>
+
+            <div class="blog-article">
+                <h2 data-lang="news.blog1.title">Why Choose Composite Manhole Covers Over Cast Iron?</h2>
+                <p data-lang="news.blog1.p1">When it comes to urban infrastructure projects, the choice between composite and cast iron manhole covers is an increasingly important decision. In this article, we explore the key advantages of composite materials:</p>
+                <ul>
+                    <li data-lang="news.blog1.point1"><strong>Anti-Theft Design:</strong> Composite covers have no scrap value, making them unattractive to thieves. Cast iron covers are frequently stolen and sold for scrap, creating significant safety hazards.</li>
+                    <li data-lang="news.blog1.point2"><strong>Superior Durability:</strong> Our phenolic composite material has a service life of over 25 years, compared to 10-15 years for cast iron. This means lower maintenance costs and fewer replacements over the infrastructure's lifetime.</li>
+                    <li data-lang="news.blog1.point3"><strong>Weight Reduction:</strong> Composite covers are 60-70% lighter than cast iron, making installation safer and more efficient. This also reduces transportation costs.</li>
+                    <li data-lang="news.blog1.point4"><strong>Environmental Benefits:</strong> Our composites incorporate up to 80% recycled materials, contributing to sustainable infrastructure development.</li>
+                    <li data-lang="news.blog1.point5"><strong>Noise Reduction:</strong> Unlike metal covers, composite covers don't produce rattling sounds when vehicles pass over them, reducing urban noise pollution.</li>
+                </ul>
+                <p data-lang="news.blog1.p2">With certifications including EN 124, ISO 9001, and SGS, composite manhole covers are becoming the preferred choice for forward-thinking municipalities and infrastructure developers worldwide.</p>
+            </div>
+
+            <div class="blog-article">
+                <h2 data-lang="news.blog2.title">Understanding EN 124 Standard for Manhole Covers</h2>
+                <p data-lang="news.blog2.p1">The EN 124 standard is the European norm for metal and composite manhole covers and gully tops. It defines load classes and testing requirements that ensure products meet safety and performance standards for different applications:</p>
+                <ul>
+                    <li><strong>A15:</strong> Pedestrian areas and gardens</li>
+                    <li><strong>B125:</strong> Pavements and pedestrian areas</li>
+                    <li><strong>C250:</strong> Vehicle areas with light traffic</li>
+                    <li><strong>D400:</strong> Roads and carriageways</li>
+                    <li><strong>E600:</strong> Industrial areas with heavy traffic</li>
+                    <li><strong>F900:</strong> Areas with very heavy loads (airports, ports)</li>
+                </ul>
+                <p data-lang="news.blog2.p2">All ACONCN manhole covers are tested and certified according to EN 124 standards, ensuring reliable performance in their specified applications. Our quality control processes include third-party testing by accredited institutions to verify compliance.</p>
+            </div>
+
+            <div class="blog-article">
+                <h2 data-lang="news.blog3.title">The Future of Sustainable Infrastructure: Composite Materials</h2>
+                <p data-lang="news.blog3.p1">As cities worldwide focus on sustainable development goals, the demand for environmentally friendly infrastructure materials continues to grow. Composite manhole covers represent a key solution in this transition:</p>
+                <ul>
+                    <li data-lang="news.blog3.point1"><strong>Recycled Content:</strong> Up to 80% of our composite material comes from recycled industrial sources, reducing reliance on virgin materials.</li>
+                    <li data-lang="news.blog3.point2"><strong>Long Service Life:</strong> With 25+ years of durability, composite covers require fewer replacements, reducing waste generation over the infrastructure lifecycle.</li>
+                    <li data-lang="news.blog3.point3"><strong>Corrosion Resistance:</strong> Unlike metal covers, composites never corrode, eliminating the need for protective coatings and reducing environmental impact.</li>
+                    <li data-lang="news.blog3.point4"><strong>Lower Carbon Footprint:</strong> The manufacturing process for composite materials produces significantly fewer emissions compared to cast iron production.</li>
+                </ul>
+                <p data-lang="news.blog3.p2">At ACONCN, we are committed to advancing sustainable infrastructure through continuous innovation in composite material technology and manufacturing processes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <span style="font: 11px Arial; color: #a8d2ef; letter-spacing: 2px;" data-lang="news.ctaPrefix">GET IN TOUCH</span>
+            <h2 data-lang="news.ctaTitle">Visit Our Factory or Request a Quote</h2>
+            <p data-lang="news.ctaDesc">Experience our manufacturing capabilities firsthand or get competitive pricing for your next project.</p>
+            <a href="get-in-touch.html" class="btn btn-secondary" data-lang="news.ctaBtn">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="foot-brand">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="ACONCN Logo" style="height: 40px; filter: brightness(0) invert(1);">
+            </div>
+            <p data-lang="footer.companyDesc">High-performance composite infrastructure solutions for global markets.</p>
+        </div>
+        <div>
+            <b data-lang="footer.products">Products</b>
+            <a href="products.html" data-lang="footer.manholeCovers">Manhole Covers</a>
+            <a href="products.html" data-lang="footer.drainageGrates">Drainage Grates</a>
+            <a href="products.html" data-lang="footer.customSolutions">Custom Solutions</a>
+        </div>
+        <div>
+            <b data-lang="footer.contact">Contact</b>
+            <a href="https://wa.me/+8613603038913" target="_blank">WhatsApp: +86 13603038913</a>
+            <a href="tel:+8613603038913">+86 13603038913</a>
+            <a href="mailto:victor@aconcn.com">victor@aconcn.com</a>
+        </div>
+        <div>
+            <b>Navigation</b>
+            <a href="about.html" data-lang="footer.aboutUs">About Us</a>
+            <a href="news.html" data-lang="nav.news">News</a>
+            <a href="certifications.html" data-lang="footer.certifications">Certifications</a>
+            <a href="comparison.html" data-lang="nav.comparison">Comparison</a>
+        </div>
+        <p class="copyright" data-lang="footer.copyright">&copy; 2024 Hong Kong Xindong Industrial Co., Ltd. All rights reserved.</p>
+        <div class="footer-social">
+            <h4 data-lang="footer.followUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/aconcn666victor" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/+8613603038913" target="_blank" class="social-icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:victor@aconcn.com" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+8613603038913" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="assets/js/script.js?v=4"></script>
+</body>
+</html>

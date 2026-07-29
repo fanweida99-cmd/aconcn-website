@@ -9,7 +9,8 @@ const translations = {
             applications: 'Applications',
             caseStudies: 'Case Studies',
             certifications: 'Certifications',
-            contact: 'Contact'
+            contact: 'Contact',
+            news: 'News'
         },
         hero: {
             title: 'Eco-Friendly Manhole Covers',
@@ -234,6 +235,98 @@ const translations = {
             success: 'Thank you! Your email client will open shortly. We will contact you within 24 hours.',
             error: 'Oops! Something went wrong. Please try again later.',
             invalidEmail: 'Please enter a valid email address.'
+        },
+        news: {
+            pageKicker: 'NEWS & BLOG',
+            pageTitle: 'Company News & Industry Insights',
+            pageDesc: 'Stay updated with the latest developments in composite manhole cover technology, company news and factory showcases.',
+            stats: {
+                years: 'Years of Experience',
+                covers: 'Manhole Covers Installed',
+                projects: 'Infrastructure Projects',
+                quality: 'Quality Pass Rate'
+            },
+            latestKicker: 'LATEST NEWS',
+            latestTitle: 'Recent Updates & Announcements',
+            latestDesc: 'Recent developments and milestones from ACONCN',
+            category: {
+                company: 'Company',
+                product: 'Product',
+                industry: 'Industry'
+            },
+            article1: {
+                title: 'ACONCN Completes Major Infrastructure Project in South China',
+                desc: 'Our composite manhole covers have been successfully installed in a large-scale urban development project in Guangdong province, demonstrating superior performance...'
+            },
+            article2: {
+                title: 'New Generation F900 Heavy-Duty Manhole Cover Launched',
+                desc: 'Introducing our upgraded F900 manhole cover with enhanced load capacity and improved durability for airport and port applications...'
+            },
+            article3: {
+                title: 'Composite Materials Revolutionizing Urban Infrastructure',
+                desc: 'How composite manhole covers are replacing traditional cast iron solutions in modern municipal infrastructure projects across Asia...'
+            },
+            readMore: 'Read More',
+            factoryKicker: 'FACTORY TOUR',
+            factoryTitle: 'Inside Our Manufacturing Facility',
+            factoryDesc: 'Take a visual tour of our modern production facility spanning 45,000 m²',
+            factory: {
+                entrance: 'Modern Factory Entrance',
+                entranceDesc: '45,000 m² production facility in Shenzhen',
+                production: 'Automated Production Line',
+                productionDesc: 'Advanced compression molding technology',
+                quality: 'Quality Control Center',
+                qualityDesc: 'ISO 9001 certified testing laboratory',
+                raw: 'Raw Material Warehouse',
+                rawDesc: '80% recycled materials storage',
+                finished: 'Finished Products Area',
+                finishedDesc: 'Ready for global shipment',
+                testing: 'Load Testing Facility',
+                testingDesc: 'EN 124 standard compliance testing',
+                workshop: 'Precision Workshop',
+                workshopDesc: 'Custom mold manufacturing',
+                packaging: 'Packaging Line',
+                packagingDesc: 'Eco-friendly packaging solutions',
+                logistics: 'Logistics Center',
+                logisticsDesc: 'Global shipping and distribution',
+                rd: 'R&D Department',
+                rdDesc: 'Continuous technology innovation',
+                machinery: 'Heavy Machinery',
+                machineryDesc: 'High-capacity production equipment',
+                floor: 'Production Floor',
+                floorDesc: 'Large-scale manufacturing operations'
+            },
+            blogKicker: 'TECHNICAL BLOG',
+            blogTitle: 'Insights & Knowledge',
+            blogDesc: 'Technical articles and industry knowledge sharing',
+            blog1: {
+                title: 'Why Choose Composite Manhole Covers Over Cast Iron?',
+                p1: 'When it comes to urban infrastructure projects, the choice between composite and cast iron manhole covers is an increasingly important decision. In this article, we explore the key advantages of composite materials:',
+                point1: '<strong>Anti-Theft Design:</strong> Composite covers have no scrap value, making them unattractive to thieves. Cast iron covers are frequently stolen and sold for scrap, creating significant safety hazards.',
+                point2: '<strong>Superior Durability:</strong> Our phenolic composite material has a service life of over 25 years, compared to 10-15 years for cast iron. This means lower maintenance costs and fewer replacements.',
+                point3: '<strong>Weight Reduction:</strong> Composite covers are 60-70% lighter than cast iron, making installation safer and more efficient. This also reduces transportation costs.',
+                point4: '<strong>Environmental Benefits:</strong> Our composites incorporate up to 80% recycled materials, contributing to sustainable infrastructure development.',
+                point5: '<strong>Noise Reduction:</strong> Unlike metal covers, composite covers don\'t produce rattling sounds when vehicles pass over them, reducing urban noise pollution.',
+                p2: 'With certifications including EN 124, ISO 9001, and SGS, composite manhole covers are becoming the preferred choice for forward-thinking municipalities and infrastructure developers worldwide.'
+            },
+            blog2: {
+                title: 'Understanding EN 124 Standard for Manhole Covers',
+                p1: 'The EN 124 standard is the European norm for metal and composite manhole covers and gully tops. It defines load classes and testing requirements that ensure products meet safety and performance standards for different applications:',
+                p2: 'All ACONCN manhole covers are tested and certified according to EN 124 standards, ensuring reliable performance in their specified applications. Our quality control processes include third-party testing by accredited institutions.'
+            },
+            blog3: {
+                title: 'The Future of Sustainable Infrastructure: Composite Materials',
+                p1: 'As cities worldwide focus on sustainable development goals, the demand for environmentally friendly infrastructure materials continues to grow. Composite manhole covers represent a key solution in this transition:',
+                point1: '<strong>Recycled Content:</strong> Up to 80% of our composite material comes from recycled industrial sources, reducing reliance on virgin materials.',
+                point2: '<strong>Long Service Life:</strong> With 25+ years of durability, composite covers require fewer replacements, reducing waste generation over the infrastructure lifecycle.',
+                point3: '<strong>Corrosion Resistance:</strong> Unlike metal covers, composites never corrode, eliminating the need for protective coatings and reducing environmental impact.',
+                point4: '<strong>Lower Carbon Footprint:</strong> The manufacturing process for composite materials produces significantly fewer emissions compared to cast iron production.',
+                p2: 'At ACONCN, we are committed to advancing sustainable infrastructure through continuous innovation in composite material technology and manufacturing processes.'
+            },
+            ctaPrefix: 'GET IN TOUCH',
+            ctaTitle: 'Visit Our Factory or Request a Quote',
+            ctaDesc: 'Experience our manufacturing capabilities firsthand or get competitive pricing for your next project.',
+            ctaBtn: 'Contact Us Today'
         }
     },
     zh: {
@@ -245,7 +338,8 @@ const translations = {
             applications: '应用领域',
             caseStudies: '工程案例',
             certifications: '认证资质',
-            contact: '联系我们'
+            contact: '联系我们',
+            news: '新闻中心'
         },
         hero: {
             title: '环保复合材料井盖',
@@ -470,6 +564,98 @@ const translations = {
             success: '感谢您的留言！您的邮件客户端将立即打开。我们将在24小时内与您联系。',
             error: '发送失败！请稍后重试。',
             invalidEmail: '请输入有效的邮箱地址。'
+        },
+        news: {
+            pageKicker: '新闻与博客',
+            pageTitle: '公司动态与行业洞察',
+            pageDesc: '了解复合材料井盖技术的最新发展、公司动态和工厂展示。',
+            stats: {
+                years: '年行业经验',
+                covers: '已安装井盖',
+                projects: '基础设施项目',
+                quality: '质量合格率'
+            },
+            latestKicker: '最新动态',
+            latestTitle: '近期更新与公告',
+            latestDesc: '来自ACONCN的最新发展和里程碑',
+            category: {
+                company: '公司动态',
+                product: '产品更新',
+                industry: '行业资讯'
+            },
+            article1: {
+                title: '欣东完成华南重大基础设施项目',
+                desc: '我们的复合材料井盖已成功安装在广东省的一个大型城市开发项目中，展示了卓越的性能...'
+            },
+            article2: {
+                title: '新一代F900重型井盖正式发布',
+                desc: '推出升级版F900井盖，提升承载能力和耐久性，适用于机场和港口应用...'
+            },
+            article3: {
+                title: '复合材料正在革新城市基础设施',
+                desc: '复合材料井盖如何在亚洲现代市政项目中取代传统铸铁方案...'
+            },
+            readMore: '了解更多',
+            factoryKicker: '工厂参观',
+            factoryTitle: '走进我们的制造基地',
+            factoryDesc: '带您参观我们45,000平方米的现代化生产基地',
+            factory: {
+                entrance: '现代化工厂大门',
+                entranceDesc: '深圳45,000平方米生产基地',
+                production: '自动化生产线',
+                productionDesc: '先进压缩成型技术',
+                quality: '质量检测中心',
+                qualityDesc: 'ISO 9001认证检测实验室',
+                raw: '原材料仓库',
+                rawDesc: '80%回收材料存储',
+                finished: '成品区域',
+                finishedDesc: '准备全球发货',
+                testing: '载荷测试中心',
+                testingDesc: 'EN 124标准合规测试',
+                workshop: '精密车间',
+                workshopDesc: '定制模具制造',
+                packaging: '包装生产线',
+                packagingDesc: '环保包装解决方案',
+                logistics: '物流中心',
+                logisticsDesc: '全球运输与配送',
+                rd: '研发部门',
+                rdDesc: '持续技术创新',
+                machinery: '重型机械',
+                machineryDesc: '高产能生产设备',
+                floor: '生产车间',
+                floorDesc: '大规模制造运营'
+            },
+            blogKicker: '技术博客',
+            blogTitle: '技术洞察与知识分享',
+            blogDesc: '技术文章与行业知识分享',
+            blog1: {
+                title: '为什么选择复合材料井盖而非铸铁井盖？',
+                p1: '在城市基础设施项目中，复合材料与铸铁井盖的选择日益重要。本文探讨复合材料的核心优势：',
+                point1: '<strong>防盗设计：</strong>复合材料井盖无回收价值，对盗贼没有吸引力。铸铁井盖常被偷盗变卖，造成重大安全隐患。',
+                point2: '<strong>超长使用寿命：</strong>我们的酚醛复合材料使用寿命超过25年，而铸铁仅10-15年。这意味着更低的维护成本。',
+                point3: '<strong>重量更轻：</strong>复合材料井盖比铸铁轻60-70%，安装更安全高效，运输成本也更低。',
+                point4: '<strong>环保优势：</strong>我们的复合材料包含高达80%的回收材料，助力可持续基础设施发展。',
+                point5: '<strong>静音设计：</strong>与金属井盖不同，复合材料井盖在车辆通过时不会产生响声，减少城市噪音污染。',
+                p2: '凭借EN 124、ISO 9001和SGS等认证，复合材料井盖正成为具有远见的市政和基础设施开发商的首选。'
+            },
+            blog2: {
+                title: '解读EN 124井盖标准',
+                p1: 'EN 124标准是欧洲金属和复合材料井盖及排水篦子的标准。它定义了载荷等级和测试要求，确保产品满足不同应用的安全和性能标准：',
+                p2: '所有ACONCN井盖均通过EN 124标准检测和认证，确保在指定应用中可靠运行。我们的质量控制流程包括经认可机构的第三方检测。'
+            },
+            blog3: {
+                title: '可持续基础设施的未来：复合材料',
+                p1: '随着全球城市关注可持续发展目标，对环保基础设施材料的需求持续增长。复合材料井盖是这一转型的关键解决方案：',
+                point1: '<strong>回收含量：</strong>我们的复合材料高达80%来自回收工业来源，减少对原始材料的依赖。',
+                point2: '<strong>超长使用寿命：</strong>凭借25年以上的耐久性，复合材料井盖需要更少的更换，减少基础设施生命周期内的废物产生。',
+                point3: '<strong>耐腐蚀：</strong>与金属井盖不同，复合材料永不腐蚀，无需防护涂层，减少环境影响。',
+                point4: '<strong>低碳足迹：</strong>复合材料的制造过程相比铸铁生产产生的排放显著更少。',
+                p2: '在ACONCN，我们致力于通过复合材料技术和制造工艺的持续创新，推动可持续基础设施发展。'
+            },
+            ctaPrefix: '联系我们',
+            ctaTitle: '参观工厂或获取报价',
+            ctaDesc: '亲身体验我们的制造能力，或为您的下一个项目获取有竞争力的价格。',
+            ctaBtn: '立即联系我们'
         }
     },
     de: {
