@@ -56,9 +56,16 @@ const translations = {
             }
         },
         products: {
-            title: 'Our Composite Manhole Cover Solutions',
-            subtitle: 'Engineered to meet EN 124 standards',
+            title: 'Product Catalog',
+            subtitle: 'Complete range of composite infrastructure products',
             viewAll: 'View All Products',
+            all: 'All',
+            manholeCovers: 'Manhole Covers',
+            outdoorProducts: 'Outdoor Products',
+            conveyorRollers: 'Conveyor Rollers',
+            pipeRepair: 'Pipe Repair',
+            inquire: 'Inquire',
+            productsShown: 'products shown',
             d400: {
                 name: 'D400 Road Manhole Cover',
                 desc: 'Designed for urban roads and heavy traffic areas.'
@@ -385,9 +392,16 @@ const translations = {
             }
         },
         products: {
-            title: '复合材料井盖解决方案',
-            subtitle: '符合EN 124标准',
+            title: '产品目录',
+            subtitle: '全系列复合材料基础设施产品',
             viewAll: '查看全部产品',
+            all: '全部',
+            manholeCovers: '井盖',
+            outdoorProducts: '室外花箱垃圾箱',
+            conveyorRollers: '托辊',
+            pipeRepair: '抢修器',
+            inquire: '询价',
+            productsShown: '个产品',
             d400: {
                 name: 'D400道路井盖',
                 desc: '适用于城市道路和重型交通区域。'

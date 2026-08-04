@@ -8,9 +8,114 @@
     <meta name="description" content="ACONCN - Composite manhole cover products including D400, E600, F900 load classes.">
     <meta name="keywords" content="composite manhole cover, D400, E600, F900, drainage grating">
     <title>ACONCN - Products | Composite Manhole Covers</title>
-    <link rel="stylesheet" href="assets/css/styles.css?v=5">
+    <link rel="stylesheet" href="assets/css/styles.css?v=6">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #1457a6;
+            --orange: #f28b31;
+            --teal: #0b8f87;
+        }
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e5e5e5;
+            margin: 32px 0 24px;
+            padding: 0;
+            list-style: none;
+        }
+        .category-tabs li {
+            list-style: none;
+        }
+        .category-tab {
+            padding: 14px 24px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            position: relative;
+            transition: color 0.2s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-family: inherit;
+        }
+        .category-tab:hover {
+            color: var(--blue);
+        }
+        .category-tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+        }
+        .products-count {
+            margin-bottom: 18px;
+            color: #666;
+            font-size: 14px;
+        }
+        /* Products Grid */
+        .products-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        /* Product Card */
+        .product-card-new {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card-new:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+            border-color: var(--blue);
+        }
+        .product-image-new {
+            width: 100%;
+            height: 200px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fafafa;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .product-info {
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .product-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+            margin: 0;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+        .inquire-btn {
+            display: inline-block;
+            padding: 7px 16px;
+            background: var(--orange);
+            color: #fff !important;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        .inquire-btn:hover {
+            background: var(--blue);
+        }
+    </style>
 </head>
 <body>
     <!-- Top Bar -->
@@ -56,7 +161,7 @@
         </div>
     </section>
 
-    <!-- Products Grid -->
+    <!-- Products Section -->
     <section id="products" class="products">
         <div class="container">
             <div class="section-title">
@@ -66,56 +171,20 @@
                 </div>
             </div>
             <p class="section-subtitle" data-lang="products.subtitle">Engineered to meet EN 124 standards for global infrastructure projects</p>
-            <div class="products-grid">
-                <article class="product-card animate-fade-in-up">
-                    <a class="product-image" href="product-detail.html?id=d400" style="background-image: url('assets/images/product-d400.jpg');">
-                        <span>D400</span>
-                        <i class="fas fa-arrow-up-right"></i>
-                    </a>
-                    <div>
-                        <small data-lang="common.loadClass">Load Class</small>
-                        <h3><a href="product-detail.html?id=d400" data-lang="products.d400.name">D400 Road Manhole Cover</a></h3>
-                        <p data-lang="products.d400.desc">Designed for urban roads and heavy traffic areas.</p>
-                        <a class="card-link" href="product-detail.html?id=d400" data-lang="common.viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                <article class="product-card animate-fade-in-up delay-100">
-                    <a class="product-image" href="product-detail.html?id=e600" style="background-image: url('assets/images/product-e600.jpg');">
-                        <span>E600</span>
-                        <i class="fas fa-arrow-up-right"></i>
-                    </a>
-                    <div>
-                        <small data-lang="common.loadClass">Load Class</small>
-                        <h3><a href="product-detail.html?id=e600" data-lang="products.e600.name">E600 Heavy Duty Cover</a></h3>
-                        <p data-lang="products.e600.desc">For highways and industrial applications.</p>
-                        <a class="card-link" href="product-detail.html?id=e600" data-lang="common.viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                <article class="product-card animate-fade-in-up delay-200">
-                    <a class="product-image" href="product-detail.html?id=f900" style="background-image: url('assets/images/product-f900.jpg');">
-                        <span>F900</span>
-                        <i class="fas fa-arrow-up-right"></i>
-                    </a>
-                    <div>
-                        <small data-lang="common.loadClass">Load Class</small>
-                        <h3><a href="product-detail.html?id=f900" data-lang="products.f900.name">F900 Airport Cover</a></h3>
-                        <p data-lang="products.f900.desc">Heavy-duty covers for airports and ports.</p>
-                        <a class="card-link" href="product-detail.html?id=f900" data-lang="common.viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                <article class="product-card animate-fade-in-up delay-300">
-                    <a class="product-image" href="product-detail.html?id=grating" style="background-image: url('assets/images/product-e600-2.jpg');">
-                        <span>C250/D400</span>
-                        <i class="fas fa-arrow-up-right"></i>
-                    </a>
-                    <div>
-                        <small data-lang="common.material">Material</small>
-                        <h3><a href="product-detail.html?id=grating" data-lang="products.grating.name">Composite Drainage Grating</a></h3>
-                        <p data-lang="products.grating.desc">Efficient drainage solutions for various applications.</p>
-                        <a class="card-link" href="product-detail.html?id=grating" data-lang="common.viewDetails">View Details <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
+
+            <!-- Category Tabs -->
+            <ul class="category-tabs" id="category-tabs">
+                <li><button class="category-tab active" data-cat="all">All</button></li>
+                <li><button class="category-tab" data-cat="manhole">Manhole Covers</button></li>
+                <li><button class="category-tab" data-cat="outdoor">Outdoor Products</button></li>
+                <li><button class="category-tab" data-cat="roller">Conveyor Rollers</button></li>
+                <li><button class="category-tab" data-cat="repair">Pipe Repair</button></li>
+            </ul>
+
+            <div class="products-count" id="products-count"></div>
+
+            <!-- Products Grid (Dynamic) -->
+            <div class="products-grid-new" id="products-grid"></div>
         </div>
     </section>
 
@@ -239,6 +308,207 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <script src="assets/js/script.js?v=4"></script>
+    <script>
+        // Product data: 4 categories, 112 products total
+        var categoryFolders = {
+            manhole: '井盖',
+            outdoor: '室外花箱垃圾箱',
+            roller: '托辊',
+            repair: '抢修器'
+        };
+
+        var products = [
+            // Manhole Covers (32)
+            { cat: 'manhole', file: '102AR-700H.gif' },
+            { cat: 'manhole', file: 'AA-1314黑.gif' },
+            { cat: 'manhole', file: 'AA-165.gif' },
+            { cat: 'manhole', file: 'AA-178地政署.gif' },
+            { cat: 'manhole', file: 'AA-380燃气.gif' },
+            { cat: 'manhole', file: 'AA-44.gif' },
+            { cat: 'manhole', file: 'AA-77.gif' },
+            { cat: 'manhole', file: 'AR-700H给加重.gif' },
+            { cat: 'manhole', file: 'AR500.gif' },
+            { cat: 'manhole', file: 'AW-20B.gif' },
+            { cat: 'manhole', file: 'AW-450H.gif' },
+            { cat: 'manhole', file: 'AW-533副本.gif' },
+            { cat: 'manhole', file: 'AW-625F.gif' },
+            { cat: 'manhole', file: 'AW-627.gif' },
+            { cat: 'manhole', file: 'AW-630..gif' },
+            { cat: 'manhole', file: 'AW-630.gif' },
+            { cat: 'manhole', file: 'AW-630R.gif' },
+            { cat: 'manhole', file: 'AW-633F.gif' },
+            { cat: 'manhole', file: 'AW-635L.gif' },
+            { cat: 'manhole', file: 'AW-640.gif' },
+            { cat: 'manhole', file: 'AW-640副本.gif' },
+            { cat: 'manhole', file: 'AW-644F.gif' },
+            { cat: 'manhole', file: 'AW-645L.gif' },
+            { cat: 'manhole', file: 'AW-740.gif' },
+            { cat: 'manhole', file: 'AW-8525副本.gif' },
+            { cat: 'manhole', file: 'AW325F副本.gif' },
+            { cat: 'manhole', file: 'AW500副本.gif' },
+            { cat: 'manhole', file: 'AW614副本.gif' },
+            { cat: 'manhole', file: 'AW637R副本.gif' },
+            { cat: 'manhole', file: 'AW655副本.gif' },
+            { cat: 'manhole', file: 'AW8380.gif' },
+            { cat: 'manhole', file: 'aa-350副本.gif' },
+
+            // Outdoor Flower Boxes & Trash Bins (27)
+            { cat: 'outdoor', file: '11.jpg' },
+            { cat: 'outdoor', file: '20130909_154830.jpg' },
+            { cat: 'outdoor', file: '20130909_154838.jpg' },
+            { cat: 'outdoor', file: '20130909_154948.jpg' },
+            { cat: 'outdoor', file: '20130909_154948_conew1.png' },
+            { cat: 'outdoor', file: '20130909_154954.jpg' },
+            { cat: 'outdoor', file: '20130909_155021.jpg' },
+            { cat: 'outdoor', file: '20130909_155021_conew1.png' },
+            { cat: 'outdoor', file: '20130909_155025.jpg' },
+            { cat: 'outdoor', file: '20130909_155039.jpg' },
+            { cat: 'outdoor', file: '20130909_155045.jpg' },
+            { cat: 'outdoor', file: '20130909_155213.jpg' },
+            { cat: 'outdoor', file: '20130909_155221.jpg' },
+            { cat: 'outdoor', file: '20130909_155236.jpg' },
+            { cat: 'outdoor', file: '20130909_155243.jpg' },
+            { cat: 'outdoor', file: '20130909_155324.jpg' },
+            { cat: 'outdoor', file: '20130909_155338.jpg' },
+            { cat: 'outdoor', file: '20130909_155345.jpg' },
+            { cat: 'outdoor', file: '20130909_155351.jpg' },
+            { cat: 'outdoor', file: '22.jpg' },
+            { cat: 'outdoor', file: '33.png' },
+            { cat: 'outdoor', file: '44.png' },
+            { cat: 'outdoor', file: '55.png' },
+            { cat: 'outdoor', file: 'AF-500粉色.jpg' },
+            { cat: 'outdoor', file: 'AL-500.jpg' },
+            { cat: 'outdoor', file: 'AL700.gif' },
+            { cat: 'outdoor', file: '东亚垃圾箱三层.gif' },
+
+            // Conveyor Rollers (33)
+            { cat: 'roller', file: '081207 193.jpg' },
+            { cat: 'roller', file: '081207 194.jpg' },
+            { cat: 'roller', file: '081207 196.jpg' },
+            { cat: 'roller', file: '081207 197.jpg' },
+            { cat: 'roller', file: '081207 199.jpg' },
+            { cat: 'roller', file: '081207 202.jpg' },
+            { cat: 'roller', file: '081207 203.jpg' },
+            { cat: 'roller', file: '081207 206.jpg' },
+            { cat: 'roller', file: '081207 207.jpg' },
+            { cat: 'roller', file: '081207 209.jpg' },
+            { cat: 'roller', file: '081207 210.jpg' },
+            { cat: 'roller', file: '081207 211.jpg' },
+            { cat: 'roller', file: '081207 223.jpg' },
+            { cat: 'roller', file: '108轴蕊.jpg' },
+            { cat: 'roller', file: '159轴蕊.jpg' },
+            { cat: 'roller', file: 'AC-089300P.jpg' },
+            { cat: 'roller', file: 'AC-089750.jpg' },
+            { cat: 'roller', file: 'AC-089945.jpg' },
+            { cat: 'roller', file: 'AC-108110P.jpg' },
+            { cat: 'roller', file: 'AC-108300E.jpg' },
+            { cat: 'roller', file: 'AC-108380.jpg' },
+            { cat: 'roller', file: 'AC-108380B.jpg' },
+            { cat: 'roller', file: 'AC-108740.jpg' },
+            { cat: 'roller', file: 'AC-1331600T.jpg' },
+            { cat: 'roller', file: 'AC-133380P.jpg' },
+            { cat: 'roller', file: 'AC-159380.jpg' },
+            { cat: 'roller', file: 'AC-159380E.jpg' },
+            { cat: 'roller', file: 'AC-159380T.jpg' },
+            { cat: 'roller', file: 'AC-159740.jpg' },
+            { cat: 'roller', file: 'AC-159托辊盖.jpg' },
+            { cat: 'roller', file: '密封圈.jpg' },
+            { cat: 'roller', file: '轴身盖.jpg' },
+            { cat: 'roller', file: '边接套.jpg' },
+
+            // Pipe Repair Fittings (20)
+            { cat: 'repair', file: 'DN100.gif' },
+            { cat: 'repair', file: 'DN100T.gif' },
+            { cat: 'repair', file: 'DN150.gif' },
+            { cat: 'repair', file: 'DN150T.gif' },
+            { cat: 'repair', file: 'DN200.gif' },
+            { cat: 'repair', file: 'DN200T.gif' },
+            { cat: 'repair', file: 'DN25.gif' },
+            { cat: 'repair', file: 'DN250.gif' },
+            { cat: 'repair', file: 'DN250T.gif' },
+            { cat: 'repair', file: 'DN300.gif' },
+            { cat: 'repair', file: 'DN300T.gif' },
+            { cat: 'repair', file: 'DN32.gif' },
+            { cat: 'repair', file: 'DN40.gif' },
+            { cat: 'repair', file: 'DN400.gif' },
+            { cat: 'repair', file: 'DN400T.gif' },
+            { cat: 'repair', file: 'DN400T放大.gif' },
+            { cat: 'repair', file: 'DN50.gif' },
+            { cat: 'repair', file: 'DN65.gif' },
+            { cat: 'repair', file: 'DN80.gif' },
+            { cat: 'repair', file: 'DN80T.gif' }
+        ];
+
+        var categoryLabels = {
+            manhole: 'Manhole Covers',
+            outdoor: 'Outdoor Products',
+            roller: 'Conveyor Rollers',
+            repair: 'Pipe Repair'
+        };
+
+        function getModelName(file) {
+            return file.replace(/\.[^.]+$/, '');
+        }
+
+        function getImagePath(product) {
+            var folder = categoryFolders[product.cat];
+            return encodeURI('assets/images/products/' + folder + '/' + product.file);
+        }
+
+        function renderProducts(category) {
+            var grid = document.getElementById('products-grid');
+            var countEl = document.getElementById('products-count');
+            var filtered = (category === 'all')
+                ? products
+                : products.filter(function (p) { return p.cat === category; });
+
+            countEl.textContent = filtered.length + ' product' + (filtered.length === 1 ? '' : 's') + ' shown';
+
+            var html = filtered.map(function (p) {
+                var imgPath = getImagePath(p);
+                var modelName = getModelName(p.file);
+                return ''
+                    + '<article class="product-card-new">'
+                    +   '<div class="product-image-new" style="background-image: url(\'' + imgPath + '\');"></div>'
+                    +   '<div class="product-info">'
+                    +     '<h3>' + modelName + '</h3>'
+                    +     '<a href="get-in-touch.html" class="inquire-btn">Inquire</a>'
+                    +   '</div>'
+                    + '</article>';
+            }).join('');
+
+            grid.innerHTML = html;
+        }
+
+        function setActiveTab(category) {
+            var tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach(function (tab) {
+                if (tab.getAttribute('data-cat') === category) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        document.getElementById('category-tabs').addEventListener('click', function (e) {
+            var btn = e.target.closest('.category-tab');
+            if (!btn) return;
+            var category = btn.getAttribute('data-cat');
+            setActiveTab(category);
+            renderProducts(category);
+            // Smooth scroll to grid top for better UX
+            var grid = document.getElementById('products-grid');
+            var rect = grid.getBoundingClientRect();
+            if (rect.top < 0 || rect.top > window.innerHeight) {
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // Initial render: show all products
+        renderProducts('all');
+    </script>
+
+    <script src="assets/js/script.js?v=5"></script>
 </body>
 </html>
