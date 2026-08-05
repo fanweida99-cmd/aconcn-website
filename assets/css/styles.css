@@ -1329,7 +1329,7 @@ footer a:hover { color: var(--white); }
     .hero-copy h1 { font-size: 30px; }
     
     .cert-icon { 
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 4px);
         font-size: 11px;
     }
     
