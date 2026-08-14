@@ -18,7 +18,7 @@ function injectTopBar() {
               'victor@aconcn.com' +
             '</a>' +
           '</div>' +
-          '<div class="top-bar__tagline">B2B Industrial Manhole Cover Manufacturer</div>' +
+          '<div class="top-bar__tagline" data-lang="topBar.tagline">B2B Industrial Manhole Cover Manufacturer</div>' +
         '</div>' +
       '</div>';
   });
@@ -47,10 +47,10 @@ function injectNav() {
             '<a href="contact.html" data-lang="nav.contact">Contact</a>' +
             '<div class="nav__actions">' +
               '<div class="lang-switcher">' +
-                '<a href="#" class="active" onclick="switchLang(\'en\');return false;">EN</a>' +
-                '<span class="separator">|</span>' +
-                '<a href="#" onclick="switchLang(\'zh\');return false;" id="lang-switch">中</a>' +
-              '</div>' +
+  '<a href="#" class="lang-switch-btn active" data-lang-target="en" onclick="switchLang(\'en\');return false;">EN</a>' +
+  '<span class="separator">|</span>' +
+  '<a href="#" class="lang-switch-btn" data-lang-target="zh" onclick="switchLang(\'zh\');return false;">中文</a>' +
+'</div>' +
             '</div>' +
           '</div>' +
         '</div>' +

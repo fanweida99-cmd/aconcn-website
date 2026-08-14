@@ -39,12 +39,12 @@
   <section class="page-header">
     <div class="container">
       <div class="page-header__breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="index.html" data-lang="breadcrumb.home">Home</a>
         <span class="separator">/</span>
-        <span>News</span>
+        <span data-lang="breadcrumb.news">News</span>
       </div>
-      <h1 class="page-header__title">News &amp; <span>Blog</span></h1>
-      <p class="page-header__subtitle">Latest updates, industry insights, and company news from ACONCN</p>
+      <h1 class="page-header__title" data-lang="news.pageTitle">News &amp; <span>Blog</span></h1>
+      <p class="page-header__subtitle" data-lang="news.pageSubtitle">Latest updates, industry insights, and company news from ACONCN</p>
     </div>
   </section>
 
@@ -53,14 +53,14 @@
     <div class="container">
       <div class="news__header">
         <div class="news__header-left">
-          <span class="news__label">Latest Updates</span>
-          <h2 class="products__title m-0">Recent <span class="text-accent">Articles</span></h2>
+          <span class="news__label" data-lang="news.newsLabel">Latest Updates</span>
+          <h2 class="products__title m-0" data-lang="news.newsTitle">Recent <span class="text-accent">Articles</span></h2>
         </div>
         <div style="display:flex;gap:var(--space-xs);flex-wrap:wrap" id="news-filters">
-          <button class="btn btn-primary btn-sm" data-filter="all" onclick="filterNews('all')">All</button>
-          <button class="btn btn-outline btn-sm" data-filter="Company" onclick="filterNews('Company')">Company</button>
-          <button class="btn btn-outline btn-sm" data-filter="Industry" onclick="filterNews('Industry')">Industry</button>
-          <button class="btn btn-outline btn-sm" data-filter="Product" onclick="filterNews('Product')">Product</button>
+          <button class="btn btn-primary btn-sm" data-filter="all" onclick="filterNews('all')" data-lang="news.filterAll">All</button>
+          <button class="btn btn-outline btn-sm" data-filter="Company" onclick="filterNews('Company')" data-lang="news.filterCompany">Company</button>
+          <button class="btn btn-outline btn-sm" data-filter="Industry" onclick="filterNews('Industry')" data-lang="news.filterIndustry">Industry</button>
+          <button class="btn btn-outline btn-sm" data-filter="Product" onclick="filterNews('Product')" data-lang="news.filterProduct">Product</button>
         </div>
       </div>
       <!-- 新闻列表视图 -->
@@ -72,7 +72,7 @@
       </div>
       <!-- 新闻详情视图（默认隐藏）-->
       <div id="news-detail-view" style="display:none;">
-        <a href="news.html" class="btn btn-outline btn-sm mb-md" id="back-to-news">← Back to News</a>
+        <a href="news.html" class="btn btn-outline btn-sm mb-md" id="back-to-news" data-lang="news.backToNews">← Back to News</a>
         <article class="news-detail mx-auto" style="max-width:800px">
           <h1 id="news-detail-title" style="font-family:var(--font-title);font-size:clamp(1.5rem,3vw,2.25rem);color:var(--color-white);text-transform:uppercase;margin-bottom:var(--space-sm)"></h1>
           <div class="news-detail__meta" style="display:flex;gap:var(--space-md);color:var(--color-text-muted);font-size:0.875rem;margin-bottom:var(--space-md)">
@@ -113,11 +113,11 @@
   <!-- ==================== CTA SECTION ==================== -->
   <section class="cta-section">
     <div class="container">
-      <h2 class="cta__title">Stay Updated</h2>
-      <p class="cta__text">Subscribe to our newsletter for the latest industry insights and company news.</p>
+      <h2 class="cta__title" data-lang="news.ctaTitle">Stay Updated</h2>
+      <p class="cta__text" data-lang="news.ctaText">Subscribe to our newsletter for the latest industry insights and company news.</p>
       <div class="cta__actions">
-        <a href="contact.html" class="btn btn-white btn-lg">Subscribe</a>
-        <a href="contact.html" class="btn btn-outline btn-lg">Contact Us</a>
+        <a href="contact.html" class="btn btn-white btn-lg" data-lang="common.subscribe">Subscribe</a>
+        <a href="contact.html" class="btn btn-outline btn-lg" data-lang="common.contactUs">Contact Us</a>
       </div>
     </div>
   </section>

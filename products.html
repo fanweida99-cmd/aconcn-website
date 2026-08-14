@@ -39,12 +39,12 @@
   <section class="page-header">
     <div class="container">
       <div class="page-header__breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="index.html" data-lang="breadcrumb.home">Home</a>
         <span class="separator">/</span>
-        <span>Products</span>
+        <span data-lang="breadcrumb.products">Products</span>
       </div>
-      <h1 class="page-header__title">Our <span>Products</span></h1>
-      <p class="page-header__subtitle">EN 124 certified composite manhole covers and access solutions for infrastructure projects worldwide</p>
+      <h1 class="page-header__title" data-lang="products.pageTitle">Our <span>Products</span></h1>
+      <p class="page-header__subtitle" data-lang="products.pageSubtitle">EN 124 certified composite manhole covers and access solutions for infrastructure projects worldwide</p>
     </div>
   </section>
 
@@ -53,11 +53,11 @@
     <div class="container">
       <!-- Filter Tabs -->
       <div style="display:flex;flex-wrap:wrap;gap:var(--space-xs);margin-bottom:var(--space-lg);justify-content:center" id="filter-tabs">
-        <button class="btn btn-primary btn-sm" data-filter="all" onclick="filterProducts('all')">All</button>
-        <button class="btn btn-outline btn-sm" data-filter="Manhole Covers" onclick="filterProducts('Manhole Covers')">Manhole Covers</button>
-        <button class="btn btn-outline btn-sm" data-filter="Outdoor Products" onclick="filterProducts('Outdoor Products')">Outdoor Products</button>
-        <button class="btn btn-outline btn-sm" data-filter="Gratings" onclick="filterProducts('Gratings')">Gratings</button>
-        <button class="btn btn-outline btn-sm" data-filter="Accessories" onclick="filterProducts('Accessories')">Accessories</button>
+        <button class="btn btn-primary btn-sm" data-filter="all" onclick="filterProducts('all')" data-lang="products.filterAll">All</button>
+        <button class="btn btn-outline btn-sm" data-filter="Manhole Covers" onclick="filterProducts('Manhole Covers')" data-lang="products.filterManhole">Manhole Covers</button>
+        <button class="btn btn-outline btn-sm" data-filter="Outdoor Products" onclick="filterProducts('Outdoor Products')" data-lang="products.filterOutdoor">Outdoor Products</button>
+        <button class="btn btn-outline btn-sm" data-filter="Gratings" onclick="filterProducts('Gratings')" data-lang="products.filterGratings">Gratings</button>
+        <button class="btn btn-outline btn-sm" data-filter="Accessories" onclick="filterProducts('Accessories')" data-lang="products.filterAccessories">Accessories</button>
       </div>
 
       <!-- Products Grid -->
@@ -99,11 +99,11 @@
   <!-- ==================== CTA SECTION ==================== -->
   <section class="cta-section">
     <div class="container">
-      <h2 class="cta__title">Need a Custom Solution?</h2>
-      <p class="cta__text">Contact our team for bulk orders, custom specifications, or project consultation.</p>
+      <h2 class="cta__title" data-lang="products.ctaTitle">Need a Custom Solution?</h2>
+      <p class="cta__text" data-lang="products.ctaText">Contact our team for bulk orders, custom specifications, or project consultation.</p>
       <div class="cta__actions">
-        <a href="contact.html" class="btn btn-white btn-lg">Get a Quote</a>
-        <a href="mailto:victor@aconcn.com" class="btn btn-outline btn-lg">Email Us</a>
+        <a href="contact.html" class="btn btn-white btn-lg" data-lang="common.getQuote">Get a Quote</a>
+        <a href="mailto:victor@aconcn.com" class="btn btn-outline btn-lg" data-lang="common.emailUs">Email Us</a>
       </div>
     </div>
   </section>

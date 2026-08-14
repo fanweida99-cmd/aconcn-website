@@ -318,13 +318,13 @@ function renderProducts(products) {
 
     grid.innerHTML = '';
     if (pageItems.length === 0) {
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--color-text-muted)"><h3>No products found in this category.</h3><p style="margin-top:12px">Please try another category.</p></div>';
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--color-text-muted)"><h3>' + (typeof t !== 'undefined' ? t('products.noProducts') : 'No products found in this category.') + '</h3><p style="margin-top:12px">' + (typeof t !== 'undefined' ? t('products.noProductsHint') : 'Please try another category.') + '</p></div>';
       if (pagination) pagination.innerHTML = '';
       return;
     }
 
     pageItems.forEach(function(product) {
-      var priceText = product.price ? '$' + parseFloat(product.price).toFixed(2) : 'Contact for Price';
+      var priceText = product.price ? '$' + parseFloat(product.price).toFixed(2) : (typeof t !== 'undefined' ? t('products.contactPrice') : 'Contact for Price');
       var card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML =
@@ -335,10 +335,10 @@ function renderProducts(products) {
         '<div class="product-card__body">' +
           '<h3 class="product-card__name">' + escapeHtml(product.name) + '</h3>' +
           '<p class="product-card__spec">' + escapeHtml(product.load_class || '') + (product.description ? ' — ' + escapeHtml(product.description.substring(0, 60)) : '') + '</p>' +
-          '<div class="product-card__price">' + priceText + ' <small>' + (product.price ? '/ unit' : '') + '</small></div>' +
+          '<div class="product-card__price">' + priceText + ' <small>' + (product.price ? (typeof t !== 'undefined' ? t('products.priceUnit') : '/ unit') : '') + '</small></div>' +
           '<div class="product-card__actions">' +
-            '<a href="product-detail.html?id=' + product.id + '" class="btn btn-outline btn-sm">Details</a>' +
-            '<a href="contact.html?product=' + encodeURIComponent(product.name) + '" class="btn btn-primary btn-sm">Inquiry</a>' +
+            '<a href="product-detail.html?id=' + product.id + '" class="btn btn-outline btn-sm">' + (typeof t !== 'undefined' ? t('products.detailsBtn') : 'Details') + '</a>' +
+            '<a href="contact.html?product=' + encodeURIComponent(product.name) + '" class="btn btn-primary btn-sm">' + (typeof t !== 'undefined' ? t('products.inquiryBtn') : 'Inquiry') + '</a>' +
           '</div>' +
         '</div>';
       grid.appendChild(card);
@@ -456,7 +456,7 @@ function renderProductDetail() {
 
   // Populate description
   var desc = document.getElementById('product-description');
-  if (desc) desc.textContent = product.description || 'No description available.';
+  if (desc) desc.textContent = product.description || (typeof t !== 'undefined' ? t('productDetail.noDescription') : 'No description available.');
 
   // Populate quick specs
   var quickLoad = document.getElementById('quick-load-class');
@@ -470,7 +470,7 @@ function renderProductDetail() {
     if (product.price) {
       priceEl.textContent = '$' + parseFloat(product.price).toFixed(2);
     } else {
-      priceEl.textContent = 'Contact for Price';
+      priceEl.textContent = typeof t !== 'undefined' ? t('products.contactPrice') : 'Contact for Price';
     }
   }
 
@@ -525,7 +525,7 @@ function renderProductDetail() {
       }).slice(0, 3);
     }
     related.forEach(function(p) {
-      var priceText = p.price ? '$' + parseFloat(p.price).toFixed(2) : 'Contact for Price';
+      var priceText = p.price ? '$' + parseFloat(p.price).toFixed(2) : (typeof t !== 'undefined' ? t('products.contactPrice') : 'Contact for Price');
       var card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML =
@@ -536,10 +536,10 @@ function renderProductDetail() {
         '<div class="product-card__body">' +
           '<h3 class="product-card__name">' + escapeHtml(p.name) + '</h3>' +
           '<p class="product-card__spec">' + escapeHtml(p.load_class || '') + '</p>' +
-          '<div class="product-card__price">' + priceText + ' <small>' + (p.price ? '/ unit' : '') + '</small></div>' +
+          '<div class="product-card__price">' + priceText + ' <small>' + (p.price ? (typeof t !== 'undefined' ? t('products.priceUnit') : '/ unit') : '') + '</small></div>' +
           '<div class="product-card__actions">' +
-            '<a href="product-detail.html?id=' + p.id + '" class="btn btn-outline btn-sm">Details</a>' +
-            '<a href="contact.html?product=' + encodeURIComponent(p.name) + '" class="btn btn-primary btn-sm">Inquiry</a>' +
+            '<a href="product-detail.html?id=' + p.id + '" class="btn btn-outline btn-sm">' + (typeof t !== 'undefined' ? t('products.detailsBtn') : 'Details') + '</a>' +
+            '<a href="contact.html?product=' + encodeURIComponent(p.name) + '" class="btn btn-primary btn-sm">' + (typeof t !== 'undefined' ? t('products.inquiryBtn') : 'Inquiry') + '</a>' +
           '</div>' +
         '</div>';
       relatedGrid.appendChild(card);
@@ -596,7 +596,7 @@ function renderNews(news) {
 
     grid.innerHTML = '';
     if (pageItems.length === 0) {
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--color-text-muted)"><h3>No articles found.</h3></div>';
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--color-text-muted)"><h3>' + (typeof t !== 'undefined' ? t('news.noArticles') : 'No articles found.') + '</h3></div>';
       if (pagination) pagination.innerHTML = '';
       return;
     }
@@ -616,7 +616,7 @@ function renderNews(news) {
           '</div>' +
           '<h3 class="news-card__title">' + escapeHtml(article.title) + '</h3>' +
           '<p class="news-card__summary">' + escapeHtml(article.summary || '') + '</p>' +
-          '<a href="?article=' + article.id + '" class="news-card__link">Read More ' +
+          '<a href="?article=' + article.id + '" class="news-card__link">' + (typeof t !== 'undefined' ? t('news.readMore') : 'Read More') + ' ' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
           '</a>' +
         '</div>';
@@ -756,7 +756,7 @@ function renderFeaturedProducts(products) {
   grid.innerHTML = '';
 
   featured.forEach(function(product) {
-    var priceText = product.price ? '$' + parseFloat(product.price).toFixed(2) : 'Contact for Price';
+    var priceText = product.price ? '$' + parseFloat(product.price).toFixed(2) : (typeof t !== 'undefined' ? t('products.contactPrice') : 'Contact for Price');
     var card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML =
@@ -767,10 +767,10 @@ function renderFeaturedProducts(products) {
       '<div class="product-card__body">' +
         '<h3 class="product-card__name">' + escapeHtml(product.name) + '</h3>' +
         '<p class="product-card__spec">' + escapeHtml(product.load_class || '') + (product.description ? ' — ' + escapeHtml(product.description.substring(0, 60)) : '') + '</p>' +
-        '<div class="product-card__price">' + priceText + ' <small>' + (product.price ? '/ unit' : '') + '</small></div>' +
+        '<div class="product-card__price">' + priceText + ' <small>' + (product.price ? (typeof t !== 'undefined' ? t('products.priceUnit') : '/ unit') : '') + '</small></div>' +
         '<div class="product-card__actions">' +
-          '<a href="product-detail.html?id=' + product.id + '" class="btn btn-outline btn-sm">Details</a>' +
-          '<a href="contact.html?product=' + encodeURIComponent(product.name) + '" class="btn btn-primary btn-sm">Inquiry</a>' +
+          '<a href="product-detail.html?id=' + product.id + '" class="btn btn-outline btn-sm">' + (typeof t !== 'undefined' ? t('products.detailsBtn') : 'Details') + '</a>' +
+          '<a href="contact.html?product=' + encodeURIComponent(product.name) + '" class="btn btn-primary btn-sm">' + (typeof t !== 'undefined' ? t('products.inquiryBtn') : 'Inquiry') + '</a>' +
         '</div>' +
       '</div>';
     grid.appendChild(card);
