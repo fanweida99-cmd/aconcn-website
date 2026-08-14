@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body data-page="dashboard">
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="../assets/images/logo.png" alt="ACONCN" class="brand-logo" onerror="this.style.display='none'">
+                <div class="brand-name">ACONCN <span>Admin</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">Main Menu</div>
+                <div class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon"><i class="fas fa-chart-simple"></i></span>
+                    <span data-lang="nav.dashboard">Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="products">
+                    <span class="nav-icon"><i class="fas fa-box"></i></span>
+                    <span data-lang="nav.products">Products</span>
+                </div>
+                <div class="nav-item" data-page="orders">
+                    <span class="nav-icon"><i class="fas fa-shopping-cart"></i></span>
+                    <span data-lang="nav.orders">Orders</span>
+                </div>
+                <div class="nav-item" data-page="customers">
+                    <span class="nav-icon"><i class="fas fa-users"></i></span>
+                    <span data-lang="nav.customers">Customers</span>
+                </div>
+                <div class="nav-section">Content</div>
+                <div class="nav-item" data-page="certifications">
+                    <span class="nav-icon"><i class="fas fa-certificate"></i></span>
+                    <span data-lang="nav.certifications">Certifications</span>
+                </div>
+                <div class="nav-item" data-page="news">
+                    <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+                    <span data-lang="nav.news">News</span>
+                </div>
+                <div class="nav-item" data-page="comparisons">
+                    <span class="nav-icon"><i class="fas fa-balance-scale"></i></span>
+                    <span data-lang="nav.comparisons">Comparisons</span>
+                </div>
+                <div class="nav-item" data-page="messages">
+                    <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                    <span data-lang="nav.messages">Messages</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle" style="font-size:2.2rem;color:var(--text-muted);"></i>
+                    </div>
+                    <div>
+                        <div class="user-name" id="header-username">Admin</div>
+                        <div class="user-role" data-lang="header.welcome">Welcome</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title" data-lang="dashboard.title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-sm btn-ghost" id="lang-switch" data-lang="header.langSwitch">中文</button>
+                    <button class="btn btn-sm btn-danger" id="logout-btn" data-lang="header.logout">Logout</button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content" id="page-content" data-page="dashboard">
+                <!-- Dashboard content will be rendered by admin.js -->
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/admin.js?v=6" defer></script>
+</body>
+</html>

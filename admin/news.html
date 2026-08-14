@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - News</title>
+    <script>window.location.replace('index.html#news');</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body data-page="news">
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="../assets/images/logo.png" alt="ACONCN" class="brand-logo" onerror="this.style.display='none'">
+                <div class="brand-name">ACONCN <span>Admin</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">Main Menu</div>
+                <div class="nav-item" data-page="dashboard">
+                    <span class="nav-icon"><i class="fas fa-chart-simple"></i></span>
+                    <span data-lang="nav.dashboard">Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="products">
+                    <span class="nav-icon"><i class="fas fa-box"></i></span>
+                    <span data-lang="nav.products">Products</span>
+                </div>
+                <div class="nav-item" data-page="orders">
+                    <span class="nav-icon"><i class="fas fa-shopping-cart"></i></span>
+                    <span data-lang="nav.orders">Orders</span>
+                </div>
+                <div class="nav-item" data-page="customers">
+                    <span class="nav-icon"><i class="fas fa-users"></i></span>
+                    <span data-lang="nav.customers">Customers</span>
+                </div>
+                <div class="nav-section">Content</div>
+                <div class="nav-item" data-page="certifications">
+                    <span class="nav-icon"><i class="fas fa-certificate"></i></span>
+                    <span data-lang="nav.certifications">Certifications</span>
+                </div>
+                <div class="nav-item active" data-page="news">
+                    <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+                    <span data-lang="nav.news">News</span>
+                </div>
+                <div class="nav-item" data-page="comparisons">
+                    <span class="nav-icon"><i class="fas fa-balance-scale"></i></span>
+                    <span data-lang="nav.comparisons">Comparisons</span>
+                </div>
+                <div class="nav-item" data-page="messages">
+                    <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                    <span data-lang="nav.messages">Messages</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle" style="font-size:2.2rem;color:var(--text-muted);"></i>
+                    </div>
+                    <div>
+                        <div class="user-name" id="header-username">Admin</div>
+                        <div class="user-role" data-lang="header.welcome">Welcome</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title" data-lang="news.title">News Management</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-sm btn-ghost" id="lang-switch" data-lang="header.langSwitch">中文</button>
+                    <button class="btn btn-sm btn-danger" id="logout-btn" data-lang="header.logout">Logout</button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content" id="page-content" data-page="news">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 data-lang="news.title">News Management</h3>
+                        <div class="table-actions">
+                            <div class="search-bar">
+                                <div class="search-input-wrap">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" placeholder="Search news by title, summary, or category..." id="search-input" data-lang="news.search" oninput="debounceSearch('searchNews', this.value)">
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="openAddNewsModal()">
+                                <i class="fas fa-plus"></i> <span data-lang="news.add">Add Article</span>
+                            </button>
+                            <button class="btn btn-sm btn-ghost" onclick="renderNewsPage()" title="Refresh">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-lang="news.id">ID</th>
+                                    <th data-lang="news.title">Title</th>
+                                    <th data-lang="news.date">Date</th>
+                                    <th data-lang="news.category">Category</th>
+                                    <th data-lang="news.status">Status</th>
+                                    <th data-lang="news.actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <tr><td colspan="6" class="text-center text-muted" data-lang="common.loading">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal-overlay" id="news-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="news-modal-title" data-lang="news.addEdit">Add/Edit Article</h3>
+                <button class="modal-close" onclick="closeModal('news-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="news-id">
+                <div class="form-group">
+                    <label for="news-title" data-lang="news.title">Title</label>
+                    <input type="text" class="form-control" id="news-title" placeholder="Enter news title" data-lang="news.placeholderTitle">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="news-category" data-lang="news.category">Category</label>
+                        <select class="form-control" id="news-category">
+                            <option value="Company">Company</option>
+                            <option value="Product">Product</option>
+                            <option value="Industry">Industry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="news-date" data-lang="news.date">Date</label>
+                        <input type="date" class="form-control" id="news-date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="news-summary" data-lang="news.summary">Summary</label>
+                    <textarea class="form-control" id="news-summary" rows="2" placeholder="Enter brief summary" data-lang="news.placeholderSummary"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="news-content" data-lang="news.content">Content</label>
+                    <textarea class="form-control" id="news-content" rows="5" placeholder="Enter full article content" data-lang="news.placeholderContent"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-lang="news.image">Image</label>
+                        <input type="hidden" id="news-image">
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <input type="file" id="news-image-upload" accept="image/*" style="display:none;">
+                            <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('news-image-upload').click()">
+                                <i class="fas fa-upload"></i> <span data-lang="news.uploadImage">Upload Image</span>
+                            </button>
+                            <input type="text" class="form-control" id="news-image-url" placeholder="Image URL or upload" data-lang="news.placeholderImage" style="flex:1;" oninput="document.getElementById('news-image').value=this.value">
+                        </div>
+                        <img id="news-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="news-status" data-lang="news.status">Status</label>
+                        <select class="form-control" id="news-status">
+                            <option value="published" data-lang="news.published">Published</option>
+                            <option value="draft" data-lang="news.draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('news-modal')" data-lang="news.cancel">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNews()" data-lang="news.save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/admin.js?v=1" defer></script>
+</body>
+</html>

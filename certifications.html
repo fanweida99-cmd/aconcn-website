@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ACONCN certifications — EN 124, SGS, ISO 9001 certified composite manhole covers. Quality assurance and international compliance.">
+  <title>Certifications — ACONCN Quality Assurance</title>
+  <meta name="keywords" content="EN 124 certification, SGS, ISO 9001, composite manhole cover certification, quality assurance">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://aconcn.com/certifications.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Certifications — ACONCN Quality Assurance">
+  <meta property="og:description" content="ACONCN certifications — EN 124, SGS, ISO 9001 certified composite manhole covers. Quality assurance and international compliance.">
+  <meta property="og:image" content="https://aconcn.com/assets/images/og-cover.jpg">
+  <meta property="og:url" content="https://aconcn.com/certifications.html">
+  <meta property="og:site_name" content="ACONCN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Certifications — ACONCN Quality Assurance">
+  <meta name="twitter:description" content="ACONCN certifications — EN 124, SGS, ISO 9001 certified composite manhole covers. Quality assurance and international compliance.">
+  <meta name="twitter:image" content="https://aconcn.com/assets/images/og-cover.jpg">
+
+  <link rel="stylesheet" href="assets/css/styles.css?v=1">
+  <script src="assets/js/site-data.js?v=1" defer></script>
+  <script src="assets/js/common.js?v=1" defer></script>
+  <script src="assets/js/i18n.js?v=1" defer></script>
+</head>
+<body>
+
+  <div data-include="top-bar"></div>
+
+  <div data-include="nav"></div>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <span>Certifications</span>
+      </div>
+      <h1 class="page-header__title">Certifications &amp; <span>Quality</span></h1>
+      <p class="page-header__subtitle">Internationally certified quality and compliance you can trust</p>
+    </div>
+  </section>
+
+  <!-- ==================== CERTIFICATIONS GRID ==================== -->
+  <section class="certifications section">
+    <div class="container">
+      <div class="certifications__header">
+        <span class="certifications__label">Our Certifications</span>
+        <h2 class="certifications__title">Quality <span class="text-accent">Assured</span></h2>
+        <p class="products__description">Every ACONCN product meets rigorous international standards for quality, safety, and performance</p>
+      </div>
+      <div class="certifications__grid" id="certifications-grid">
+        <!-- Dynamically rendered from site-data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUALITY STANDARDS ==================== -->
+  <section class="section section-bg-alt">
+    <div class="container">
+      <div class="products__header">
+        <span class="products__label">Quality Control</span>
+        <h2 class="products__title">Our <span class="text-accent">Standards</span></h2>
+      </div>
+      <div class="grid-3">
+        <div class="reveal card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-accent">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h4 class="title-sm-mb">Material Testing</h4>
+          <p class="text-sm">All raw materials undergo comprehensive analysis for composition, strength, and durability before production.</p>
+        </div>
+        <div class="reveal card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-accent">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <h4 class="title-sm-mb">Load Testing</h4>
+          <p class="text-sm">Every product batch is load-tested to verify compliance with EN 124 load class specifications.</p>
+        </div>
+        <div class="reveal card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-accent">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <h4 class="title-sm-mb">Continuous Monitoring</h4>
+          <p class="text-sm">Real-time quality monitoring throughout the production process with traceability for every unit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA SECTION ==================== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta__title">Quality You Can Trust</h2>
+      <p class="cta__text">Request our certification documents and test reports for your project.</p>
+      <div class="cta__actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Request Documents</a>
+        <a href="products.html" class="btn btn-outline btn-lg">View Products</a>
+      </div>
+    </div>
+  </section>
+
+  <div data-include="footer"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Reveal observer
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Comparisons</title>
+    <script>window.location.replace('index.html#comparisons');</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body data-page="comparisons">
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="../assets/images/logo.png" alt="ACONCN" class="brand-logo" onerror="this.style.display='none'">
+                <div class="brand-name">ACONCN <span>Admin</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">Main Menu</div>
+                <div class="nav-item" data-page="dashboard">
+                    <span class="nav-icon"><i class="fas fa-chart-simple"></i></span>
+                    <span data-lang="nav.dashboard">Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="products">
+                    <span class="nav-icon"><i class="fas fa-box"></i></span>
+                    <span data-lang="nav.products">Products</span>
+                </div>
+                <div class="nav-item" data-page="orders">
+                    <span class="nav-icon"><i class="fas fa-shopping-cart"></i></span>
+                    <span data-lang="nav.orders">Orders</span>
+                </div>
+                <div class="nav-item" data-page="customers">
+                    <span class="nav-icon"><i class="fas fa-users"></i></span>
+                    <span data-lang="nav.customers">Customers</span>
+                </div>
+                <div class="nav-section">Content</div>
+                <div class="nav-item" data-page="certifications">
+                    <span class="nav-icon"><i class="fas fa-certificate"></i></span>
+                    <span data-lang="nav.certifications">Certifications</span>
+                </div>
+                <div class="nav-item" data-page="news">
+                    <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+                    <span data-lang="nav.news">News</span>
+                </div>
+                <div class="nav-item active" data-page="comparisons">
+                    <span class="nav-icon"><i class="fas fa-balance-scale"></i></span>
+                    <span data-lang="nav.comparisons">Comparisons</span>
+                </div>
+                <div class="nav-item" data-page="messages">
+                    <span class="nav-icon"><i class="fas fa-envelope"></i></span>
+                    <span data-lang="nav.messages">Messages</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle" style="font-size:2.2rem;color:var(--text-muted);"></i>
+                    </div>
+                    <div>
+                        <div class="user-name" id="header-username">Admin</div>
+                        <div class="user-role" data-lang="header.welcome">Welcome</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title" data-lang="comparisons.title">Comparisons Management</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-sm btn-ghost" id="lang-switch" data-lang="header.langSwitch">中文</button>
+                    <button class="btn btn-sm btn-danger" id="logout-btn" data-lang="header.logout">Logout</button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content" id="page-content" data-page="comparisons">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 data-lang="comparisons.title">Comparisons Management</h3>
+                        <div class="table-actions">
+                            <div class="search-bar">
+                                <div class="search-input-wrap">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" placeholder="Search comparisons by title or feature..." id="search-input" data-lang="comparisons.search" oninput="debounceSearch('searchComparisons', this.value)">
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="openAddComparisonModal()">
+                                <i class="fas fa-plus"></i> <span data-lang="comparisons.add">Add Comparison</span>
+                            </button>
+                            <button class="btn btn-sm btn-ghost" onclick="renderComparisonsPage()" title="Refresh">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-lang="comparisons.id">ID</th>
+                                    <th data-lang="comparisons.title">Title</th>
+                                    <th data-lang="comparisons.feature">Feature</th>
+                                    <th data-lang="comparisons.composite">Composite</th>
+                                    <th data-lang="comparisons.castIron">Cast Iron</th>
+                                    <th data-lang="comparisons.actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <tr><td colspan="6" class="text-center text-muted" data-lang="common.loading">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div class="modal-overlay" id="comparison-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="comparison-modal-title" data-lang="comparisons.addEdit">Add/Edit Comparison</h3>
+                <button class="modal-close" onclick="closeModal('comparison-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="comparison-id">
+                <div class="form-group">
+                    <label for="comparison-title" data-lang="comparisons.title">Title</label>
+                    <input type="text" class="form-control" id="comparison-title" placeholder="Enter comparison title" data-lang="comparisons.placeholderTitle">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="comparison-feature" data-lang="comparisons.feature">Feature</label>
+                        <input type="text" class="form-control" id="comparison-feature" placeholder="Enter feature name" data-lang="comparisons.placeholderFeature">
+                    </div>
+                    <div class="form-group">
+                        <label for="comparison-composite" data-lang="comparisons.composite">Composite</label>
+                        <input type="text" class="form-control" id="comparison-composite" placeholder="Composite material value" data-lang="comparisons.placeholderComposite">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="comparison-castiron" data-lang="comparisons.castIron">Cast Iron</label>
+                        <input type="text" class="form-control" id="comparison-castiron" placeholder="Cast iron value" data-lang="comparisons.placeholderCastIron">
+                    </div>
+                    <div class="form-group">
+                        <label for="comparison-description" data-lang="comparisons.description">Description</label>
+                        <input type="text" class="form-control" id="comparison-description" placeholder="Enter description" data-lang="comparisons.placeholderDescription">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('comparison-modal')" data-lang="comparisons.cancel">Cancel</button>
+                <button class="btn btn-primary" onclick="saveComparison()" data-lang="comparisons.save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/admin.js?v=1" defer></script>
+</body>
+</html>

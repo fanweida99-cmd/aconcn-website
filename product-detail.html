@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ACONCN product detail — View specifications, load class, pricing, and more for our composite manhole covers.">
+  <title>Product Detail — ACONCN Composite Manhole Covers</title>
+  <meta name="keywords" content="composite manhole cover, product specifications, load class, EN 124, SMC manhole cover">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://aconcn.com/product-detail.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Product Detail — ACONCN Composite Manhole Covers">
+  <meta property="og:description" content="ACONCN product detail — View specifications, load class, pricing, and more for our composite manhole covers.">
+  <meta property="og:image" content="https://aconcn.com/assets/images/og-cover.jpg">
+  <meta property="og:url" content="https://aconcn.com/product-detail.html">
+  <meta property="og:site_name" content="ACONCN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Product Detail — ACONCN Composite Manhole Covers">
+  <meta name="twitter:description" content="ACONCN product detail — View specifications, load class, pricing, and more for our composite manhole covers.">
+  <meta name="twitter:image" content="https://aconcn.com/assets/images/og-cover.jpg">
+
+  <link rel="stylesheet" href="assets/css/styles.css?v=1">
+  <script src="assets/js/site-data.js?v=1" defer></script>
+  <script src="assets/js/common.js?v=1" defer></script>
+  <script src="assets/js/i18n.js?v=1" defer></script>
+</head>
+<body>
+
+  <div data-include="top-bar"></div>
+
+  <div data-include="nav"></div>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="products.html">Products</a>
+        <span class="separator">/</span>
+        <span id="breadcrumb-product">Product Detail</span>
+      </div>
+      <h1 class="page-header__title" id="product-title">Product <span>Detail</span></h1>
+    </div>
+  </section>
+
+  <!-- ==================== PRODUCT DETAIL ==================== -->
+  <section class="section section-bg-alt">
+    <div class="container">
+      <div id="loading-spinner" style="text-align:center;padding:var(--space-2xl)">
+        <div class="spinner spinner-lg"></div>
+        <p style="margin-top:var(--space-md);color:var(--color-text-muted)">Loading product details...</p>
+      </div>
+
+      <div id="product-not-found" style="display:none;text-align:center;padding:var(--space-2xl)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-accent">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+        <h3 style="font-family:var(--font-title);color:var(--color-white);text-transform:uppercase;margin-bottom:var(--space-sm)">Product Not Found</h3>
+        <p class="text-muted mb-lg">The product you're looking for could not be found. Please browse our products.</p>
+        <a href="products.html" class="btn btn-primary">View All Products</a>
+      </div>
+
+      <div id="product-content" style="display:none">
+        <div class="grid-2-xl">
+          <!-- Product Image -->
+          <div class="reveal-left">
+            <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border);background-color:var(--color-bg-card);position:relative">
+              <img id="product-image" src="assets/images/placeholder.jpg" alt="Product image" style="width:100%;aspect-ratio:4/3;object-fit:cover">
+              <span id="product-category-badge" class="product-card__category" style="position:absolute;top:var(--space-md);left:var(--space-md)">Category</span>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="reveal-right">
+            <span id="product-load-class" class="tag tag-accent mb-sm">Load Class</span>
+            <h2 id="product-name" style="font-family:var(--font-title);font-size:clamp(1.5rem,3vw,2.25rem);color:var(--color-white);text-transform:uppercase;margin-bottom:var(--space-xs)">Product Name</h2>
+            <p id="product-description" style="color:var(--color-text-secondary);line-height:1.7;margin-bottom:var(--space-lg)">Description</p>
+
+            <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-lg);flex-wrap:wrap">
+              <div>
+                <div style="font-family:var(--font-title);font-size:2rem;font-weight:700;color:var(--color-accent)" id="product-price">$0.00</div>
+                <div style="font-size:0.8125rem;color:var(--color-text-muted)">Price per unit (FOB)</div>
+              </div>
+              <a id="inquiry-btn" href="contact.html" class="btn btn-primary btn-lg">Inquire Now</a>
+            </div>
+
+            <!-- Quick Specs -->
+            <div class="grid-3-sm card-dark">
+              <div class="text-center">
+                <div style="font-family:var(--font-title);font-size:1.25rem;font-weight:600;color:var(--color-white)">EN 124</div>
+                <div style="font-size:0.75rem;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.04em">Standard</div>
+              </div>
+              <div class="text-center">
+                <div style="font-family:var(--font-title);font-size:1.25rem;font-weight:600;color:var(--color-white)" id="quick-load-class">D400</div>
+                <div style="font-size:0.75rem;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.04em">Load Class</div>
+              </div>
+              <div class="text-center">
+                <div style="font-family:var(--font-title);font-size:1.25rem;font-weight:600;color:var(--color-white)" id="quick-category">Category</div>
+                <div style="font-size:0.75rem;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.04em">Type</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications Table -->
+        <div style="margin-top:var(--space-xl)">
+          <h3 class="title-sm mb-md">Technical <span class="text-accent">Specifications</span></h3>
+          <div style="overflow-x:auto">
+            <table class="comparison__table" id="specs-table">
+              <thead>
+                <tr>
+                  <th>Specification</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody id="specs-body">
+                <!-- Dynamically rendered -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RELATED PRODUCTS ==================== -->
+  <section class="products section" id="related-products">
+    <div class="container">
+      <div class="products__header">
+        <span class="products__label">Related Products</span>
+        <h2 class="products__title">You May Also <span class="text-accent">Like</span></h2>
+      </div>
+      <div class="products__grid" id="related-products-grid">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA SECTION ==================== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta__title">Need a Custom Specification?</h2>
+      <p class="cta__text">Contact us for custom sizes, load classes, or bulk order pricing.</p>
+      <div class="cta__actions">
+        <a href="contact.html" class="btn btn-white btn-lg">Get a Quote</a>
+        <a href="mailto:victor@aconcn.com" class="btn btn-outline btn-lg">Email Us</a>
+      </div>
+    </div>
+  </section>
+
+  <div data-include="footer"></div>
+
+  </body>
+</html>

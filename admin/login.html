@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACONCN Admin - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--bg-main);
+            margin: 0;
+            padding: 20px;
+        }
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .login-brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .login-brand .brand-logo {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 12px;
+        }
+        .login-brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .login-brand h1 span {
+            color: var(--accent);
+        }
+        .login-brand p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: 4px;
+        }
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        .login-form .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .login-form .form-group .input-wrap {
+            position: relative;
+        }
+        .login-form .form-group .input-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .login-form .form-group .input-wrap input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        .login-form .form-group .input-wrap input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255,107,26,0.15);
+        }
+        .login-form .form-group .input-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+        .login-form .error-message {
+            display: none;
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: var(--danger);
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .login-form .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .login-form .btn-submit:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 16px rgba(255,107,26,0.3);
+        }
+        .login-form .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .login-footer .lang-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: background var(--transition), color var(--transition);
+        }
+        .login-footer .lang-btn:hover {
+            background: var(--bg-input);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="../assets/images/logo.png" alt="ACONCN" class="brand-logo" onerror="this.style.display='none'">
+                <h1>ACONCN <span>Admin</span></h1>
+                <p data-lang="login.title">Admin Login</p>
+            </div>
+            <form class="login-form" id="login-form">
+                <div class="error-message" id="error-message" data-lang="login.error">Invalid username or password. Please try again.</div>
+                <div class="form-group">
+                    <label for="username" data-lang="login.username">Username</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" placeholder="Enter username" data-lang="login.placeholderUsername" autocomplete="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" data-lang="login.password">Password</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter password" data-lang="login.placeholderPassword" autocomplete="current-password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit" data-lang="login.signIn">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <button class="lang-btn" id="lang-switch" data-lang="header.langSwitch">中文</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/admin.js?v=1" defer></script>
+</body>
+</html>
