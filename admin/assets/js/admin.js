@@ -619,6 +619,9 @@ function switchLang(lang) {
     currentLang = lang;
     localStorage.setItem('admin_lang', lang);
     
+    // Update all data-lang elements on the current page
+    updateLanguage();
+    
     // Update lang-switch button text
     const langSwitch = document.getElementById('lang-switch');
     if (langSwitch) {
