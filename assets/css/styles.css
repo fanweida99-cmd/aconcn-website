@@ -422,6 +422,7 @@ ul, ol {
   align-items: center;
   background-color: var(--color-bg-primary);
   overflow: hidden;
+  z-index: 1;
 }
 
 .hero__bg {
@@ -551,6 +552,7 @@ ul, ol {
 .about {
   background-color: var(--color-bg-secondary);
   position: relative;
+  z-index: 2;
 }
 
 .about .container {

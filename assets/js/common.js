@@ -157,3 +157,19 @@ document.addEventListener('DOMContentLoaded', function() {
   initMobileMenu();
   initScrollReveal();
 });
+
+// Global image error fallback — handles broken images from Supabase or missing files
+document.addEventListener('error', function(e) {
+  if (e.target.tagName === 'IMG' && e.target.src) {
+    // If image failed to load and it's not already the placeholder, swap to placeholder
+    var fallback = 'assets/images/placeholder.svg';
+    if (!e.target.src.includes('placeholder.svg')) {
+      // Try .svg extension if .jpg failed
+      if (e.target.src.match(/\.(jpg|jpeg|png)$/i)) {
+        e.target.src = e.target.src.replace(/\.(jpg|jpeg|png)$/i, '.svg');
+      } else {
+        e.target.src = fallback;
+      }
+    }
+  }
+}, true);

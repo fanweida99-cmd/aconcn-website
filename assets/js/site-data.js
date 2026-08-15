@@ -44,6 +44,15 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+/* ---------- Image Path Normalizer ---------- */
+/* Fixes .jpg → .svg mismatch between Supabase DB and actual files */
+function imagePath(path) {
+  if (!path) return 'assets/images/placeholder.svg';
+  // Convert any .jpg/.jpeg/.png extension to .svg
+  path = path.replace(/\.(jpg|jpeg|png)$/i, '.svg');
+  return path;
+}
+
 /* ---------- Default Data ---------- */
 var DEFAULT_PRODUCTS = [
   {
@@ -329,7 +338,7 @@ function renderProducts(products) {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + (product.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+          '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
           '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -438,7 +447,7 @@ function renderProductDetail() {
   // Populate image
   var img = document.getElementById('product-image');
   if (img) {
-    img.src = product.image || 'assets/images/placeholder.svg';
+    img.src = imagePath(product.image);
     img.alt = product.name;
   }
 
@@ -530,7 +539,7 @@ function renderProductDetail() {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + (p.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' +
+          '<img src="' + imagePath(p.image) + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' +
           '<span class="product-card__category">' + escapeHtml(p.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -561,7 +570,7 @@ function renderCertifications(certs) {
     var card = document.createElement('div');
     card.className = 'cert-card';
     card.innerHTML =
-      '<img src="' + (cert.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(cert.name) + '" loading="lazy">' +
+      '<img src="' + imagePath(cert.image) + '" alt="' + escapeHtml(cert.name) + '" loading="lazy">' +
       '<div class="cert-card__overlay">' +
         '<h3 class="cert-card__title">' + escapeHtml(cert.name) + '</h3>' +
         '<p class="cert-card__desc">' + escapeHtml(cert.description || '') + '</p>' +
@@ -606,7 +615,7 @@ function renderNews(news) {
       card.className = 'news-card';
       card.innerHTML =
         '<div class="news-card__image">' +
-          '<img src="' + (article.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
+          '<img src="' + imagePath(article.image) + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
           '<span class="news-card__tag">' + escapeHtml(article.category || 'Company') + '</span>' +
         '</div>' +
         '<div class="news-card__body">' +
@@ -712,7 +721,7 @@ function renderNewsDetail() {
 
   var imgEl = document.getElementById('news-detail-image');
   if (imgEl) {
-    imgEl.src = article.image || 'assets/images/placeholder.svg';
+    imgEl.src = imagePath(article.image);
     imgEl.alt = escapeHtml(article.title);
   }
 
@@ -761,7 +770,7 @@ function renderFeaturedProducts(products) {
     card.className = 'product-card';
     card.innerHTML =
       '<div class="product-card__image">' +
-        '<img src="' + (product.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+        '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
         '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
       '</div>' +
       '<div class="product-card__body">' +
