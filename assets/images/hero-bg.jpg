@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#1a1a2e"/>
+  <rect x="600" y="420" width="400" height="4" fill="#FF6B1A" rx="2"/>
+  <text x="800" y="460" font-family="Arial, sans-serif" font-size="36" fill="#ffffff" text-anchor="middle" font-weight="bold">ACONCN — Composite Manhole Covers</text>
+  <text x="800" y="510" font-family="Arial, sans-serif" font-size="20" fill="#888899" text-anchor="middle">ACONCN</text>
+</svg>
