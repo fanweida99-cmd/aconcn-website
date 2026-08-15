@@ -52,7 +52,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'D400',
     price: 45.00,
-    image: 'assets/images/products/d400.jpg',
+    image: 'assets/images/products/d400.svg',
     description: 'EN 124 D400 rated composite manhole cover suitable for roadways and pedestrian areas. 70% lighter than cast iron with superior durability.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -71,7 +71,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'E600',
     price: 68.00,
-    image: 'assets/images/products/e600.jpg',
+    image: 'assets/images/products/e600.svg',
     description: 'EN 124 E600 rated heavy-duty composite cover for main roads and highways. Maximum load capacity with minimal weight.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -90,7 +90,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'F900',
     price: 120.00,
-    image: 'assets/images/products/f900.jpg',
+    image: 'assets/images/products/f900.svg',
     description: 'EN 124 F900 rated composite cover for airports, ports, and heavy industrial zones. The highest load class available.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -109,7 +109,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Outdoor Products',
     load_class: 'B125',
     price: 28.00,
-    image: 'assets/images/products/b125.jpg',
+    image: 'assets/images/products/b125.svg',
     description: 'EN 124 B125 rated composite cover for pedestrian areas, parks, and sidewalks. Lightweight and easy to install.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -128,7 +128,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Outdoor Products',
     load_class: 'C250',
     price: 36.00,
-    image: 'assets/images/products/c250.jpg',
+    image: 'assets/images/products/c250.svg',
     description: 'EN 124 C250 rated composite cover for residential areas, driveways, and car parks. Reliable and cost-effective.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -148,21 +148,21 @@ var DEFAULT_CERTIFICATIONS = [
     id: 1,
     name: 'EN 124 Certification',
     description: 'Our products fully comply with EN 124 European standard for manhole covers and gully tops, tested for load-bearing capacity, durability, and safety.',
-    image: 'assets/images/certs/en124.jpg',
+    image: 'assets/images/certs/en124.svg',
     category: 'EN 124'
   },
   {
     id: 2,
     name: 'ISO 9001:2015',
     description: 'Our quality management system is ISO 9001:2015 certified, ensuring consistent product quality, process control, and continuous improvement.',
-    image: 'assets/images/certs/iso9001.jpg',
+    image: 'assets/images/certs/iso9001.svg',
     category: 'ISO'
   },
   {
     id: 3,
     name: 'SGS Product Verification',
     description: 'SGS verified product quality and performance. Our products undergo independent testing for material composition, load capacity, and dimensional accuracy.',
-    image: 'assets/images/certs/sgs.jpg',
+    image: 'assets/images/certs/sgs.svg',
     category: 'SGS'
   }
 ];
@@ -173,7 +173,7 @@ var DEFAULT_NEWS = [
     title: 'ACONCN Expands Composite Manhole Cover Production Capacity',
     date: '2026-06-15',
     summary: 'New state-of-the-art production line increases annual capacity by 40%, ensuring faster delivery times for our global customers.',
-    image: 'assets/images/news/expansion.jpg',
+    image: 'assets/images/news/expansion.svg',
     category: 'Company'
   },
   {
@@ -181,7 +181,7 @@ var DEFAULT_NEWS = [
     title: 'Composite vs Cast Iron: Why Cities Are Making the Switch',
     date: '2026-05-22',
     summary: 'Municipalities worldwide are transitioning from traditional cast iron to composite manhole covers. Discover the key factors driving this change.',
-    image: 'assets/images/news/composite-vs-cast.jpg',
+    image: 'assets/images/news/composite-vs-cast.svg',
     category: 'Industry'
   },
   {
@@ -189,7 +189,7 @@ var DEFAULT_NEWS = [
     title: 'New F900 Airport-Grade Cover Now Available',
     date: '2026-04-10',
     summary: 'ACONCN launches its latest F900 rated composite manhole cover, designed for the most demanding infrastructure applications including airports and ports.',
-    image: 'assets/images/news/f900-launch.jpg',
+    image: 'assets/images/news/f900-launch.svg',
     category: 'Product'
   }
 ];
@@ -329,7 +329,7 @@ function renderProducts(products) {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + (product.image || 'assets/images/placeholder.jpg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+          '<img src="' + (product.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
           '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -438,7 +438,7 @@ function renderProductDetail() {
   // Populate image
   var img = document.getElementById('product-image');
   if (img) {
-    img.src = product.image || 'assets/images/placeholder.jpg';
+    img.src = product.image || 'assets/images/placeholder.svg';
     img.alt = product.name;
   }
 
@@ -530,7 +530,7 @@ function renderProductDetail() {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + (p.image || 'assets/images/placeholder.jpg') + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' +
+          '<img src="' + (p.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' +
           '<span class="product-card__category">' + escapeHtml(p.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -561,7 +561,7 @@ function renderCertifications(certs) {
     var card = document.createElement('div');
     card.className = 'cert-card';
     card.innerHTML =
-      '<img src="' + (cert.image || 'assets/images/placeholder.jpg') + '" alt="' + escapeHtml(cert.name) + '" loading="lazy">' +
+      '<img src="' + (cert.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(cert.name) + '" loading="lazy">' +
       '<div class="cert-card__overlay">' +
         '<h3 class="cert-card__title">' + escapeHtml(cert.name) + '</h3>' +
         '<p class="cert-card__desc">' + escapeHtml(cert.description || '') + '</p>' +
@@ -606,7 +606,7 @@ function renderNews(news) {
       card.className = 'news-card';
       card.innerHTML =
         '<div class="news-card__image">' +
-          '<img src="' + (article.image || 'assets/images/placeholder.jpg') + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
+          '<img src="' + (article.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
           '<span class="news-card__tag">' + escapeHtml(article.category || 'Company') + '</span>' +
         '</div>' +
         '<div class="news-card__body">' +
@@ -712,7 +712,7 @@ function renderNewsDetail() {
 
   var imgEl = document.getElementById('news-detail-image');
   if (imgEl) {
-    imgEl.src = article.image || 'assets/images/placeholder.jpg';
+    imgEl.src = article.image || 'assets/images/placeholder.svg';
     imgEl.alt = escapeHtml(article.title);
   }
 
@@ -761,7 +761,7 @@ function renderFeaturedProducts(products) {
     card.className = 'product-card';
     card.innerHTML =
       '<div class="product-card__image">' +
-        '<img src="' + (product.image || 'assets/images/placeholder.jpg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+        '<img src="' + (product.image || 'assets/images/placeholder.svg') + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
         '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
       '</div>' +
       '<div class="product-card__body">' +
