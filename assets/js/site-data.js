@@ -7,7 +7,7 @@
 const SUPABASE_URL = 'https://nutgspxepoguoxdicjqh.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_nJOFhl2P0vu_UlVchzDhMQ__dk7nJgM';
 
-/* ---------- Supabase Fetch Helper ---------- */
+/* ---------- Supabase Fetch Helper (with 5s timeout) ---------- */
 async function sbGet(table, options) {
   options = options || {};
   var params = [];
@@ -19,16 +19,22 @@ async function sbGet(table, options) {
   var queryString = params.length > 0 ? '?' + params.join('&') : '';
   var url = SUPABASE_URL + '/rest/v1/' + table + queryString;
 
+  var controller = new AbortController();
+  var timeoutId = setTimeout(function() { controller.abort(); }, 5000);
+
   try {
     var res = await fetch(url, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-      }
+      },
+      signal: controller.signal
     });
+    clearTimeout(timeoutId);
     if (!res.ok) return null;
     return res.json();
   } catch (e) {
+    clearTimeout(timeoutId);
     return null;
   }
 }
@@ -831,7 +837,18 @@ function initPage() {
 }
 
 /* ---------- Auto-Initialize ---------- */
+/* IMMEDIATE render with defaults, Supabase updates in background */
 document.addEventListener('DOMContentLoaded', function() {
+  // Step 1: Load defaults immediately so page never shows "0 products"
+  window.siteData = {
+    products: DEFAULT_PRODUCTS,
+    certifications: DEFAULT_CERTIFICATIONS,
+    news: DEFAULT_NEWS,
+    comparisons: DEFAULT_COMPARISONS
+  };
+  initPage();
+
+  // Step 2: Try Supabase in background; if successful, re-render with live data
   loadSiteData().then(function() {
     initPage();
   });
