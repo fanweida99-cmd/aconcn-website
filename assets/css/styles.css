@@ -420,7 +420,12 @@ ul, ol {
   min-height: 85vh;
   display: flex;
   align-items: center;
-  background-color: var(--color-bg-primary);
+  background: linear-gradient(
+    135deg,
+    rgba(26, 29, 35, 1) 0%,
+    rgba(35, 38, 43, 1) 50%,
+    rgba(45, 48, 56, 1) 100%
+  );
   overflow: hidden;
   z-index: 1;
 }
@@ -445,9 +450,9 @@ ul, ol {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(26, 29, 35, 0.95) 0%,
-    rgba(26, 29, 35, 0.7) 50%,
-    rgba(45, 48, 56, 0.85) 100%
+    rgba(26, 29, 35, 1) 0%,
+    rgba(35, 38, 43, 0.98) 50%,
+    rgba(45, 48, 56, 0.95) 100%
   );
 }
 

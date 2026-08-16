@@ -338,7 +338,7 @@ function renderProducts(products) {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+          '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '">' +
           '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -539,7 +539,7 @@ function renderProductDetail() {
       card.className = 'product-card';
       card.innerHTML =
         '<div class="product-card__image">' +
-          '<img src="' + imagePath(p.image) + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' +
+          '<img src="' + imagePath(p.image) + '" alt="' + escapeHtml(p.name) + '" >' +
           '<span class="product-card__category">' + escapeHtml(p.category || 'Product') + '</span>' +
         '</div>' +
         '<div class="product-card__body">' +
@@ -570,7 +570,7 @@ function renderCertifications(certs) {
     var card = document.createElement('div');
     card.className = 'cert-card';
     card.innerHTML =
-      '<img src="' + imagePath(cert.image) + '" alt="' + escapeHtml(cert.name) + '" loading="lazy">' +
+      '<img src="' + imagePath(cert.image) + '" alt="' + escapeHtml(cert.name) + '" >' +
       '<div class="cert-card__overlay">' +
         '<h3 class="cert-card__title">' + escapeHtml(cert.name) + '</h3>' +
         '<p class="cert-card__desc">' + escapeHtml(cert.description || '') + '</p>' +
@@ -615,7 +615,7 @@ function renderNews(news) {
       card.className = 'news-card';
       card.innerHTML =
         '<div class="news-card__image">' +
-          '<img src="' + imagePath(article.image) + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
+          '<img src="' + imagePath(article.image) + '" alt="' + escapeHtml(article.title) + '" >' +
           '<span class="news-card__tag">' + escapeHtml(article.category || 'Company') + '</span>' +
         '</div>' +
         '<div class="news-card__body">' +
@@ -770,7 +770,7 @@ function renderFeaturedProducts(products) {
     card.className = 'product-card';
     card.innerHTML =
       '<div class="product-card__image">' +
-        '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+        '<img src="' + imagePath(product.image) + '" alt="' + escapeHtml(product.name) + '" >' +
         '<span class="product-card__category">' + escapeHtml(product.category || 'Product') + '</span>' +
       '</div>' +
       '<div class="product-card__body">' +
