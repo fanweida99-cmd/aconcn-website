@@ -45,12 +45,20 @@ function escapeHtml(str) {
 }
 
 /* ---------- Image Path Normalizer ---------- */
-/* Fixes .jpg → .svg mismatch between Supabase DB and actual files */
+/* Handles image paths from Supabase DB — only converts .jpg→.svg for
+   local project image files (assets/images/), NOT for uploaded files
+   (assets/uploads/) or external URLs (http/https). */
 function imagePath(path) {
   if (!path) return 'assets/images/placeholder.svg';
-  // Convert any .jpg/.jpeg/.png extension to .svg
-  path = path.replace(/\.(jpg|jpeg|png)$/i, '.svg');
-  return path;
+  // Already a full URL (Supabase Storage, external) — return as-is
+  if (/^https?:\/\//i.test(path)) return path;
+  // Already .svg — return as-is
+  if (/\.svg$/i.test(path)) return path;
+  // Uploaded files (assets/uploads/) — return as-is, don't convert extension
+  if (/\/assets\/uploads\//i.test(path)) return path;
+  // Local project images (assets/images/) — convert .jpg/.jpeg/.png to .svg
+  // because the actual files on disk are .svg
+  return path.replace(/\.(jpg|jpeg|png)$/i, '.svg');
 }
 
 /* ---------- Default Data ---------- */

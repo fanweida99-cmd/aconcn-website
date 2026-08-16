@@ -1098,23 +1098,34 @@ async function supabaseCountWithFilter(table, filterKey, filterValue) {
 }
 
 // ============================================================
-// Image Upload
+// Image Upload — Uploads to Supabase Storage
 // ============================================================
 async function uploadImage(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    const response = await fetch('/upload', {
-        method: 'POST',
-        body: formData
-    });
-    
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Upload failed');
+    // Generate a unique filename
+    const timestamp = Date.now();
+    const rand = Math.random().toString(36).substring(2, 8);
+    const ext = file.name.split('.').pop().toLowerCase();
+    const safeName = `${timestamp}_${rand}.${ext}`;
+    const filePath = `products/${safeName}`;
+
+    // Upload to Supabase Storage
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
+        .from('images')
+        .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false
+        });
+
+    if (uploadError) {
+        throw new Error(uploadError.message || 'Upload to storage failed');
     }
-    
-    return await response.json();
+
+    // Get public URL
+    const { data: { publicUrl } } = supabaseClient.storage
+        .from('images')
+        .getPublicUrl(filePath);
+
+    return { url: publicUrl, filename: safeName };
 }
 
 // ============================================================
