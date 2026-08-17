@@ -66,10 +66,6 @@ function injectFooter() {
         '<div class="container">' +
           '<div class="footer__grid">' +
             '<div class="footer__brand">' +
-              '<div class="footer__logo">' +
-                '<img src="assets/images/logo.svg" alt="ACONCN" onerror="this.style.display=\'none\'">' +
-                '<span class="footer__logo-text">ACON<span>CN</span></span>' +
-              '</div>' +
               '<p class="footer__description" data-lang="footer.description">ACONCN is a leading manufacturer of composite manhole covers, dedicated to providing high-quality infrastructure solutions worldwide since 2000.</p>' +
               '<div class="footer__social">' +
                 '<a href="https://wa.me/8613639038913" target="_blank" rel="noopener" aria-label="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>' +
@@ -99,6 +95,7 @@ function injectFooter() {
               '<div class="footer__links">' +
                 '<a href="tel:+8613639038913">+86 136 0303 8913</a>' +
                 '<a href="mailto:victor@aconcn.com">victor@aconcn.com</a>' +
+                '<span style="color:var(--color-text-muted);font-size:0.85rem;line-height:1.5">Room 1502, 15/F, 168 Queen\'s Road Central, Hong Kong</span>' +
                 '<a href="contact.html" data-lang="footer.getInTouch">Get in Touch</a>' +
                 '<a href="contact.html" data-lang="footer.requestQuote">Request Quote</a>' +
               '</div>' +

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1d23"/>
+      <stop offset="100%" stop-color="#23262b"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2d33"/>
+      <stop offset="100%" stop-color="#1f2227"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6b1a"/>
+      <stop offset="100%" stop-color="#ff8c42"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- Cover frame -->
+  <rect x="100" y="60" width="200" height="160" rx="12" fill="url(#cover)" stroke="#3a3d45" stroke-width="2"/>
+  <!-- Inner grid pattern -->
+  <rect x="115" y="75" width="170" height="130" rx="6" fill="none" stroke="#2d3038" stroke-width="1"/>
+  <!-- Cross pattern -->
+  <line x1="200" y1="75" x2="200" y2="205" stroke="#2d3038" stroke-width="1"/>
+  <line x1="115" y1="140" x2="285" y2="140" stroke="#2d3038" stroke-width="1"/>
+  <!-- Anti-slip texture dots -->
+  <circle cx="155" cy="120" r="2" fill="#3a3d45"/>
+  <circle cx="200" cy="100" r="2" fill="#3a3d45"/>
+  <circle cx="245" cy="120" r="2" fill="#3a3d45"/>
+  <circle cx="155" cy="160" r="2" fill="#3a3d45"/>
+  <circle cx="200" cy="180" r="2" fill="#3a3d45"/>
+  <circle cx="245" cy="160" r="2" fill="#3a3d45"/>
+  <!-- Accent handle -->
+  <rect x="170" y="190" width="60" height="8" rx="4" fill="url(#accent)"/>
+  <!-- Weight label -->
+  <text x="200" y="245" text-anchor="middle" fill="#ff6b1a" font-family="Arial" font-size="14" font-weight="bold">~35 kg</text>
+  <text x="200" y="265" text-anchor="middle" fill="#666" font-family="Arial" font-size="11">70% Lighter than Cast Iron</text>
+</svg>
