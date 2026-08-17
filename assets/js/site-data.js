@@ -58,14 +58,28 @@ function imagePath(path) {
   if (!path) return 'assets/images/placeholder.svg';
   // Already a full URL (Supabase Storage, external) — return as-is
   if (/^https?:\/\//i.test(path)) return path;
+  // Normalize: remove spaces that may have crept into filenames in DB
+  path = path.replace(/\s+/g, '');
   // Already .svg — return as-is
   if (/\.svg$/i.test(path)) return path;
+  // Already .gif — return as-is (real product photos)
+  if (/\.gif$/i.test(path)) return path;
   // Uploaded files (assets/uploads/) — return as-is, don't convert extension
   if (/\/assets\/uploads\//i.test(path)) return path;
   // Local project images (assets/images/) — convert .jpg/.jpeg/.png to .svg
   // because the actual files on disk are .svg
   return path.replace(/\.(jpg|jpeg|png)$/i, '.svg');
 }
+
+/* ---------- Core Product Image Map ---------- */
+/* Maps the 5 core EN 124 product IDs to real product GIF images */
+var CORE_PRODUCT_IMAGES = {
+  1: 'assets/images/products/manhole-covers/AA-44.gif',
+  2: 'assets/images/products/manhole-covers/AR500.gif',
+  3: 'assets/images/products/manhole-covers/AW8380.gif',
+  4: 'assets/images/products/manhole-covers/AW-625F.gif',
+  5: 'assets/images/products/manhole-covers/AW-630.gif'
+};
 
 /* ---------- Default Data ---------- */
 var DEFAULT_PRODUCTS = [
@@ -75,7 +89,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'D400',
     price: 45.00,
-    image: 'assets/images/products/d400.svg',
+    image: 'assets/images/products/manhole-covers/AA-44.gif',
     description: 'EN 124 D400 rated composite manhole cover suitable for roadways and pedestrian areas. 70% lighter than cast iron with superior durability.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -94,7 +108,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'E600',
     price: 68.00,
-    image: 'assets/images/products/e600.svg',
+    image: 'assets/images/products/manhole-covers/AR500.gif',
     description: 'EN 124 E600 rated heavy-duty composite cover for main roads and highways. Maximum load capacity with minimal weight.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -113,7 +127,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Manhole Covers',
     load_class: 'F900',
     price: 120.00,
-    image: 'assets/images/products/f900.svg',
+    image: 'assets/images/products/manhole-covers/AW8380.gif',
     description: 'EN 124 F900 rated composite cover for airports, ports, and heavy industrial zones. The highest load class available.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -132,7 +146,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Outdoor Products',
     load_class: 'B125',
     price: 28.00,
-    image: 'assets/images/products/b125.svg',
+    image: 'assets/images/products/manhole-covers/AW-625F.gif',
     description: 'EN 124 B125 rated composite cover for pedestrian areas, parks, and sidewalks. Lightweight and easy to install.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -151,7 +165,7 @@ var DEFAULT_PRODUCTS = [
     category: 'Outdoor Products',
     load_class: 'C250',
     price: 36.00,
-    image: 'assets/images/products/c250.svg',
+    image: 'assets/images/products/manhole-covers/AW-630.gif',
     description: 'EN 124 C250 rated composite cover for residential areas, driveways, and car parks. Reliable and cost-effective.',
     specs: [
       { name: 'Standard', value: 'EN 124' },
@@ -270,9 +284,23 @@ async function loadSiteData() {
     sbGet('comparisons', { select: '*', order: 'id.asc' })
   ]);
 
-  // Products
+  // Products — filter out TEST entries and map core products to real images
   if (results[0].status === 'fulfilled' && results[0].value && Array.isArray(results[0].value) && results[0].value.length > 0) {
-    data.products = results[0].value;
+    data.products = results[0].value.filter(function(p) {
+      // Exclude TEST products
+      if (p.name && /TEST/i.test(p.name)) return false;
+      return true;
+    }).map(function(p) {
+      // Map core product IDs (1-5) to real GIF images
+      if (CORE_PRODUCT_IMAGES[p.id]) {
+        p.image = CORE_PRODUCT_IMAGES[p.id];
+      }
+      return p;
+    });
+    // If after filtering we have fewer than 4 products, fall back to defaults
+    if (data.products.length < 4) {
+      data.products = DEFAULT_PRODUCTS;
+    }
   } else {
     data.products = DEFAULT_PRODUCTS;
   }
