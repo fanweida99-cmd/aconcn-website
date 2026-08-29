@@ -1,0 +1,16 @@
+{
+  "name": "aconcn-website-v2",
+  "version": "2.0.0",
+  "private": true,
+  "description": "ACONCN v2 website + admin (Supabase-backed). Lint & syntax gates added to stop recurring patch-on-patch bugs.",
+  "scripts": {
+    "check": "node -c admin/assets/js/admin.js && node -c server.js && node -c assets/js/common.js && node -c assets/js/i18n.js && node -c assets/js/site-data.js && node -c scripts/import-products.js",
+    "lint": "eslint . --max-warnings=-1",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.0",
+    "globals": "^15.0.0",
+    "@eslint/js": "^9.9.0"
+  }
+}
