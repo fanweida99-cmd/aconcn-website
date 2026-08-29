@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // ACONCN v2 — Admin Backend JavaScript
 // Complete rewrite with real Supabase CRUD operations
 // ============================================================
@@ -93,7 +93,8 @@ const translations = {
             deleteTitle: 'Delete Product',
             loading: 'Loading...',
             noData: 'No products found',
-            pageInfo: 'Page {page} of {total} ({totalItems} items)'
+            pageInfo: 'Page {page} of {total} ({totalItems} items)',
+            featured: 'Featured'
         },
         orders: {
             title: 'Orders Management',
@@ -188,7 +189,7 @@ const translations = {
         news: {
             title: 'News Management',
             id: 'ID',
-            title: 'Title',
+            articleTitle: 'Title',
             date: 'Date',
             summary: 'Summary',
             content: 'Content',
@@ -219,7 +220,7 @@ const translations = {
             pageInfo: 'Page {page} of {total} ({totalItems} items)'
         },
         comparisons: {
-            title: 'Comparisons Management',
+            pageTitle: 'Comparisons Management',
             id: 'ID',
             title: 'Title',
             feature: 'Feature',
@@ -363,7 +364,8 @@ const translations = {
             deleteTitle: '删除产品',
             loading: '加载中...',
             noData: '暂无产品数据',
-            pageInfo: '第 {page} / {total} 页（共 {totalItems} 项）'
+            pageInfo: '第 {page} / {total} 页（共 {totalItems} 项）',
+            featured: '精选展示'
         },
         orders: {
             title: '订单管理',
@@ -458,7 +460,7 @@ const translations = {
         news: {
             title: '新闻管理',
             id: '编号',
-            title: '标题',
+            articleTitle: '标题',
             date: '日期',
             summary: '摘要',
             content: '内容',
@@ -489,7 +491,7 @@ const translations = {
             pageInfo: '第 {page} / {total} 页（共 {totalItems} 项）'
         },
         comparisons: {
-            title: '对比管理',
+            pageTitle: '对比管理',
             id: '编号',
             title: '标题',
             feature: '特性',
@@ -615,7 +617,7 @@ function updateLanguage() {
     });
 }
 
-function switchLang(lang) {
+async function switchLang(lang) {
     currentLang = lang;
     localStorage.setItem('admin_lang', lang);
     
@@ -630,7 +632,7 @@ function switchLang(lang) {
     
     // Re-render current page with new language (no page reload needed)
     const page = window.location.hash.replace('#', '') || 'dashboard';
-    loadPage(page);
+    await loadPage(page);
 }
 
 // ============================================================
@@ -638,173 +640,52 @@ function switchLang(lang) {
 // ============================================================
 async function getAuthHeaders() {
     const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session) {
-        window.location.href = 'login.html';
-        throw new Error('Not authenticated');
+    if (session) {
+        return {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'count=exact'
+        };
     }
-    return {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${session.access_token}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'count=exact'
-    };
+    const token = localStorage.getItem('sb-access-token');
+    if (token) {
+        return {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'count=exact'
+        };
+    }
+    window.location.href = 'login.html';
+    throw new Error('Not authenticated');
 }
+
+
 
 async function getAuthHeadersNoCount() {
     const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session) {
-        window.location.href = 'login.html';
-        throw new Error('Not authenticated');
+    if (session) {
+        return {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json'
+        };
     }
-    return {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${session.access_token}`,
-        'Content-Type': 'application/json'
-    };
+    const token = localStorage.getItem('sb-access-token');
+    if (token) {
+        return {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+    }
+    window.location.href = 'login.html';
+    throw new Error('Not authenticated');
 }
 
+
 // ── 内置示例数据（Supabase 不可用时使用） ──
-const SAMPLE_PRODUCTS = [
-    { id:1, name:'D400 Road Manhole Cover', category:'Manhole Covers', load_class:'D400', price:150, stock:500, image:'', status:'active' },
-    { id:2, name:'E600 Heavy Duty Cover', category:'Manhole Covers', load_class:'E600', price:250, stock:300, image:'', status:'active' },
-    { id:3, name:'F900 Airport Cover', category:'Manhole Covers', load_class:'F900', price:450, stock:150, image:'', status:'active' },
-    { id:4, name:'B125 Pedestrian Cover', category:'Manhole Covers', load_class:'B125', price:80, stock:800, image:'', status:'active' },
-    { id:5, name:'C250 Light Traffic', category:'Manhole Covers', load_class:'C250', price:120, stock:600, image:'', status:'active' },
-    { id:6, name:'102AR-700H', category:'Manhole Covers', load_class:'D400', price:0, stock:0, image:'', status:'active' },
-    { id:7, name:'AA-1314黑', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:8, name:'AA-165', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:9, name:'AA-178地政署', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:10, name:'AA-380燃气', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:11, name:'AA-44', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:12, name:'AA-77', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:13, name:'AR-700H给加重', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:14, name:'AR500', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:15, name:'AA-350', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:16, name:'AF-500粉色', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:17, name:'AL-500', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:18, name:'AL700', category:'Manhole Covers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:19, name:'AW-20B', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:20, name:'AW-450H', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:21, name:'AW-533', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:22, name:'AW-625F', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:23, name:'AW-627', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:24, name:'AW-630', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:25, name:'AW-630R', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:26, name:'AW-633F', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:27, name:'AW-635L', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:28, name:'AW-640', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:29, name:'AW-644F', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:30, name:'AW-645L', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:31, name:'AW-740', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:32, name:'AW-8525', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:33, name:'AW325F', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:34, name:'AW500', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:35, name:'AW614', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:36, name:'AW637R', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:37, name:'AW655', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:38, name:'AW8380', category:'Outdoor Products', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:39, name:'Composite Drainage Grating', category:'Outdoor Products', load_class:'C250', price:40, stock:1000, image:'', status:'active' },
-    { id:40, name:'AC-089300P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:41, name:'AC-089750', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:42, name:'AC-089945', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:43, name:'AC-108110P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:44, name:'AC-108300E', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:45, name:'AC-108380', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:46, name:'AC-108380B', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:47, name:'AC-108740', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:48, name:'AC-1331600T', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:49, name:'AC-133380P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:50, name:'AC-133760P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:51, name:'AC-1521140T', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:52, name:'AC-152380P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:53, name:'AC-152760P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:54, name:'AC-178760P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:55, name:'AC-200300P', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:56, name:'AC-TR-100', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:57, name:'AC-TR-50', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:58, name:'ACS-1331140', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:59, name:'ACS-133760', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:60, name:'ACS-159760', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:61, name:'ACS-200760', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:62, name:'AP-1000', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:63, name:'AP-1100', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:64, name:'AP-165', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:65, name:'AP-200', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:66, name:'AP-300', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:67, name:'AP-400', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:68, name:'AP-500', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:69, name:'AP-600', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:70, name:'AP-700', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:71, name:'AP-800', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:72, name:'AP-900', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:73, name:'Bearing Housing', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:74, name:'CS-85', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:75, name:'Cushion Roller', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:76, name:'Drive Roller 500', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:77, name:'Drive Roller 600', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:78, name:'Drive Roller Tapered', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' },
-    { id:79, name:'Drive Roller 700', category:'Conveyor Rollers', load_class:'', price:0, stock:0, image:'', status:'active' }
-];
-
-const SAMPLE_ORDERS = [
-    { id:1, customer:'Shanghai Municipal', product:'D400 Road Cover', quantity:50, amount:7500, status:'completed', date:'2025-06-15' },
-    { id:2, customer:'Shenzhen Metro', product:'E600 Heavy Cover', quantity:30, amount:7500, status:'processing', date:'2025-06-20' },
-    { id:3, customer:'Macau Port Authority', product:'F900 Airport Cover', quantity:20, amount:9000, status:'pending', date:'2025-06-25' },
-    { id:4, customer:'Wuhan Urban Construction', product:'B125 Pedestrian Cover', quantity:100, amount:8000, status:'completed', date:'2025-06-10' },
-    { id:5, customer:'Hong Kong MTR', product:'C250 Light Traffic', quantity:60, amount:7200, status:'processing', date:'2025-07-01' },
-    { id:6, customer:'Xiamen Port', product:'E600 Heavy Cover', quantity:40, amount:10000, status:'pending', date:'2025-07-05' },
-    { id:7, customer:'Tianjin Municipal', product:'D400 Road Cover', quantity:80, amount:12000, status:'completed', date:'2025-06-28' },
-    { id:8, customer:'Yichang Water Authority', product:'Composite Drainage', quantity:200, amount:8000, status:'completed', date:'2025-06-22' },
-    { id:9, customer:'Zhengzhou Metro', product:'F900 Airport Cover', quantity:15, amount:6750, status:'pending', date:'2025-07-10' },
-    { id:10, customer:'Shenzhen Airport', product:'F900 Airport Cover', quantity:25, amount:11250, status:'processing', date:'2025-07-08' },
-    { id:11, customer:'Macau Construction', product:'D400 Road Cover', quantity:35, amount:5250, status:'completed', date:'2025-06-18' },
-    { id:12, customer:'Hong Kong Housing', product:'B125 Pedestrian Cover', quantity:150, amount:12000, status:'pending', date:'2025-07-12' }
-];
-
-const SAMPLE_CUSTOMERS = [
-    { id:1, name:'Li Wei', company:'Shanghai Municipal Construction', email:'liwei@shanghai.gov.cn', phone:'+86 21 1234 5678', country:'China', status:'active' },
-    { id:2, name:'Chen Ming', company:'Shenzhen Metro Group', email:'chenming@szmetro.com', phone:'+86 755 8765 4321', country:'China', status:'active' },
-    { id:3, name:'Wong Ka Ho', company:'Macau Port Authority', email:'kaho@macauport.mo', phone:'+853 2833 1234', country:'Macau', status:'active' },
-    { id:4, name:'Zhang Wei', company:'Wuhan Urban Construction', email:'zhangwei@wuhan.gov.cn', phone:'+86 27 8765 4321', country:'China', status:'active' },
-    { id:5, name:'James Lau', company:'Hong Kong MTR Corporation', email:'james.lau@mtr.com.hk', phone:'+852 2888 1234', country:'Hong Kong', status:'active' },
-    { id:6, name:'Wang Fang', company:'Xiamen Port Group', email:'wangfang@xiamenport.com', phone:'+86 592 5678 1234', country:'China', status:'active' },
-    { id:7, name:'Liu Qiang', company:'Tianjin Municipal Engineering', email:'liuqiang@tianjin.gov.cn', phone:'+86 22 2345 6789', country:'China', status:'active' },
-    { id:8, name:'Huang Lei', company:'Yichang Water Resources', email:'huanglei@yichang.gov.cn', phone:'+86 717 6234 567', country:'China', status:'active' }
-];
-
-const SAMPLE_CERTIFICATIONS = [
-    { id:1, name:'EN 124 Certification', description:'CE-certified under EN 124 standard for manhole covers and gully tops', image:'', category:'EN 124', status:'active' },
-    { id:2, name:'SGS Quality Report', description:'SGS third-party testing report confirming load capacity and material quality', image:'', category:'SGS', status:'active' },
-    { id:3, name:'ISO 9001:2015', description:'Quality management system certification for manufacturing processes', image:'', category:'ISO', status:'active' },
-    { id:4, name:'Environmental Protection', description:'Green manufacturing certification for eco-friendly production', image:'', category:'环保认证', status:'active' },
-    { id:5, name:'60-Ton Load Test Report', description:'Certified load test report confirming 60-ton capacity for heavy-duty covers', image:'', category:'Test Report', status:'active' },
-    { id:6, name:'40-Ton Load Test Report', description:'Certified load test report confirming 40-ton capacity for standard covers', image:'', category:'Test Report', status:'active' }
-];
-
-const SAMPLE_NEWS = [
-    { id:1, title:'ACONCN Completes Major Infrastructure Project in South China', date:'2024-12-15', summary:'Our composite manhole covers have been successfully installed in a large-scale urban development project in Guangdong province.', image:'', category:'Company', status:'published' },
-    { id:2, title:'New Generation F900 Heavy-Duty Manhole Cover Launched', date:'2024-11-28', summary:'Introducing our upgraded F900 manhole cover with enhanced load capacity for airport and port applications.', image:'', category:'Product', status:'published' },
-    { id:3, title:'Composite Materials Revolutionizing Urban Infrastructure', date:'2024-11-10', summary:'How composite manhole covers are replacing traditional cast iron solutions in modern municipal infrastructure projects.', image:'', category:'Industry', status:'published' },
-    { id:4, title:'ACONCN Factory Expansion Complete', date:'2024-10-20', summary:'New production lines added to meet growing global demand for composite manhole covers.', image:'', category:'Company', status:'published' },
-    { id:5, title:'Export Success: ACONCN Products Reach 15 Countries', date:'2024-10-05', summary:'Our composite manhole covers are now installed in infrastructure projects across Asia, Europe, and the Middle East.', image:'', category:'Industry', status:'draft' }
-];
-
-const SAMPLE_COMPARISONS = [
-    { id:1, title:'Weight', feature:'Weight', composite:'Lightweight (30-60% lighter than cast iron)', cast_iron:'Very heavy', description:'Composite covers are significantly lighter, making installation and handling much easier.' },
-    { id:2, title:'Corrosion Resistance', feature:'Corrosion Resistance', composite:'Excellent — non-corrosive', cast_iron:'Prone to rust', description:'Composite materials will never rust, making them ideal for wet environments.' },
-    { id:3, title:'Load Capacity', feature:'Load Capacity', composite:'EN 124 D400 / E600 / F900', cast_iron:'EN 124 certified', description:'Both materials meet EN 124 standards, but composite offers better weight-to-strength ratio.' },
-    { id:4, title:'Anti-Theft', feature:'Anti-Theft', composite:'No scrap value — not targeted', cast_iron:'High scrap value — frequently stolen', description:'Cast iron covers are often stolen for scrap metal; composite covers have no resale value.' },
-    { id:5, title:'Installation', feature:'Installation', composite:'Easy — 1-2 workers can install', cast_iron:'Requires heavy equipment', description:'Lightweight composite covers can be installed manually without cranes or heavy machinery.' },
-    { id:6, title:'Maintenance', feature:'Maintenance', composite:'Minimal — no painting required', cast_iron:'Regular painting needed to prevent rust', description:'Composite covers are virtually maintenance-free, reducing long-term costs.' },
-    { id:7, title:'Lifespan', feature:'Lifespan', composite:'30+ years', cast_iron:'15-20 years (with maintenance)', description:'Composite covers last longer with less maintenance, providing better value over time.' },
-    { id:8, title:'Cost', feature:'Cost', composite:'Higher initial cost, lower TCO', cast_iron:'Lower initial cost, higher maintenance', description:'While composite has a higher upfront cost, the total cost of ownership is lower.' }
-];
-
-const SAMPLE_MESSAGES = [
-    { id:1, name:'Thomas Müller', email:'thomas@bau.de', phone:'+49 89 1234567', message:'Interested in your D400 manhole covers for a municipal project in Munich. Please send quotation.', status:'pending', created_at:'2025-07-10T10:30:00' },
-    { id:2, name:'Sarah Johnson', email:'sarah@construct.co.uk', phone:'+44 20 7123 4567', message:'We need 500 units of B125 pedestrian covers for a London development. Please advise lead time.', status:'read', created_at:'2025-07-08T14:20:00' },
-    { id:3, name:'Pierre Dubois', email:'pierre@infra.fr', phone:'+33 1 2345 6789', message:'Looking for F900 airport-grade covers for Charles de Gaulle expansion project.', status:'pending', created_at:'2025-07-05T09:15:00' }
-];
 
 async function supabaseFetch(endpoint, options = {}) {
     const url = `${SUPABASE_REST}${endpoint}`;
@@ -816,12 +697,6 @@ async function supabaseFetch(endpoint, options = {}) {
             ...options.headers
         }
     };
-    
-    // ── 内置示例数据（Supabase 不可用时使用） ──
-    const sampleData = getSampleData(endpoint, options);
-    if (sampleData) {
-        return sampleData;
-    }
     
     let response;
     try {
@@ -854,158 +729,35 @@ async function supabaseFetch(endpoint, options = {}) {
     return response;
 }
 
-/**
- * 返回内置示例数据，使后台在无 Supabase 时也能正常显示
- */
-function getSampleData(endpoint, options = {}) {
-    // Parse Range header from options for pagination
-    const rangeHeader = options.headers && options.headers['Range'];
-    let rangeStart = 0, rangeEnd = 999;
-    if (rangeHeader) {
-        const parts = rangeHeader.split('-');
-        rangeStart = parseInt(parts[0]) || 0;
-        rangeEnd = parseInt(parts[1]) || 999;
-    }
-    
-    // 处理 /products?... 请求
-    if (endpoint.match(/^\/products\?/)) {
-        const urlParams = new URLSearchParams(endpoint.split('?')[1]);
-        const select = urlParams.get('select') || '*';
-        
-        // select=id&limit=0 — 计数查询
-        if (select === 'id' && urlParams.get('limit') === '0') {
-            return {
-                ok: true, status: 200,
-                headers: { get: (h) => h === 'content-range' ? `0-0/${SAMPLE_PRODUCTS.length}` : null, has: () => false },
-                json: async () => [],
-                text: async () => '[]'
-            };
-        }
-        
-        // 带范围的产品列表查询 — 按 Range 切片
-        const sliced = SAMPLE_PRODUCTS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_PRODUCTS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /orders?... 请求
-    if (endpoint.match(/^\/orders\?/)) {
-        const sliced = SAMPLE_ORDERS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_ORDERS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /customers?... 请求
-    if (endpoint.match(/^\/customers\?/)) {
-        const sliced = SAMPLE_CUSTOMERS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_CUSTOMERS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /certifications?... 请求
-    if (endpoint.match(/^\/certifications\?/)) {
-        const sliced = SAMPLE_CERTIFICATIONS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_CERTIFICATIONS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /news?... 请求
-    if (endpoint.match(/^\/news\?/)) {
-        const sliced = SAMPLE_NEWS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_NEWS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /comparisons?... 请求
-    if (endpoint.match(/^\/comparisons\?/)) {
-        const sliced = SAMPLE_COMPARISONS.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_COMPARISONS.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理 /contact_submissions?... 请求
-    if (endpoint.match(/^\/contact_submissions\?/)) {
-        const sliced = SAMPLE_MESSAGES.slice(rangeStart, rangeEnd + 1);
-        return {
-            ok: true, status: 200,
-            headers: { get: (h) => h === 'content-range' ? `${rangeStart}-${rangeEnd}/${SAMPLE_MESSAGES.length}` : null, has: () => false },
-            json: async () => sliced,
-            text: async () => JSON.stringify(sliced)
-        };
-    }
-    
-    // 处理单个 ID 查询: /products?id=eq.123&select=*
-    const idMatch = endpoint.match(/^\/(\w+)\?id=eq\.(\d+)/);
-    if (idMatch) {
-        const table = idMatch[1];
-        const id = parseInt(idMatch[2]);
-        const allData = { products: SAMPLE_PRODUCTS, orders: SAMPLE_ORDERS, customers: SAMPLE_CUSTOMERS,
-            certifications: SAMPLE_CERTIFICATIONS, news: SAMPLE_NEWS, comparisons: SAMPLE_COMPARISONS,
-            contact_submissions: SAMPLE_MESSAGES };
-        const item = (allData[table] || []).find(d => d.id === id);
-        return {
-            ok: true, status: 200,
-            headers: { get: () => null, has: () => false },
-            json: async () => item || null,
-            text: async () => JSON.stringify(item || null)
-        };
-    }
-    
-    return null; // 不匹配，走真实 fetch
-}
 
 async function supabaseGet(table, params = {}) {
-    const queryParams = new URLSearchParams();
+    const parts = [];
     
-    // Build query params
     if (params.select) {
-        queryParams.set('select', params.select);
+        parts.push('select=' + encodeURIComponent(params.select));
     } else {
-        queryParams.set('select', '*');
+        parts.push('select=*');
     }
     
     if (params.filter) {
         for (const [key, value] of Object.entries(params.filter)) {
             if (value !== undefined && value !== null && value !== '') {
-                queryParams.set(key, value);
+                parts.push(key + '=' + encodeURIComponent(value));
             }
         }
     }
     
     if (params.order) {
-        queryParams.set('order', params.order);
+        parts.push('order=' + encodeURIComponent(params.order));
     } else {
-        queryParams.set('order', 'id.desc');
+        parts.push('order=id.desc');
     }
+    
+    const queryString = parts.join('&');
     
     if (params.range) {
         const { start, end } = params.range;
-        // Use Range header instead of query params
-        const response = await supabaseFetch(`/${table}?${queryParams.toString()}`, {
+        const response = await supabaseFetch(`/${table}?${queryString}`, {
             headers: {
                 'Range': `${start}-${end}`,
                 'Prefer': 'count=exact'
@@ -1016,7 +768,7 @@ async function supabaseGet(table, params = {}) {
         return { data, total: totalCount };
     }
     
-    const response = await supabaseFetch(`/${table}?${queryParams.toString()}`);
+    const response = await supabaseFetch(`/${table}?${queryString}`);
     const data = await response.json();
     return { data, total: data.length };
 }
@@ -1040,25 +792,40 @@ async function supabaseInsert(table, data) {
             'Prefer': 'return=representation'
         }
     });
+    if (!response.ok) {
+        throw new Error(`保存失败: ${table} (HTTP ${response.status})`);
+    }
     return await response.json();
 }
 
 async function supabaseUpdate(table, id, data) {
-    data.updated_at = new Date().toISOString();
+    // Keep the caller's object unchanged and only add updated_at for tables
+    // that actually define that column. contact_submissions intentionally has
+    // no updated_at field in the supplied schema.
+    const payload = Object.assign({}, data);
+    if (table !== 'contact_submissions') {
+        payload.updated_at = new Date().toISOString();
+    }
     const response = await supabaseFetch(`/${table}?id=eq.${id}`, {
         method: 'PATCH',
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
         headers: {
             'Prefer': 'return=representation'
         }
     });
+    if (!response.ok) {
+        throw new Error(`更新失败: ${table} (HTTP ${response.status})`);
+    }
     return await response.json();
 }
 
 async function supabaseDelete(table, id) {
-    await supabaseFetch(`/${table}?id=eq.${id}`, {
+    const response = await supabaseFetch(`/${table}?id=eq.${id}`, {
         method: 'DELETE'
     });
+    if (!response.ok) {
+        throw new Error(`删除失败: ${table} (HTTP ${response.status})`);
+    }
     return true;
 }
 
@@ -1100,13 +867,13 @@ async function supabaseCountWithFilter(table, filterKey, filterValue) {
 // ============================================================
 // Image Upload — Uploads to Supabase Storage
 // ============================================================
-async function uploadImage(file) {
+async function uploadImage(file, folder = 'products') {
     // Generate a unique filename
     const timestamp = Date.now();
     const rand = Math.random().toString(36).substring(2, 8);
     const ext = file.name.split('.').pop().toLowerCase();
     const safeName = `${timestamp}_${rand}.${ext}`;
-    const filePath = `products/${safeName}`;
+    const filePath = `${folder}/${safeName}`;
 
     // Upload to Supabase Storage
     const { data: uploadData, error: uploadError } = await supabaseClient.storage
@@ -1132,8 +899,12 @@ async function uploadImage(file) {
 // Authentication
 // ============================================================
 async function checkAuth() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session) {
+    try {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session) {
+            window.location.href = 'login.html';
+        }
+    } catch (e) {
         window.location.href = 'login.html';
     }
 }
@@ -1191,11 +962,18 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
                 
                 if (data && data.session) {
+                    localStorage.setItem('sb-refresh-token', data.session.refresh_token);
+                    localStorage.setItem('sb-access-token', data.session.access_token);
                     window.location.href = 'index.html';
                     return;
                 }
             } catch (e) {
-                console.log('Supabase Auth login failed:', e.message);
+                console.error('Supabase Auth login failed:', e.message || e);
+                errorMsg.textContent = e.message || t('login.error');
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = t('login.signIn');
+                return;
             }
             
             errorMsg.textContent = t('login.error');
@@ -1209,7 +987,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         logoutBtn.addEventListener('click', logout);
     }
     
-    if (langSwitch) {
+    if (langSwitch && !document.getElementById('page-content')) {
         langSwitch.addEventListener('click', function() {
             const newLang = currentLang === 'en' ? 'zh' : 'en';
             switchLang(newLang);
@@ -1312,7 +1090,7 @@ async function loadPage(page) {
             customers: t('customers.title'),
             certifications: t('certifications.title'),
             news: t('news.title'),
-            comparisons: t('comparisons.title'),
+            comparisons: t('comparisons.pageTitle'),
             messages: t('messages.title')
         };
         pageTitle.textContent = titleMap[page] || t('dashboard.title');
@@ -1324,7 +1102,7 @@ async function loadPage(page) {
     // Render page
     switch (page) {
         case 'dashboard':
-            renderDashboard();
+            await renderDashboard();
             break;
         case 'products':
             await renderProductsPage();
@@ -1348,7 +1126,7 @@ async function loadPage(page) {
             await renderMessagesPage();
             break;
         default:
-            renderDashboard();
+            await renderDashboard();
     }
     
     // Update language after rendering new content
@@ -1539,6 +1317,12 @@ function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = String(str);
     return div.innerHTML;
+}
+
+function absUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+    return url.startsWith('/') ? url : '/' + url;
 }
 
 function buildTableContainer(title, tableHtml, searchPlaceholder, addBtnLabel, onAdd, onSearch, onRefresh) {
@@ -1737,7 +1521,7 @@ function showConfirm(title, message, confirmLabel, onConfirm) {
 // ============================================================
 // Image Upload Handler (for modal forms)
 // ============================================================
-function setupImageUpload(inputId, previewId, hiddenInputId) {
+function setupImageUpload(inputId, previewId, hiddenInputId, folder = 'products') {
     const input = document.getElementById(inputId);
     if (!input) return;
     
@@ -1759,7 +1543,7 @@ function setupImageUpload(inputId, previewId, hiddenInputId) {
         }
         
         try {
-            const result = await uploadImage(file);
+            const result = await uploadImage(file, folder);
             const hiddenInput = document.getElementById(hiddenInputId);
             if (hiddenInput) {
                 hiddenInput.value = result.url;
@@ -1798,10 +1582,11 @@ async function renderProductsPage() {
                 <th>${t('products.price')}</th>
                 <th>${t('products.stock')}</th>
                 <th>${t('products.status')}</th>
+                <th>${t('products.featured')}</th>
                 <th>${t('products.actions')}</th>
             </tr>
         `,
-        colspan: 9
+        colspan: 10
     };
     
     content.innerHTML = buildTableContainer(
@@ -1883,6 +1668,12 @@ function buildProductModal() {
                             <option value="inactive">${t('products.inactive')}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="product-featured">
+                            <span>${t('products.featured')}</span>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1897,7 +1688,7 @@ async function loadProducts(searchTerm) {
     const tbody = document.getElementById('table-body');
     if (!tbody) return;
     
-    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted">${t('common.loading')}</td></tr>`;
     
     try {
         let params = {
@@ -1912,7 +1703,8 @@ async function loadProducts(searchTerm) {
             params.filter = { 'name=ilike': `.*${searchTerm}.*` };
         }
         
-        const { data: products, total } = await supabaseGet('products', params);
+        const { data: rawProducts, total } = await supabaseGet('products', params);
+        const products = rawProducts ? rawProducts : null;
         
         paginationState.totalItems = total || 0;
         
@@ -1920,13 +1712,14 @@ async function loadProducts(searchTerm) {
             tbody.innerHTML = products.map(product => `
                 <tr>
                     <td>${product.id}</td>
-                    <td>${product.image ? `<img src="${product.image}" class="img-thumb" onclick="window.open('${product.image}','_blank')">` : '—'}</td>
+                    <td>${product.image ? `<img src="${absUrl(product.image)}" class="img-thumb" onclick="window.open('${absUrl(product.image)}','_blank')">` : '—'}</td>
                     <td>${escapeHtml(product.name)}</td>
                     <td>${escapeHtml(product.category)}</td>
                     <td>${escapeHtml(product.load_class || '')}</td>
                     <td>$${Number(product.price || 0).toFixed(2)}</td>
                     <td>${product.stock}</td>
                     <td><span class="status-badge ${product.status === 'active' ? 'active' : 'inactive'}" data-status="${product.status}" data-section="products">${t('products.' + (product.status || 'active'))}</span></td>
+                    <td>${product.featured ? '<span class="badge-featured">★</span>' : '—'}</td>
                     <td>
                         <div class="table-actions-cell">
                             <button class="btn btn-sm btn-ghost btn-icon" onclick="editProduct(${product.id})" title="${t('products.edit')}"><i class="fas fa-edit"></i></button>
@@ -1936,7 +1729,7 @@ async function loadProducts(searchTerm) {
                 </tr>
             `).join('');
         } else {
-            tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">${t('products.noData')}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted">${t('products.noData')}</td></tr>`;
         }
         
         renderPagination('pagination', 'goToProductPage');
@@ -1964,6 +1757,7 @@ function openAddProductModal() {
     document.getElementById('product-image-url').value = '';
     document.getElementById('product-image-preview').style.display = 'none';
     document.getElementById('product-status').value = 'active';
+    document.getElementById('product-featured').checked = false;
     document.getElementById('product-modal-title').textContent = t('products.add');
     openModal('product-modal');
 }
@@ -1985,10 +1779,11 @@ async function editProduct(id) {
             document.getElementById('product-image').value = product.image || '';
             document.getElementById('product-image-url').value = product.image || '';
             document.getElementById('product-status').value = product.status || 'active';
+            document.getElementById('product-featured').checked = product.featured === true;
             
             const preview = document.getElementById('product-image-preview');
             if (product.image) {
-                preview.src = product.image;
+                preview.src = absUrl(product.image);
                 preview.style.display = 'block';
             } else {
                 preview.style.display = 'none';
@@ -2002,6 +1797,8 @@ async function editProduct(id) {
     }
 }
 
+
+
 async function saveProduct() {
     const data = {
         name: document.getElementById('product-name').value.trim(),
@@ -2011,7 +1808,8 @@ async function saveProduct() {
         stock: parseInt(document.getElementById('product-stock').value) || 0,
         description: document.getElementById('product-description').value.trim(),
         image: document.getElementById('product-image').value.trim(),
-        status: document.getElementById('product-status').value
+        status: document.getElementById('product-status').value,
+        featured: document.getElementById('product-featured').checked
     };
     
     if (!data.name) {
@@ -2062,1010 +1860,6 @@ async function searchProducts(value) {
 }
 
 // ============================================================
-// ORDERS CRUD
-// ============================================================
-let currentOrderId = null;
-
-async function renderOrdersPage() {
-    const content = document.getElementById('page-content');
-    paginationState.dataType = 'orders';
-    paginationState.currentPage = 1;
-    
-    const tableConfig = {
-        thead: `
-            <tr>
-                <th>${t('orders.id')}</th>
-                <th>${t('orders.customer')}</th>
-                <th>${t('orders.product')}</th>
-                <th>${t('orders.quantity')}</th>
-                <th>${t('orders.amount')}</th>
-                <th>${t('orders.status')}</th>
-                <th>${t('orders.date')}</th>
-                <th>${t('orders.actions')}</th>
-            </tr>
-        `,
-        colspan: 8
-    };
-    
-    content.innerHTML = buildTableContainer(
-        t('orders.title'),
-        tableConfig,
-        t('orders.search'),
-        t('orders.add'),
-        'openAddOrderModal',
-        'searchOrders',
-        'renderOrdersPage'
-    );
-    
-    content.insertAdjacentHTML('beforeend', buildOrderModal());
-    await loadOrders();
-}
-
-function buildOrderModal() {
-    return `
-    <div class="modal-overlay" id="order-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="order-modal-title">${t('orders.addEdit')}</h3>
-                <button class="modal-close" onclick="closeModal('order-modal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="order-id">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="order-customer">${t('orders.customer')}</label>
-                        <input type="text" class="form-control" id="order-customer" placeholder="${t('orders.placeholderCustomer')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="order-product">${t('orders.product')}</label>
-                        <input type="text" class="form-control" id="order-product" placeholder="${t('orders.placeholderProduct')}">
-                    </div>
-                </div>
-                <div class="form-row cols-3">
-                    <div class="form-group">
-                        <label for="order-quantity">${t('orders.quantity')}</label>
-                        <input type="number" class="form-control" id="order-quantity" min="1" placeholder="${t('orders.placeholderQuantity')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="order-amount">${t('orders.amount')}</label>
-                        <input type="number" class="form-control" id="order-amount" step="0.01" min="0" placeholder="${t('orders.placeholderAmount')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="order-status">${t('orders.status')}</label>
-                        <select class="form-control" id="order-status">
-                            <option value="pending">${t('orders.pending')}</option>
-                            <option value="processing">${t('orders.processing')}</option>
-                            <option value="completed">${t('orders.completed')}</option>
-                            <option value="cancelled">${t('orders.cancelled')}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="order-date">${t('orders.date')}</label>
-                    <input type="date" class="form-control" id="order-date">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('order-modal')">${t('orders.cancel')}</button>
-                <button class="btn btn-primary" onclick="saveOrder()">${t('orders.save')}</button>
-            </div>
-        </div>
-    </div>`;
-}
-
-async function loadOrders(searchTerm) {
-    const tbody = document.getElementById('table-body');
-    if (!tbody) return;
-    
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('common.loading')}</td></tr>`;
-    
-    try {
-        let params = {
-            order: 'created_at.desc',
-            range: {
-                start: (paginationState.currentPage - 1) * paginationState.pageSize,
-                end: paginationState.currentPage * paginationState.pageSize - 1
-            }
-        };
-        
-        if (searchTerm) {
-            params.filter = { 'customer=ilike': `.*${searchTerm}.*` };
-        }
-        
-        const { data: orders, total } = await supabaseGet('orders', params);
-        
-        paginationState.totalItems = total || 0;
-        
-        if (orders && orders.length > 0) {
-            tbody.innerHTML = orders.map(order => `
-                <tr>
-                    <td>${order.id}</td>
-                    <td>${escapeHtml(order.customer)}</td>
-                    <td>${escapeHtml(order.product)}</td>
-                    <td>${order.quantity}</td>
-                    <td>$${Number(order.amount || 0).toLocaleString()}</td>
-                    <td><span class="status-badge ${order.status}" data-status="${order.status}" data-section="orders">${t('orders.' + (order.status || 'pending'))}</span></td>
-                    <td>${order.date || order.created_at ? new Date(order.date || order.created_at).toLocaleDateString() : '—'}</td>
-                    <td>
-                        <div class="table-actions-cell">
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editOrder(${order.id})" title="${t('orders.edit')}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteOrder(${order.id})" title="${t('orders.delete')}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        } else {
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('orders.noData')}</td></tr>`;
-        }
-        
-        renderPagination('pagination', 'goToOrderPage');
-    } catch (err) {
-        console.error('Load orders error:', err);
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
-    }
-}
-
-function goToOrderPage(page) {
-    paginationState.currentPage = page;
-    loadOrders(document.getElementById('search-input')?.value || '');
-}
-
-function openAddOrderModal() {
-    currentOrderId = null;
-    document.getElementById('order-id').value = '';
-    document.getElementById('order-customer').value = '';
-    document.getElementById('order-product').value = '';
-    document.getElementById('order-quantity').value = '1';
-    document.getElementById('order-amount').value = '';
-    document.getElementById('order-status').value = 'pending';
-    document.getElementById('order-date').value = new Date().toISOString().split('T')[0];
-    document.getElementById('order-modal-title').textContent = t('orders.add');
-    openModal('order-modal');
-}
-
-async function editOrder(id) {
-    currentOrderId = id;
-    document.getElementById('order-modal-title').textContent = t('orders.edit');
-    
-    try {
-        const order = await supabaseGetById('orders', id);
-        if (order) {
-            document.getElementById('order-id').value = order.id;
-            document.getElementById('order-customer').value = order.customer || '';
-            document.getElementById('order-product').value = order.product || '';
-            document.getElementById('order-quantity').value = order.quantity || 1;
-            document.getElementById('order-amount').value = order.amount || '';
-            document.getElementById('order-status').value = order.status || 'pending';
-            document.getElementById('order-date').value = order.date || new Date().toISOString().split('T')[0];
-            openModal('order-modal');
-        }
-    } catch (err) {
-        console.error('Edit order error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function saveOrder() {
-    const data = {
-        customer: document.getElementById('order-customer').value.trim(),
-        product: document.getElementById('order-product').value.trim(),
-        quantity: parseInt(document.getElementById('order-quantity').value) || 1,
-        amount: parseFloat(document.getElementById('order-amount').value) || 0,
-        status: document.getElementById('order-status').value,
-        date: document.getElementById('order-date').value || new Date().toISOString().split('T')[0]
-    };
-    
-    if (!data.customer) {
-        showToast(t('orders.placeholderCustomer') + ' required', 'error');
-        return;
-    }
-    
-    const id = document.getElementById('order-id').value;
-    
-    try {
-        if (id) {
-            await supabaseUpdate('orders', id, data);
-            showToast(t('common.success'));
-        } else {
-            await supabaseInsert('orders', data);
-            showToast(t('common.success'));
-        }
-        
-        closeModal('order-modal');
-        await loadOrders(document.getElementById('search-input')?.value || '');
-    } catch (err) {
-        console.error('Save order error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function deleteOrder(id) {
-    showConfirm(
-        t('orders.deleteTitle'),
-        t('orders.deleteConfirm'),
-        t('orders.delete'),
-        async () => {
-            try {
-                await supabaseDelete('orders', id);
-                showToast(t('common.success'));
-                await loadOrders(document.getElementById('search-input')?.value || '');
-            } catch (err) {
-                console.error('Delete order error:', err);
-                showToast(err.message, 'error');
-            }
-        }
-    );
-}
-
-async function searchOrders(value) {
-    paginationState.currentPage = 1;
-    await loadOrders(value);
-}
-
-// ============================================================
-// CUSTOMERS CRUD
-// ============================================================
-let currentCustomerId = null;
-
-async function renderCustomersPage() {
-    const content = document.getElementById('page-content');
-    paginationState.dataType = 'customers';
-    paginationState.currentPage = 1;
-    
-    const tableConfig = {
-        thead: `
-            <tr>
-                <th>${t('customers.id')}</th>
-                <th>${t('customers.name')}</th>
-                <th>${t('customers.company')}</th>
-                <th>${t('customers.email')}</th>
-                <th>${t('customers.phone')}</th>
-                <th>${t('customers.country')}</th>
-                <th>${t('customers.status')}</th>
-                <th>${t('customers.actions')}</th>
-            </tr>
-        `,
-        colspan: 8
-    };
-    
-    content.innerHTML = buildTableContainer(
-        t('customers.title'),
-        tableConfig,
-        t('customers.search'),
-        t('customers.add'),
-        'openAddCustomerModal',
-        'searchCustomers',
-        'renderCustomersPage'
-    );
-    
-    content.insertAdjacentHTML('beforeend', buildCustomerModal());
-    await loadCustomers();
-}
-
-function buildCustomerModal() {
-    return `
-    <div class="modal-overlay" id="customer-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="customer-modal-title">${t('customers.addEdit')}</h3>
-                <button class="modal-close" onclick="closeModal('customer-modal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="customer-id">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="customer-name">${t('customers.name')}</label>
-                        <input type="text" class="form-control" id="customer-name" placeholder="${t('customers.placeholderName')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="customer-company">${t('customers.company')}</label>
-                        <input type="text" class="form-control" id="customer-company" placeholder="${t('customers.placeholderCompany')}">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="customer-email">${t('customers.email')}</label>
-                        <input type="email" class="form-control" id="customer-email" placeholder="${t('customers.placeholderEmail')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="customer-phone">${t('customers.phone')}</label>
-                        <input type="text" class="form-control" id="customer-phone" placeholder="${t('customers.placeholderPhone')}">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="customer-country">${t('customers.country')}</label>
-                        <input type="text" class="form-control" id="customer-country" placeholder="${t('customers.placeholderCountry')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="customer-status">${t('customers.status')}</label>
-                        <select class="form-control" id="customer-status">
-                            <option value="active">${t('customers.active')}</option>
-                            <option value="inactive">${t('customers.inactive')}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('customer-modal')">${t('customers.cancel')}</button>
-                <button class="btn btn-primary" onclick="saveCustomer()">${t('customers.save')}</button>
-            </div>
-        </div>
-    </div>`;
-}
-
-async function loadCustomers(searchTerm) {
-    const tbody = document.getElementById('table-body');
-    if (!tbody) return;
-    
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('common.loading')}</td></tr>`;
-    
-    try {
-        let params = {
-            order: 'id.desc',
-            range: {
-                start: (paginationState.currentPage - 1) * paginationState.pageSize,
-                end: paginationState.currentPage * paginationState.pageSize - 1
-            }
-        };
-        
-        if (searchTerm) {
-            params.filter = { 'name=ilike': `.*${searchTerm}.*` };
-        }
-        
-        const { data: customers, total } = await supabaseGet('customers', params);
-        
-        paginationState.totalItems = total || 0;
-        
-        if (customers && customers.length > 0) {
-            tbody.innerHTML = customers.map(customer => `
-                <tr>
-                    <td>${customer.id}</td>
-                    <td>${escapeHtml(customer.name)}</td>
-                    <td>${escapeHtml(customer.company)}</td>
-                    <td>${escapeHtml(customer.email)}</td>
-                    <td>${escapeHtml(customer.phone)}</td>
-                    <td>${escapeHtml(customer.country)}</td>
-                    <td><span class="status-badge ${customer.status === 'active' ? 'active' : 'inactive'}" data-status="${customer.status}" data-section="customers">${t('customers.' + (customer.status || 'active'))}</span></td>
-                    <td>
-                        <div class="table-actions-cell">
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editCustomer(${customer.id})" title="${t('customers.edit')}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteCustomer(${customer.id})" title="${t('customers.delete')}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        } else {
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('customers.noData')}</td></tr>`;
-        }
-        
-        renderPagination('pagination', 'goToCustomerPage');
-    } catch (err) {
-        console.error('Load customers error:', err);
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
-    }
-}
-
-function goToCustomerPage(page) {
-    paginationState.currentPage = page;
-    loadCustomers(document.getElementById('search-input')?.value || '');
-}
-
-function openAddCustomerModal() {
-    currentCustomerId = null;
-    document.getElementById('customer-id').value = '';
-    document.getElementById('customer-name').value = '';
-    document.getElementById('customer-company').value = '';
-    document.getElementById('customer-email').value = '';
-    document.getElementById('customer-phone').value = '';
-    document.getElementById('customer-country').value = '';
-    document.getElementById('customer-status').value = 'active';
-    document.getElementById('customer-modal-title').textContent = t('customers.add');
-    openModal('customer-modal');
-}
-
-async function editCustomer(id) {
-    currentCustomerId = id;
-    document.getElementById('customer-modal-title').textContent = t('customers.edit');
-    
-    try {
-        const customer = await supabaseGetById('customers', id);
-        if (customer) {
-            document.getElementById('customer-id').value = customer.id;
-            document.getElementById('customer-name').value = customer.name || '';
-            document.getElementById('customer-company').value = customer.company || '';
-            document.getElementById('customer-email').value = customer.email || '';
-            document.getElementById('customer-phone').value = customer.phone || '';
-            document.getElementById('customer-country').value = customer.country || '';
-            document.getElementById('customer-status').value = customer.status || 'active';
-            openModal('customer-modal');
-        }
-    } catch (err) {
-        console.error('Edit customer error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function saveCustomer() {
-    const data = {
-        name: document.getElementById('customer-name').value.trim(),
-        company: document.getElementById('customer-company').value.trim(),
-        email: document.getElementById('customer-email').value.trim(),
-        phone: document.getElementById('customer-phone').value.trim(),
-        country: document.getElementById('customer-country').value.trim(),
-        status: document.getElementById('customer-status').value
-    };
-    
-    if (!data.name) {
-        showToast(t('customers.placeholderName') + ' required', 'error');
-        return;
-    }
-    
-    const id = document.getElementById('customer-id').value;
-    
-    try {
-        if (id) {
-            await supabaseUpdate('customers', id, data);
-            showToast(t('common.success'));
-        } else {
-            await supabaseInsert('customers', data);
-            showToast(t('common.success'));
-        }
-        
-        closeModal('customer-modal');
-        await loadCustomers(document.getElementById('search-input')?.value || '');
-    } catch (err) {
-        console.error('Save customer error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function deleteCustomer(id) {
-    showConfirm(
-        t('customers.deleteTitle'),
-        t('customers.deleteConfirm'),
-        t('customers.delete'),
-        async () => {
-            try {
-                await supabaseDelete('customers', id);
-                showToast(t('common.success'));
-                await loadCustomers(document.getElementById('search-input')?.value || '');
-            } catch (err) {
-                console.error('Delete customer error:', err);
-                showToast(err.message, 'error');
-            }
-        }
-    );
-}
-
-async function searchCustomers(value) {
-    paginationState.currentPage = 1;
-    await loadCustomers(value);
-}
-
-// ============================================================
-// CERTIFICATIONS CRUD
-// ============================================================
-let currentCertId = null;
-
-async function renderCertificationsPage() {
-    const content = document.getElementById('page-content');
-    paginationState.dataType = 'certifications';
-    paginationState.currentPage = 1;
-    
-    const tableConfig = {
-        thead: `
-            <tr>
-                <th>${t('certifications.id')}</th>
-                <th>${t('certifications.image')}</th>
-                <th>${t('certifications.name')}</th>
-                <th>${t('certifications.description')}</th>
-                <th>${t('certifications.category')}</th>
-                <th>${t('certifications.status')}</th>
-                <th>${t('certifications.actions')}</th>
-            </tr>
-        `,
-        colspan: 7
-    };
-    
-    content.innerHTML = buildTableContainer(
-        t('certifications.title'),
-        tableConfig,
-        t('certifications.search'),
-        t('certifications.add'),
-        'openAddCertModal',
-        'searchCertifications',
-        'renderCertificationsPage'
-    );
-    
-    content.insertAdjacentHTML('beforeend', buildCertModal());
-    
-    setTimeout(() => {
-        setupImageUpload('cert-image-upload', 'cert-image-preview', 'cert-image');
-    }, 100);
-    
-    await loadCertifications();
-}
-
-function buildCertModal() {
-    return `
-    <div class="modal-overlay" id="cert-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="cert-modal-title">${t('certifications.addEdit')}</h3>
-                <button class="modal-close" onclick="closeModal('cert-modal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="cert-id">
-                <div class="form-group">
-                    <label for="cert-name">${t('certifications.name')}</label>
-                    <input type="text" class="form-control" id="cert-name" placeholder="${t('certifications.placeholderName')}">
-                </div>
-                <div class="form-group">
-                    <label for="cert-description">${t('certifications.description')}</label>
-                    <textarea class="form-control" id="cert-description" rows="3" placeholder="${t('certifications.placeholderDescription')}"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="cert-category">${t('certifications.category')}</label>
-                        <input type="text" class="form-control" id="cert-category" placeholder="${t('certifications.placeholderCategory')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="cert-status">${t('certifications.status')}</label>
-                        <select class="form-control" id="cert-status">
-                            <option value="active">${t('certifications.active')}</option>
-                            <option value="inactive">${t('certifications.inactive')}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>${t('certifications.image')}</label>
-                    <input type="hidden" id="cert-image">
-                    <div style="display:flex;gap:12px;align-items:center;">
-                        <input type="file" id="cert-image-upload" accept="image/*" style="display:none;">
-                        <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('cert-image-upload').click()">
-                            <i class="fas fa-upload"></i> ${t('certifications.uploadImage')}
-                        </button>
-                        <input type="text" class="form-control" id="cert-image-url" placeholder="${t('certifications.placeholderImage')}" style="flex:1;" oninput="document.getElementById('cert-image').value=this.value">
-                    </div>
-                    <img id="cert-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('cert-modal')">${t('certifications.cancel')}</button>
-                <button class="btn btn-primary" onclick="saveCertification()">${t('certifications.save')}</button>
-            </div>
-        </div>
-    </div>`;
-}
-
-async function loadCertifications(searchTerm) {
-    const tbody = document.getElementById('table-body');
-    if (!tbody) return;
-    
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('common.loading')}</td></tr>`;
-    
-    try {
-        let params = {
-            order: 'id.desc',
-            range: {
-                start: (paginationState.currentPage - 1) * paginationState.pageSize,
-                end: paginationState.currentPage * paginationState.pageSize - 1
-            }
-        };
-        
-        if (searchTerm) {
-            params.filter = { 'name=ilike': `.*${searchTerm}.*` };
-        }
-        
-        const { data: certs, total } = await supabaseGet('certifications', params);
-        
-        paginationState.totalItems = total || 0;
-        
-        if (certs && certs.length > 0) {
-            tbody.innerHTML = certs.map(cert => `
-                <tr>
-                    <td>${cert.id}</td>
-                    <td>${cert.image ? `<img src="${cert.image}" class="img-thumb" onclick="window.open('${cert.image}','_blank')">` : '—'}</td>
-                    <td>${escapeHtml(cert.name)}</td>
-                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(cert.description)}</td>
-                    <td>${escapeHtml(cert.category)}</td>
-                    <td><span class="status-badge ${cert.status === 'active' ? 'active' : 'inactive'}" data-status="${cert.status}" data-section="certifications">${t('certifications.' + (cert.status || 'active'))}</span></td>
-                    <td>
-                        <div class="table-actions-cell">
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editCertification(${cert.id})" title="${t('certifications.edit')}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteCertification(${cert.id})" title="${t('certifications.delete')}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        } else {
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('certifications.noData')}</td></tr>`;
-        }
-        
-        renderPagination('pagination', 'goToCertPage');
-    } catch (err) {
-        console.error('Load certifications error:', err);
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
-    }
-}
-
-function goToCertPage(page) {
-    paginationState.currentPage = page;
-    loadCertifications(document.getElementById('search-input')?.value || '');
-}
-
-function openAddCertModal() {
-    currentCertId = null;
-    document.getElementById('cert-id').value = '';
-    document.getElementById('cert-name').value = '';
-    document.getElementById('cert-description').value = '';
-    document.getElementById('cert-category').value = 'EN 124';
-    document.getElementById('cert-status').value = 'active';
-    document.getElementById('cert-image').value = '';
-    document.getElementById('cert-image-url').value = '';
-    document.getElementById('cert-image-preview').style.display = 'none';
-    document.getElementById('cert-modal-title').textContent = t('certifications.add');
-    openModal('cert-modal');
-}
-
-async function editCertification(id) {
-    currentCertId = id;
-    document.getElementById('cert-modal-title').textContent = t('certifications.edit');
-    
-    try {
-        const cert = await supabaseGetById('certifications', id);
-        if (cert) {
-            document.getElementById('cert-id').value = cert.id;
-            document.getElementById('cert-name').value = cert.name || '';
-            document.getElementById('cert-description').value = cert.description || '';
-            document.getElementById('cert-category').value = cert.category || '';
-            document.getElementById('cert-status').value = cert.status || 'active';
-            document.getElementById('cert-image').value = cert.image || '';
-            document.getElementById('cert-image-url').value = cert.image || '';
-            
-            const preview = document.getElementById('cert-image-preview');
-            if (cert.image) {
-                preview.src = cert.image;
-                preview.style.display = 'block';
-            } else {
-                preview.style.display = 'none';
-            }
-            
-            openModal('cert-modal');
-        }
-    } catch (err) {
-        console.error('Edit certification error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function saveCertification() {
-    const data = {
-        name: document.getElementById('cert-name').value.trim(),
-        description: document.getElementById('cert-description').value.trim(),
-        category: document.getElementById('cert-category').value.trim(),
-        image: document.getElementById('cert-image').value.trim(),
-        status: document.getElementById('cert-status').value
-    };
-    
-    if (!data.name) {
-        showToast(t('certifications.placeholderName') + ' required', 'error');
-        return;
-    }
-    
-    const id = document.getElementById('cert-id').value;
-    
-    try {
-        if (id) {
-            await supabaseUpdate('certifications', id, data);
-            showToast(t('common.success'));
-        } else {
-            await supabaseInsert('certifications', data);
-            showToast(t('common.success'));
-        }
-        
-        closeModal('cert-modal');
-        await loadCertifications(document.getElementById('search-input')?.value || '');
-    } catch (err) {
-        console.error('Save certification error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function deleteCertification(id) {
-    showConfirm(
-        t('certifications.deleteTitle'),
-        t('certifications.deleteConfirm'),
-        t('certifications.delete'),
-        async () => {
-            try {
-                await supabaseDelete('certifications', id);
-                showToast(t('common.success'));
-                await loadCertifications(document.getElementById('search-input')?.value || '');
-            } catch (err) {
-                console.error('Delete certification error:', err);
-                showToast(err.message, 'error');
-            }
-        }
-    );
-}
-
-async function searchCertifications(value) {
-    paginationState.currentPage = 1;
-    await loadCertifications(value);
-}
-
-// ============================================================
-// NEWS CRUD
-// ============================================================
-let currentNewsId = null;
-
-async function renderNewsPage() {
-    const content = document.getElementById('page-content');
-    paginationState.dataType = 'news';
-    paginationState.currentPage = 1;
-    
-    const tableConfig = {
-        thead: `
-            <tr>
-                <th>${t('news.id')}</th>
-                <th>${t('news.image')}</th>
-                <th>${t('news.title')}</th>
-                <th>${t('news.category')}</th>
-                <th>${t('news.date')}</th>
-                <th>${t('news.status')}</th>
-                <th>${t('news.actions')}</th>
-            </tr>
-        `,
-        colspan: 7
-    };
-    
-    content.innerHTML = buildTableContainer(
-        t('news.title'),
-        tableConfig,
-        t('news.search'),
-        t('news.add'),
-        'openAddNewsModal',
-        'searchNews',
-        'renderNewsPage'
-    );
-    
-    content.insertAdjacentHTML('beforeend', buildNewsModal());
-    
-    setTimeout(() => {
-        setupImageUpload('news-image-upload', 'news-image-preview', 'news-image');
-    }, 100);
-    
-    await loadNews();
-}
-
-function buildNewsModal() {
-    return `
-    <div class="modal-overlay" id="news-modal">
-        <div class="modal modal-lg">
-            <div class="modal-header">
-                <h3 id="news-modal-title">${t('news.addEdit')}</h3>
-                <button class="modal-close" onclick="closeModal('news-modal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="news-id">
-                <div class="form-group">
-                    <label for="news-title">${t('news.title')}</label>
-                    <input type="text" class="form-control" id="news-title" placeholder="${t('news.placeholderTitle')}">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="news-category">${t('news.category')}</label>
-                        <input type="text" class="form-control" id="news-category" placeholder="${t('news.placeholderCategory')}">
-                    </div>
-                    <div class="form-group">
-                        <label for="news-date">${t('news.date')}</label>
-                        <input type="date" class="form-control" id="news-date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="news-summary">${t('news.summary')}</label>
-                    <textarea class="form-control" id="news-summary" rows="2" placeholder="${t('news.placeholderSummary')}"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="news-content">${t('news.content')}</label>
-                    <textarea class="form-control" id="news-content" rows="5" placeholder="${t('news.placeholderContent')}"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>${t('news.image')}</label>
-                        <input type="hidden" id="news-image">
-                        <div style="display:flex;gap:12px;align-items:center;">
-                            <input type="file" id="news-image-upload" accept="image/*" style="display:none;">
-                            <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('news-image-upload').click()">
-                                <i class="fas fa-upload"></i> ${t('news.uploadImage')}
-                            </button>
-                            <input type="text" class="form-control" id="news-image-url" placeholder="${t('news.placeholderImage')}" style="flex:1;" oninput="document.getElementById('news-image').value=this.value">
-                        </div>
-                        <img id="news-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;">
-                    </div>
-                    <div class="form-group">
-                        <label for="news-status">${t('news.status')}</label>
-                        <select class="form-control" id="news-status">
-                            <option value="published">${t('news.published')}</option>
-                            <option value="draft">${t('news.draft')}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('news-modal')">${t('news.cancel')}</button>
-                <button class="btn btn-primary" onclick="saveNews()">${t('news.save')}</button>
-            </div>
-        </div>
-    </div>`;
-}
-
-async function loadNews(searchTerm) {
-    const tbody = document.getElementById('table-body');
-    if (!tbody) return;
-    
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('common.loading')}</td></tr>`;
-    
-    try {
-        let params = {
-            order: 'created_at.desc',
-            range: {
-                start: (paginationState.currentPage - 1) * paginationState.pageSize,
-                end: paginationState.currentPage * paginationState.pageSize - 1
-            }
-        };
-        
-        if (searchTerm) {
-            params.filter = { 'title=ilike': `.*${searchTerm}.*` };
-        }
-        
-        const { data: newsItems, total } = await supabaseGet('news', params);
-        
-        paginationState.totalItems = total || 0;
-        
-        if (newsItems && newsItems.length > 0) {
-            tbody.innerHTML = newsItems.map(item => `
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.image ? `<img src="${item.image}" class="img-thumb" onclick="window.open('${item.image}','_blank')">` : '—'}</td>
-                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(item.title)}</td>
-                    <td>${escapeHtml(item.category)}</td>
-                    <td>${item.date || new Date(item.created_at).toLocaleDateString()}</td>
-                    <td><span class="status-badge ${item.status === 'published' ? 'published' : 'draft'}" data-status="${item.status}" data-section="news">${t('news.' + (item.status || 'published'))}</span></td>
-                    <td>
-                        <div class="table-actions-cell">
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editNews(${item.id})" title="${t('news.edit')}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteNews(${item.id})" title="${t('news.delete')}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
-        } else {
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('news.noData')}</td></tr>`;
-        }
-        
-        renderPagination('pagination', 'goToNewsPage');
-    } catch (err) {
-        console.error('Load news error:', err);
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
-    }
-}
-
-function goToNewsPage(page) {
-    paginationState.currentPage = page;
-    loadNews(document.getElementById('search-input')?.value || '');
-}
-
-function openAddNewsModal() {
-    currentNewsId = null;
-    document.getElementById('news-id').value = '';
-    document.getElementById('news-title').value = '';
-    document.getElementById('news-category').value = 'Company';
-    document.getElementById('news-date').value = new Date().toISOString().split('T')[0];
-    document.getElementById('news-summary').value = '';
-    document.getElementById('news-content').value = '';
-    document.getElementById('news-image').value = '';
-    document.getElementById('news-image-url').value = '';
-    document.getElementById('news-image-preview').style.display = 'none';
-    document.getElementById('news-status').value = 'published';
-    document.getElementById('news-modal-title').textContent = t('news.add');
-    openModal('news-modal');
-}
-
-async function editNews(id) {
-    currentNewsId = id;
-    document.getElementById('news-modal-title').textContent = t('news.edit');
-    
-    try {
-        const item = await supabaseGetById('news', id);
-        if (item) {
-            document.getElementById('news-id').value = item.id;
-            document.getElementById('news-title').value = item.title || '';
-            document.getElementById('news-category').value = item.category || '';
-            document.getElementById('news-date').value = item.date || new Date().toISOString().split('T')[0];
-            document.getElementById('news-summary').value = item.summary || '';
-            document.getElementById('news-content').value = item.content || '';
-            document.getElementById('news-image').value = item.image || '';
-            document.getElementById('news-image-url').value = item.image || '';
-            document.getElementById('news-status').value = item.status || 'published';
-            
-            const preview = document.getElementById('news-image-preview');
-            if (item.image) {
-                preview.src = item.image;
-                preview.style.display = 'block';
-            } else {
-                preview.style.display = 'none';
-            }
-            
-            openModal('news-modal');
-        }
-    } catch (err) {
-        console.error('Edit news error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function saveNews() {
-    const data = {
-        title: document.getElementById('news-title').value.trim(),
-        category: document.getElementById('news-category').value.trim(),
-        date: document.getElementById('news-date').value || new Date().toISOString().split('T')[0],
-        summary: document.getElementById('news-summary').value.trim(),
-        content: document.getElementById('news-content').value.trim(),
-        image: document.getElementById('news-image').value.trim(),
-        status: document.getElementById('news-status').value
-    };
-    
-    if (!data.title) {
-        showToast(t('news.placeholderTitle') + ' required', 'error');
-        return;
-    }
-    
-    const id = document.getElementById('news-id').value;
-    
-    try {
-        if (id) {
-            await supabaseUpdate('news', id, data);
-            showToast(t('common.success'));
-        } else {
-            await supabaseInsert('news', data);
-            showToast(t('common.success'));
-        }
-        
-        closeModal('news-modal');
-        await loadNews(document.getElementById('search-input')?.value || '');
-    } catch (err) {
-        console.error('Save news error:', err);
-        showToast(err.message, 'error');
-    }
-}
-
-async function deleteNews(id) {
-    showConfirm(
-        t('news.deleteTitle'),
-        t('news.deleteConfirm'),
-        t('news.delete'),
-        async () => {
-            try {
-                await supabaseDelete('news', id);
-                showToast(t('common.success'));
-                await loadNews(document.getElementById('search-input')?.value || '');
-            } catch (err) {
-                console.error('Delete news error:', err);
-                showToast(err.message, 'error');
-            }
-        }
-    );
-}
-
-async function searchNews(value) {
-    paginationState.currentPage = 1;
-    await loadNews(value);
-}
-
-// ============================================================
 // COMPARISONS CRUD
 // ============================================================
 let currentComparisonId = null;
@@ -3091,7 +1885,7 @@ async function renderComparisonsPage() {
     };
     
     content.innerHTML = buildTableContainer(
-        t('comparisons.title'),
+        t('comparisons.pageTitle'),
         tableConfig,
         t('comparisons.search'),
         t('comparisons.add'),
@@ -3395,7 +2189,9 @@ async function loadMessages(searchTerm) {
         
         if (messages && messages.length > 0) {
             tbody.innerHTML = messages.map(msg => {
-                const status = msg.status || 'pending';
+                // The contact form creates records with `new`; the admin UI
+                // uses `pending` for every unread message.
+                const status = msg.status === 'read' ? 'read' : 'pending';
                 const statusClass = status === 'read' ? 'completed' : 'pending';
                 return `
                     <tr style="${status === 'pending' ? 'font-weight:600;' : ''}">
@@ -3501,4 +2297,996 @@ async function deleteMessage(id) {
             }
         }
     );
+}
+
+
+// ============================================================
+// Certification CRUD (restored)
+// ============================================================
+async function saveCertification() {
+    const data = {
+        name: document.getElementById('cert-name').value.trim(),
+        description: document.getElementById('cert-description').value.trim(),
+        image: document.getElementById('cert-image').value.trim(),
+        status: document.getElementById('cert-status').value
+    };
+    
+    if (!data.name) {
+        showToast(t('certifications.placeholderName') + ' required', 'error');
+        return;
+    }
+    
+    const id = document.getElementById('cert-id').value;
+    
+    try {
+        if (id) {
+            await supabaseUpdate('certifications', id, data);
+            showToast(t('common.success'));
+        } else {
+            await supabaseInsert('certifications', data);
+            showToast(t('common.success'));
+        }
+        
+        closeModal('cert-modal');
+        await loadCertifications(document.getElementById('search-input')?.value || '');
+    } catch (err) {
+        console.error('Save certification error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteCertification(id) {
+    showConfirm(
+        t('certifications.deleteTitle'),
+        t('certifications.deleteConfirm'),
+        t('certifications.delete'),
+        async () => {
+            try {
+                await supabaseDelete('certifications', id);
+                showToast(t('common.success'));
+                await loadCertifications(document.getElementById('search-input')?.value || '');
+            } catch (err) {
+                console.error('Delete certification error:', err);
+                showToast(err.message, 'error');
+            }
+        }
+    );
+}
+
+// ============================================================
+// News CRUD (restored)
+// ============================================================
+async function saveNews() {
+    const data = {
+        title: document.getElementById('news-title').value.trim(),
+        category: document.getElementById('news-category').value.trim(),
+        summary: document.getElementById('news-summary').value.trim(),
+        content: document.getElementById('news-content').value.trim(),
+        image: document.getElementById('news-image').value.trim(),
+        status: document.getElementById('news-status').value
+    };
+    
+    if (!data.title) {
+        showToast(t('news.placeholderTitle') + ' required', 'error');
+        return;
+    }
+    
+    const id = document.getElementById('news-id').value;
+    
+    try {
+        if (id) {
+            await supabaseUpdate('news', id, data);
+            showToast(t('common.success'));
+        } else {
+            await supabaseInsert('news', data);
+            showToast(t('common.success'));
+        }
+        
+        closeModal('news-modal');
+        await loadNews(document.getElementById('search-input')?.value || '');
+    } catch (err) {
+        console.error('Save news error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteNews(id) {
+    showConfirm(
+        t('news.deleteTitle'),
+        t('news.deleteConfirm'),
+        t('news.delete'),
+        async () => {
+            try {
+                await supabaseDelete('news', id);
+                showToast(t('common.success'));
+                await loadNews(document.getElementById('search-input')?.value || '');
+            } catch (err) {
+                console.error('Delete news error:', err);
+                showToast(err.message, 'error');
+            }
+        }
+    );
+}
+
+// ============================================================
+// Restored admin modules
+// ============================================================
+let currentOrderId = null;
+let currentCustomerId = null;
+let currentCertId = null;
+let currentNewsId = null;
+
+async function renderOrdersPage() {
+    const content = document.getElementById('page-content');
+    paginationState.dataType = 'orders';
+    paginationState.currentPage = 1;
+    
+    const tableConfig = {
+        thead: `
+            <tr>
+                <th>${t('orders.id')}</th>
+                <th>${t('orders.customer')}</th>
+                <th>${t('orders.product')}</th>
+                <th>${t('orders.quantity')}</th>
+                <th>${t('orders.amount')}</th>
+                <th>${t('orders.status')}</th>
+                <th>${t('orders.date')}</th>
+                <th>${t('orders.actions')}</th>
+            </tr>
+        `,
+        colspan: 8
+    };
+    
+    content.innerHTML = buildTableContainer(
+        t('orders.title'),
+        tableConfig,
+        t('orders.search'),
+        t('orders.add'),
+        'openAddOrderModal',
+        'searchOrders',
+        'renderOrdersPage'
+    );
+    
+    content.insertAdjacentHTML('beforeend', buildOrderModal());
+    await loadOrders();
+}
+
+function buildOrderModal() {
+    return `
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="order-modal-title">${t('orders.addEdit')}</h3>
+                <button class="modal-close" onclick="closeModal('order-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="order-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-customer">${t('orders.customer')}</label>
+                        <input type="text" class="form-control" id="order-customer" placeholder="${t('orders.placeholderCustomer')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-product">${t('orders.product')}</label>
+                        <input type="text" class="form-control" id="order-product" placeholder="${t('orders.placeholderProduct')}">
+                    </div>
+                </div>
+                <div class="form-row cols-3">
+                    <div class="form-group">
+                        <label for="order-quantity">${t('orders.quantity')}</label>
+                        <input type="number" class="form-control" id="order-quantity" min="1" placeholder="${t('orders.placeholderQuantity')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-amount">${t('orders.amount')}</label>
+                        <input type="number" class="form-control" id="order-amount" step="0.01" min="0" placeholder="${t('orders.placeholderAmount')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-status">${t('orders.status')}</label>
+                        <select class="form-control" id="order-status">
+                            <option value="pending">${t('orders.pending')}</option>
+                            <option value="processing">${t('orders.processing')}</option>
+                            <option value="completed">${t('orders.completed')}</option>
+                            <option value="cancelled">${t('orders.cancelled')}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="order-date">${t('orders.date')}</label>
+                    <input type="date" class="form-control" id="order-date">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('order-modal')">${t('orders.cancel')}</button>
+                <button class="btn btn-primary" onclick="saveOrder()">${t('orders.save')}</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+async function loadOrders(searchTerm) {
+    const tbody = document.getElementById('table-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    
+    try {
+        let params = {
+            order: 'created_at.desc',
+            range: {
+                start: (paginationState.currentPage - 1) * paginationState.pageSize,
+                end: paginationState.currentPage * paginationState.pageSize - 1
+            }
+        };
+        
+        if (searchTerm) {
+            params.filter = { 'customer=ilike': `.*${searchTerm}.*` };
+        }
+        
+        const { data: orders, total } = await supabaseGet('orders', params);
+        
+        paginationState.totalItems = total || 0;
+        
+        if (orders && orders.length > 0) {
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${escapeHtml(order.customer)}</td>
+                    <td>${escapeHtml(order.product)}</td>
+                    <td>${order.quantity}</td>
+                    <td>$${Number(order.amount || 0).toLocaleString()}</td>
+                    <td><span class="status-badge ${order.status}" data-status="${order.status}" data-section="orders">${t('orders.' + (order.status || 'pending'))}</span></td>
+                    <td>${order.date || order.created_at ? new Date(order.date || order.created_at).toLocaleDateString() : '—'}</td>
+                    <td>
+                        <div class="table-actions-cell">
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editOrder(${order.id})" title="${t('orders.edit')}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteOrder(${order.id})" title="${t('orders.delete')}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('orders.noData')}</td></tr>`;
+        }
+        
+        renderPagination('pagination', 'goToOrderPage');
+    } catch (err) {
+        console.error('Load orders error:', err);
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
+    }
+}
+
+function goToOrderPage(page) {
+    paginationState.currentPage = page;
+    loadOrders(document.getElementById('search-input')?.value || '');
+}
+
+function openAddOrderModal() {
+    currentOrderId = null;
+    document.getElementById('order-id').value = '';
+    document.getElementById('order-customer').value = '';
+    document.getElementById('order-product').value = '';
+    document.getElementById('order-quantity').value = '1';
+    document.getElementById('order-amount').value = '';
+    document.getElementById('order-status').value = 'pending';
+    document.getElementById('order-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('order-modal-title').textContent = t('orders.add');
+    openModal('order-modal');
+}
+
+async function editOrder(id) {
+    currentOrderId = id;
+    document.getElementById('order-modal-title').textContent = t('orders.edit');
+    
+    try {
+        const order = await supabaseGetById('orders', id);
+        if (order) {
+            document.getElementById('order-id').value = order.id;
+            document.getElementById('order-customer').value = order.customer || '';
+            document.getElementById('order-product').value = order.product || '';
+            document.getElementById('order-quantity').value = order.quantity || 1;
+            document.getElementById('order-amount').value = order.amount || '';
+            document.getElementById('order-status').value = order.status || 'pending';
+            document.getElementById('order-date').value = order.date || new Date().toISOString().split('T')[0];
+            openModal('order-modal');
+        }
+    } catch (err) {
+        console.error('Edit order error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function saveOrder() {
+    const data = {
+        customer: document.getElementById('order-customer').value.trim(),
+        product: document.getElementById('order-product').value.trim(),
+        quantity: parseInt(document.getElementById('order-quantity').value) || 1,
+        amount: parseFloat(document.getElementById('order-amount').value) || 0,
+        status: document.getElementById('order-status').value,
+        date: document.getElementById('order-date').value || new Date().toISOString().split('T')[0]
+    };
+    
+    if (!data.customer) {
+        showToast(t('orders.placeholderCustomer') + ' required', 'error');
+        return;
+    }
+    
+    const id = document.getElementById('order-id').value;
+    
+    try {
+        if (id) {
+            await supabaseUpdate('orders', id, data);
+            showToast(t('common.success'));
+        } else {
+            await supabaseInsert('orders', data);
+            showToast(t('common.success'));
+        }
+        
+        closeModal('order-modal');
+        await loadOrders(document.getElementById('search-input')?.value || '');
+    } catch (err) {
+        console.error('Save order error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteOrder(id) {
+    showConfirm(
+        t('orders.deleteTitle'),
+        t('orders.deleteConfirm'),
+        t('orders.delete'),
+        async () => {
+            try {
+                await supabaseDelete('orders', id);
+                showToast(t('common.success'));
+                await loadOrders(document.getElementById('search-input')?.value || '');
+            } catch (err) {
+                console.error('Delete order error:', err);
+                showToast(err.message, 'error');
+            }
+        }
+    );
+}
+
+async function searchOrders(value) {
+    paginationState.currentPage = 1;
+    await loadOrders(value);
+}
+
+async function renderCustomersPage() {
+    const content = document.getElementById('page-content');
+    paginationState.dataType = 'customers';
+    paginationState.currentPage = 1;
+    
+    const tableConfig = {
+        thead: `
+            <tr>
+                <th>${t('customers.id')}</th>
+                <th>${t('customers.name')}</th>
+                <th>${t('customers.company')}</th>
+                <th>${t('customers.email')}</th>
+                <th>${t('customers.phone')}</th>
+                <th>${t('customers.country')}</th>
+                <th>${t('customers.status')}</th>
+                <th>${t('customers.actions')}</th>
+            </tr>
+        `,
+        colspan: 8
+    };
+    
+    content.innerHTML = buildTableContainer(
+        t('customers.title'),
+        tableConfig,
+        t('customers.search'),
+        t('customers.add'),
+        'openAddCustomerModal',
+        'searchCustomers',
+        'renderCustomersPage'
+    );
+    
+    content.insertAdjacentHTML('beforeend', buildCustomerModal());
+    await loadCustomers();
+}
+
+function buildCustomerModal() {
+    return `
+    <div class="modal-overlay" id="customer-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="customer-modal-title">${t('customers.addEdit')}</h3>
+                <button class="modal-close" onclick="closeModal('customer-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="customer-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-name">${t('customers.name')}</label>
+                        <input type="text" class="form-control" id="customer-name" placeholder="${t('customers.placeholderName')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-company">${t('customers.company')}</label>
+                        <input type="text" class="form-control" id="customer-company" placeholder="${t('customers.placeholderCompany')}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-email">${t('customers.email')}</label>
+                        <input type="email" class="form-control" id="customer-email" placeholder="${t('customers.placeholderEmail')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">${t('customers.phone')}</label>
+                        <input type="text" class="form-control" id="customer-phone" placeholder="${t('customers.placeholderPhone')}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-country">${t('customers.country')}</label>
+                        <input type="text" class="form-control" id="customer-country" placeholder="${t('customers.placeholderCountry')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-status">${t('customers.status')}</label>
+                        <select class="form-control" id="customer-status">
+                            <option value="active">${t('customers.active')}</option>
+                            <option value="inactive">${t('customers.inactive')}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('customer-modal')">${t('customers.cancel')}</button>
+                <button class="btn btn-primary" onclick="saveCustomer()">${t('customers.save')}</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+async function loadCustomers(searchTerm) {
+    const tbody = document.getElementById('table-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    
+    try {
+        let params = {
+            order: 'id.desc',
+            range: {
+                start: (paginationState.currentPage - 1) * paginationState.pageSize,
+                end: paginationState.currentPage * paginationState.pageSize - 1
+            }
+        };
+        
+        if (searchTerm) {
+            params.filter = { 'name=ilike': `.*${searchTerm}.*` };
+        }
+        
+        const { data: customers, total } = await supabaseGet('customers', params);
+        
+        paginationState.totalItems = total || 0;
+        
+        if (customers && customers.length > 0) {
+            tbody.innerHTML = customers.map(customer => `
+                <tr>
+                    <td>${customer.id}</td>
+                    <td>${escapeHtml(customer.name)}</td>
+                    <td>${escapeHtml(customer.company)}</td>
+                    <td>${escapeHtml(customer.email)}</td>
+                    <td>${escapeHtml(customer.phone)}</td>
+                    <td>${escapeHtml(customer.country)}</td>
+                    <td><span class="status-badge ${customer.status === 'active' ? 'active' : 'inactive'}" data-status="${customer.status}" data-section="customers">${t('customers.' + (customer.status || 'active'))}</span></td>
+                    <td>
+                        <div class="table-actions-cell">
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editCustomer(${customer.id})" title="${t('customers.edit')}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteCustomer(${customer.id})" title="${t('customers.delete')}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('customers.noData')}</td></tr>`;
+        }
+        
+        renderPagination('pagination', 'goToCustomerPage');
+    } catch (err) {
+        console.error('Load customers error:', err);
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
+    }
+}
+
+function goToCustomerPage(page) {
+    paginationState.currentPage = page;
+    loadCustomers(document.getElementById('search-input')?.value || '');
+}
+
+function openAddCustomerModal() {
+    currentCustomerId = null;
+    document.getElementById('customer-id').value = '';
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-company').value = '';
+    document.getElementById('customer-email').value = '';
+    document.getElementById('customer-phone').value = '';
+    document.getElementById('customer-country').value = '';
+    document.getElementById('customer-status').value = 'active';
+    document.getElementById('customer-modal-title').textContent = t('customers.add');
+    openModal('customer-modal');
+}
+
+async function editCustomer(id) {
+    currentCustomerId = id;
+    document.getElementById('customer-modal-title').textContent = t('customers.edit');
+    
+    try {
+        const customer = await supabaseGetById('customers', id);
+        if (customer) {
+            document.getElementById('customer-id').value = customer.id;
+            document.getElementById('customer-name').value = customer.name || '';
+            document.getElementById('customer-company').value = customer.company || '';
+            document.getElementById('customer-email').value = customer.email || '';
+            document.getElementById('customer-phone').value = customer.phone || '';
+            document.getElementById('customer-country').value = customer.country || '';
+            document.getElementById('customer-status').value = customer.status || 'active';
+            openModal('customer-modal');
+        }
+    } catch (err) {
+        console.error('Edit customer error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function saveCustomer() {
+    const data = {
+        name: document.getElementById('customer-name').value.trim(),
+        company: document.getElementById('customer-company').value.trim(),
+        email: document.getElementById('customer-email').value.trim(),
+        phone: document.getElementById('customer-phone').value.trim(),
+        country: document.getElementById('customer-country').value.trim(),
+        status: document.getElementById('customer-status').value
+    };
+    
+    if (!data.name) {
+        showToast(t('customers.placeholderName') + ' required', 'error');
+        return;
+    }
+    
+    const id = document.getElementById('customer-id').value;
+    
+    try {
+        if (id) {
+            await supabaseUpdate('customers', id, data);
+            showToast(t('common.success'));
+        } else {
+            await supabaseInsert('customers', data);
+            showToast(t('common.success'));
+        }
+        
+        closeModal('customer-modal');
+        await loadCustomers(document.getElementById('search-input')?.value || '');
+    } catch (err) {
+        console.error('Save customer error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteCustomer(id) {
+    showConfirm(
+        t('customers.deleteTitle'),
+        t('customers.deleteConfirm'),
+        t('customers.delete'),
+        async () => {
+            try {
+                await supabaseDelete('customers', id);
+                showToast(t('common.success'));
+                await loadCustomers(document.getElementById('search-input')?.value || '');
+            } catch (err) {
+                console.error('Delete customer error:', err);
+                showToast(err.message, 'error');
+            }
+        }
+    );
+}
+
+async function searchCustomers(value) {
+    paginationState.currentPage = 1;
+    await loadCustomers(value);
+}
+
+async function renderCertificationsPage() {
+    const content = document.getElementById('page-content');
+    paginationState.dataType = 'certifications';
+    paginationState.currentPage = 1;
+    
+    const tableConfig = {
+        thead: `
+            <tr>
+                <th>${t('certifications.id')}</th>
+                <th>${t('certifications.image')}</th>
+                <th>${t('certifications.name')}</th>
+                <th>${t('certifications.description')}</th>
+                <th>${t('certifications.category')}</th>
+                <th>${t('certifications.status')}</th>
+                <th>${t('certifications.actions')}</th>
+            </tr>
+        `,
+        colspan: 7
+    };
+    
+    content.innerHTML = buildTableContainer(
+        t('certifications.title'),
+        tableConfig,
+        t('certifications.search'),
+        t('certifications.add'),
+        'openAddCertModal',
+        'searchCertifications',
+        'renderCertificationsPage'
+    );
+    
+    content.insertAdjacentHTML('beforeend', buildCertModal());
+    
+    setTimeout(() => {
+        setupImageUpload('cert-image-upload', 'cert-image-preview', 'cert-image', 'certs');
+    }, 100);
+    
+    await loadCertifications();
+}
+
+function buildCertModal() {
+    return `
+    <div class="modal-overlay" id="cert-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="cert-modal-title">${t('certifications.addEdit')}</h3>
+                <button class="modal-close" onclick="closeModal('cert-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="cert-id">
+                <div class="form-group">
+                    <label for="cert-name">${t('certifications.name')}</label>
+                    <input type="text" class="form-control" id="cert-name" placeholder="${t('certifications.placeholderName')}">
+                </div>
+                <div class="form-group">
+                    <label for="cert-description">${t('certifications.description')}</label>
+                    <textarea class="form-control" id="cert-description" rows="3" placeholder="${t('certifications.placeholderDescription')}"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cert-category">${t('certifications.category')}</label>
+                        <input type="text" class="form-control" id="cert-category" placeholder="${t('certifications.placeholderCategory')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="cert-status">${t('certifications.status')}</label>
+                        <select class="form-control" id="cert-status">
+                            <option value="active">${t('certifications.active')}</option>
+                            <option value="inactive">${t('certifications.inactive')}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>${t('certifications.image')}</label>
+                    <input type="hidden" id="cert-image">
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <input type="file" id="cert-image-upload" accept="image/*" style="display:none;">
+                        <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('cert-image-upload').click()">
+                            <i class="fas fa-upload"></i> ${t('certifications.uploadImage')}
+                        </button>
+                        <input type="text" class="form-control" id="cert-image-url" placeholder="${t('certifications.placeholderImage')}" style="flex:1;" oninput="document.getElementById('cert-image').value=this.value">
+                    </div>
+                    <img id="cert-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('cert-modal')">${t('certifications.cancel')}</button>
+                <button class="btn btn-primary" onclick="saveCertification()">${t('certifications.save')}</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+async function loadCertifications(searchTerm) {
+    const tbody = document.getElementById('table-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    
+    try {
+        let params = {
+            order: 'id.desc',
+            range: {
+                start: (paginationState.currentPage - 1) * paginationState.pageSize,
+                end: paginationState.currentPage * paginationState.pageSize - 1
+            }
+        };
+        
+        if (searchTerm) {
+            params.filter = { 'name=ilike': `.*${searchTerm}.*` };
+        }
+        
+        const { data: certs, total } = await supabaseGet('certifications', params);
+        
+        paginationState.totalItems = total || 0;
+        
+        if (certs && certs.length > 0) {
+            tbody.innerHTML = certs.map(cert => `
+                <tr>
+                    <td>${cert.id}</td>
+                    <td>${cert.image ? `<img src="${absUrl(cert.image)}" class="img-thumb" onclick="window.open('${absUrl(cert.image)}','_blank')">` : '—'}</td>
+                    <td>${escapeHtml(cert.name)}</td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(cert.description)}</td>
+                    <td>${escapeHtml(cert.category)}</td>
+                    <td><span class="status-badge ${cert.status === 'active' ? 'active' : 'inactive'}" data-status="${cert.status}" data-section="certifications">${t('certifications.' + (cert.status || 'active'))}</span></td>
+                    <td>
+                        <div class="table-actions-cell">
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editCertification(${cert.id})" title="${t('certifications.edit')}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteCertification(${cert.id})" title="${t('certifications.delete')}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('certifications.noData')}</td></tr>`;
+        }
+        
+        renderPagination('pagination', 'goToCertPage');
+    } catch (err) {
+        console.error('Load certifications error:', err);
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
+    }
+}
+
+function goToCertPage(page) {
+    paginationState.currentPage = page;
+    loadCertifications(document.getElementById('search-input')?.value || '');
+}
+
+function openAddCertModal() {
+    currentCertId = null;
+    document.getElementById('cert-id').value = '';
+    document.getElementById('cert-name').value = '';
+    document.getElementById('cert-description').value = '';
+    document.getElementById('cert-category').value = 'EN 124';
+    document.getElementById('cert-status').value = 'active';
+    document.getElementById('cert-image').value = '';
+    document.getElementById('cert-image-url').value = '';
+    document.getElementById('cert-image-preview').style.display = 'none';
+    document.getElementById('cert-modal-title').textContent = t('certifications.add');
+    openModal('cert-modal');
+}
+
+async function editCertification(id) {
+    currentCertId = id;
+    document.getElementById('cert-modal-title').textContent = t('certifications.edit');
+    
+    try {
+        const cert = await supabaseGetById('certifications', id);
+        if (cert) {
+            document.getElementById('cert-id').value = cert.id;
+            document.getElementById('cert-name').value = cert.name || '';
+            document.getElementById('cert-description').value = cert.description || '';
+            document.getElementById('cert-category').value = cert.category || '';
+            document.getElementById('cert-status').value = cert.status || 'active';
+            document.getElementById('cert-image').value = cert.image || '';
+            document.getElementById('cert-image-url').value = cert.image || '';
+            
+            const preview = document.getElementById('cert-image-preview');
+            if (cert.image) {
+                preview.src = absUrl(cert.image);
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+            
+            openModal('cert-modal');
+        }
+    } catch (err) {
+        console.error('Edit certification error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+async function searchCertifications(value) {
+    paginationState.currentPage = 1;
+    await loadCertifications(value);
+}
+
+async function renderNewsPage() {
+    const content = document.getElementById('page-content');
+    paginationState.dataType = 'news';
+    paginationState.currentPage = 1;
+    
+    const tableConfig = {
+        thead: `
+            <tr>
+                <th>${t('news.id')}</th>
+                <th>${t('news.image')}</th>
+                <th>${t('news.title')}</th>
+                <th>${t('news.category')}</th>
+                <th>${t('news.date')}</th>
+                <th>${t('news.status')}</th>
+                <th>${t('news.actions')}</th>
+            </tr>
+        `,
+        colspan: 7
+    };
+    
+    content.innerHTML = buildTableContainer(
+        t('news.title'),
+        tableConfig,
+        t('news.search'),
+        t('news.add'),
+        'openAddNewsModal',
+        'searchNews',
+        'renderNewsPage'
+    );
+    
+    content.insertAdjacentHTML('beforeend', buildNewsModal());
+    
+    setTimeout(() => {
+        setupImageUpload('news-image-upload', 'news-image-preview', 'news-image', 'news');
+    }, 100);
+    
+    await loadNews();
+}
+
+function buildNewsModal() {
+    return `
+    <div class="modal-overlay" id="news-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="news-modal-title">${t('news.addEdit')}</h3>
+                <button class="modal-close" onclick="closeModal('news-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="news-id">
+                <div class="form-group">
+                    <label for="news-title">${t('news.title')}</label>
+                    <input type="text" class="form-control" id="news-title" placeholder="${t('news.placeholderTitle')}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="news-category">${t('news.category')}</label>
+                        <input type="text" class="form-control" id="news-category" placeholder="${t('news.placeholderCategory')}">
+                    </div>
+                    <div class="form-group">
+                        <label for="news-date">${t('news.date')}</label>
+                        <input type="date" class="form-control" id="news-date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="news-summary">${t('news.summary')}</label>
+                    <textarea class="form-control" id="news-summary" rows="2" placeholder="${t('news.placeholderSummary')}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="news-content">${t('news.content')}</label>
+                    <textarea class="form-control" id="news-content" rows="5" placeholder="${t('news.placeholderContent')}"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('news.image')}</label>
+                        <input type="hidden" id="news-image">
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <input type="file" id="news-image-upload" accept="image/*" style="display:none;">
+                            <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('news-image-upload').click()">
+                                <i class="fas fa-upload"></i> ${t('news.uploadImage')}
+                            </button>
+                            <input type="text" class="form-control" id="news-image-url" placeholder="${t('news.placeholderImage')}" style="flex:1;" oninput="document.getElementById('news-image').value=this.value">
+                        </div>
+                        <img id="news-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="news-status">${t('news.status')}</label>
+                        <select class="form-control" id="news-status">
+                            <option value="published">${t('news.published')}</option>
+                            <option value="draft">${t('news.draft')}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('news-modal')">${t('news.cancel')}</button>
+                <button class="btn btn-primary" onclick="saveNews()">${t('news.save')}</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+async function loadNews(searchTerm) {
+    const tbody = document.getElementById('table-body');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    
+    try {
+        let params = {
+            order: 'created_at.desc',
+            range: {
+                start: (paginationState.currentPage - 1) * paginationState.pageSize,
+                end: paginationState.currentPage * paginationState.pageSize - 1
+            }
+        };
+        
+        if (searchTerm) {
+            params.filter = { 'title=ilike': `.*${searchTerm}.*` };
+        }
+        
+        const { data: newsItems, total } = await supabaseGet('news', params);
+        
+        paginationState.totalItems = total || 0;
+        
+        if (newsItems && newsItems.length > 0) {
+            tbody.innerHTML = newsItems.map(item => `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.image ? `<img src="${absUrl(item.image)}" class="img-thumb" onclick="window.open('${absUrl(item.image)}','_blank')">` : '—'}</td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(item.title)}</td>
+                    <td>${escapeHtml(item.category)}</td>
+                    <td>${item.date || new Date(item.created_at).toLocaleDateString()}</td>
+                    <td><span class="status-badge ${item.status === 'published' ? 'published' : 'draft'}" data-status="${item.status}" data-section="news">${t('news.' + (item.status || 'published'))}</span></td>
+                    <td>
+                        <div class="table-actions-cell">
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="editNews(${item.id})" title="${t('news.edit')}"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-ghost btn-icon" onclick="deleteNews(${item.id})" title="${t('news.delete')}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">${t('news.noData')}</td></tr>`;
+        }
+        
+        renderPagination('pagination', 'goToNewsPage');
+    } catch (err) {
+        console.error('Load news error:', err);
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
+    }
+}
+
+function goToNewsPage(page) {
+    paginationState.currentPage = page;
+    loadNews(document.getElementById('search-input')?.value || '');
+}
+
+function openAddNewsModal() {
+    currentNewsId = null;
+    document.getElementById('news-id').value = '';
+    document.getElementById('news-title').value = '';
+    document.getElementById('news-category').value = 'Company';
+    document.getElementById('news-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('news-summary').value = '';
+    document.getElementById('news-content').value = '';
+    document.getElementById('news-image').value = '';
+    document.getElementById('news-image-url').value = '';
+    document.getElementById('news-image-preview').style.display = 'none';
+    document.getElementById('news-status').value = 'published';
+    document.getElementById('news-modal-title').textContent = t('news.add');
+    openModal('news-modal');
+}
+
+async function editNews(id) {
+    currentNewsId = id;
+    document.getElementById('news-modal-title').textContent = t('news.edit');
+    
+    try {
+        const item = await supabaseGetById('news', id);
+        if (item) {
+            document.getElementById('news-id').value = item.id;
+            document.getElementById('news-title').value = item.title || '';
+            document.getElementById('news-category').value = item.category || '';
+            document.getElementById('news-date').value = item.date || new Date().toISOString().split('T')[0];
+            document.getElementById('news-summary').value = item.summary || '';
+            document.getElementById('news-content').value = item.content || '';
+            document.getElementById('news-image').value = item.image || '';
+            document.getElementById('news-image-url').value = item.image || '';
+            document.getElementById('news-status').value = item.status || 'published';
+            
+            const preview = document.getElementById('news-image-preview');
+            if (item.image) {
+                preview.src = absUrl(item.image);
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+            
+            openModal('news-modal');
+        }
+    } catch (err) {
+        console.error('Edit news error:', err);
+        showToast(err.message, 'error');
+    }
 }

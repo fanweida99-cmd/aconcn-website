@@ -10,7 +10,7 @@ const path = require('path');
 const crypto = require('crypto');
 const zlib = require('zlib');
 
-const PORT = 8001;
+const PORT = Number(process.env.ACONCN_PORT) || 8001;
 const UPLOAD_DIR = path.join(__dirname, 'assets', 'uploads');
 const PUBLIC_DIR = __dirname;
 
@@ -60,13 +60,19 @@ const server = http.createServer((req, res) => {
     return handleUpload(req, res);
   }
 
-  // Static file serving
+  // Static file serving. Resolve directory URLs to their index page so that
+  // /admin/ works consistently with the site root.
   let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
 
-  const ext = path.extname(filePath).toLowerCase();
-  const mime = MIME_TYPES[ext] || 'application/octet-stream';
+  fs.stat(filePath, (statErr, stats) => {
+    if (!statErr && stats.isDirectory()) {
+      filePath = path.join(filePath, 'index.html');
+    }
 
-  fs.readFile(filePath, (err, data) => {
+    const ext = path.extname(filePath).toLowerCase();
+    const mime = MIME_TYPES[ext] || 'application/octet-stream';
+
+    fs.readFile(filePath, (err, data) => {
     if (err) {
       if (err.code === 'ENOENT') {
         // Try index.html for SPA-like routing
@@ -85,7 +91,8 @@ const server = http.createServer((req, res) => {
       res.end('Server error');
       return;
     }
-    sendFile(res, data, mime);
+      sendFile(res, data, mime);
+    });
   });
 });
 
