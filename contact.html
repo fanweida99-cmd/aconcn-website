@@ -179,6 +179,7 @@
           var email = document.getElementById('form-email').value.trim();
           var message = document.getElementById('form-message').value.trim();
           if (!name || !email || !message) {
+            errorEl.textContent = t('contact.formValidation');
             errorEl.style.display = 'block';
             return;
           }
@@ -217,10 +218,12 @@
             } else {
               var errBody = await res.text();
               console.error('Supabase error:', res.status, errBody);
+              errorEl.textContent = t('contact.formError');
               errorEl.style.display = 'block';
             }
           } catch (err) {
             console.error('Contact form error:', err);
+            errorEl.textContent = t('contact.formError');
             errorEl.style.display = 'block';
           }
 
