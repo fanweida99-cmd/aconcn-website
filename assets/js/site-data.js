@@ -26,7 +26,6 @@ async function sbGet(table, options) {
     var res = await fetch(url, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
       },
       signal: controller.signal
     });
@@ -68,7 +67,11 @@ function imagePath(path) {
   if (/\/assets\/uploads\//i.test(path)) return path;
   // Local project images (assets/images/) — convert .jpg/.jpeg/.png to .svg
   // because the actual files on disk are .svg
-  return path.replace(/\.(jpg|jpeg|png)$/i, '.svg');
+  // 2026-08-28 fix: removed auto .jpg/.jpeg/.png → .svg rewrite.
+  // DB image paths are now full Supabase Storage URLs, .gif photos, or
+  // .svg placeholders — none need extension rewriting. The rewrite was
+  // silently turning real .jpg assets (e.g. certs/*.jpg) into 404s.
+  return path;
 }
 
 /* ---------- Core Product Image Map ---------- */
@@ -278,49 +281,42 @@ async function loadSiteData() {
 
   // Fetch from Supabase in parallel
   var results = await Promise.allSettled([
-    sbGet('products', { select: '*', order: 'id.asc', status: 'active' }),
-    sbGet('certifications', { select: '*', order: 'id.asc', status: 'active' }),
-    sbGet('news', { select: '*', order: 'id.desc', status: 'published' }),
+    sbGet('products', { select: '*', order: 'id.asc' }),
+    sbGet('certifications', { select: '*', order: 'id.asc' }),
+    sbGet('news', { select: '*', order: 'id.desc' }),
     sbGet('comparisons', { select: '*', order: 'id.asc' })
   ]);
 
-  // Products — filter out TEST entries and map core products to real images
-  if (results[0].status === 'fulfilled' && results[0].value && Array.isArray(results[0].value) && results[0].value.length > 0) {
-    data.products = results[0].value.filter(function(p) {
-      // Exclude TEST products
-      if (p.name && /TEST/i.test(p.name)) return false;
-      return true;
-    }).map(function(p) {
+  // Products — use database data directly, fallback to defaults only on network failure
+  if (results[0].status === 'fulfilled' && results[0].value && Array.isArray(results[0].value)) {
+    data.products = results[0].value.map(function(p) {
+      // featured comes from database column
       // Map core product IDs (1-5) to real GIF images
       if (CORE_PRODUCT_IMAGES[p.id]) {
         p.image = CORE_PRODUCT_IMAGES[p.id];
       }
       return p;
     });
-    // If after filtering we have fewer than 4 products, fall back to defaults
-    if (data.products.length < 4) {
-      data.products = DEFAULT_PRODUCTS;
-    }
   } else {
     data.products = DEFAULT_PRODUCTS;
   }
 
   // Certifications
-  if (results[1].status === 'fulfilled' && results[1].value && Array.isArray(results[1].value) && results[1].value.length > 0) {
+  if (results[1].status === 'fulfilled' && results[1].value && Array.isArray(results[1].value) ) {
     data.certifications = results[1].value;
   } else {
     data.certifications = DEFAULT_CERTIFICATIONS;
   }
 
   // News
-  if (results[2].status === 'fulfilled' && results[2].value && Array.isArray(results[2].value) && results[2].value.length > 0) {
+  if (results[2].status === 'fulfilled' && results[2].value && Array.isArray(results[2].value) ) {
     data.news = results[2].value;
   } else {
     data.news = DEFAULT_NEWS;
   }
 
   // Comparisons
-  if (results[3].status === 'fulfilled' && results[3].value && Array.isArray(results[3].value) && results[3].value.length > 0) {
+  if (results[3].status === 'fulfilled' && results[3].value && Array.isArray(results[3].value) ) {
     data.comparisons = results[3].value;
   } else {
     data.comparisons = DEFAULT_COMPARISONS;
@@ -339,7 +335,14 @@ function getUrlParam(name) {
 function getCurrentPage() {
   var path = window.location.pathname;
   var page = path.split('/').pop();
-  if (!page || page === '' || page === 'index.html') page = 'index.html';
+  if (!page || page === '' || page === 'index.html' || page === 'index') page = 'index.html';
+  // Handle clean URLs from npx serve (e.g. /products -> products.html)
+  if (page === 'products' || page === 'product-detail') page = page + '.html';
+  if (page === 'certifications') page = 'certifications.html';
+  if (page === 'news') page = 'news.html';
+  if (page === 'comparison') page = 'comparison.html';
+  if (page === 'about') page = 'about.html';
+  if (page === 'contact') page = 'contact.html';
   return page;
 }
 
@@ -803,7 +806,8 @@ function renderFeaturedProducts(products) {
   var grid = document.querySelector('.featured-grid') || document.getElementById('featured-products-grid');
   if (!grid || !products) return;
 
-  var featured = products.slice(0, 4);
+  var featured = products.filter(function(p) { return p.featured === true; });
+  if (featured.length === 0) { featured = products.slice(0, 4); }
   grid.innerHTML = '';
 
   featured.forEach(function(product) {

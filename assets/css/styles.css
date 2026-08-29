@@ -2625,5 +2625,33 @@ ul, ol {
 }
 
 /* ==========================================================================
-   33. END OF STYLESHEET
+   33. CHALLENGE BAR
+   ========================================================================== */
+.challenge-bar {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-md) 0;
+  text-align: center;
+}
+
+.challenge-bar__text {
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .challenge-bar__text {
+    font-size: 0.9375rem;
+  }
+}
+
+/* ==========================================================================
+   34. END OF STYLESHEET
    ========================================================================== */

@@ -31,18 +31,25 @@ const i18nData = {
         },
         // Hero (index.html)
         hero: {
-            subtitle: 'EN 124 Certified',
-            title: 'Composite Manhole Covers<br>Engineered for <span>Infrastructure</span>',
-            description: 'ACONCN delivers premium composite manhole covers and access solutions trusted by infrastructure projects across 50+ countries. Engineered for durability, safety, and compliance with international standards.',
+            subtitle: 'E600 Main Roads &middot; F900 Ports &amp; Airfields',
+            title: 'Composite Manhole Covers<br>Built for <span>Heavy Traffic</span>',
+            description: 'Phenolic composite manhole covers, engineered for heavy traffic — SMQ-tested to 60 tonnes, in service on Yichang main roads since 2001.',
             getQuote: 'Get Quote',
-            viewProducts: 'View Products'
+            viewProducts: 'View Products',
+            statSmq: 'SMQ',
+            statSmqLabel: 'Tested &amp; Verified',
+            statFailure: 'Failure Rate (25 Yrs)',
+            statRecycled: 'Recycled Low-Carbon',
+            statGuarantee: 'Replacement Guarantee',
+            statGuaranteeSpan: 'Yr'
         },
         // Stats
         stats: {
-            years: 'Years of Excellence',
-            units: 'Units Installed',
-            countries: 'Countries Served',
-            quality: 'Quality Rate'
+            smq: 'SMQ Load-Tested',
+            yichang: 'Years in Service — Yichang',
+            recycled: 'Recycled Material, Low-Carbon',
+            guarantee: 'Replacement Guarantee',
+            guaranteeSpan: 'Yr'
         },
         // Common
         common: {
@@ -65,25 +72,29 @@ const i18nData = {
         },
         // Index page
         index: {
-            aboutLabel: 'Why ACONCN',
-            aboutTitle: 'Engineered for <span class="text-accent">Excellence</span>',
-            aboutText: 'With over 25 years of manufacturing expertise, ACONCN has established itself as a leading provider of composite manhole covers. Our commitment to quality, innovation, and customer satisfaction drives everything we do.',
-            aboutYears: 'Years Experience',
+            aboutLabel: 'Designed for the Main Road',
+            aboutTitle: 'Too Often Installed Where<br>There Is <span class="text-accent">No Traffic</span>',
+            aboutText: 'ACONCN phenolic composite manhole covers are engineered for heavy-load traffic environments — E600 (60T) main roads, F900 (90T) ports and airfields. With 25 years of proven performance in Yichang\'s municipal road network and a failure rate below 0.05%, our covers deliver where it matters most.',
+            aboutYears: 'Years in Service',
             aboutInstalled: 'Installed',
-            aboutCountries: 'Countries',
+            aboutFailure: 'Failure Rate',
             aboutLearnMore: 'Learn More About Us',
-            featureTech: 'Composite Technology',
-            featureTechDesc: 'Advanced SMC/BMC materials',
-            featureCert: 'EN 124 Certified',
-            featureCertDesc: 'International compliance',
-            featureGlobal: 'Global Delivery',
-            featureGlobalDesc: '50+ countries served',
+            featureTech: 'Phenolic Composite',
+            featureTechDesc: 'Glass-fiber reinforced, 80% recycled',
+            featureCert: 'SMQ Tested 60T',
+            featureCertDesc: 'E600 &amp; F900 compliant',
+            featureGlobal: '10-Year Guarantee',
+            featureGlobalDesc: 'Quality replacement guarantee',
             productsLabel: 'Our Products',
             productsTitle: 'Featured <span class="text-accent">Products</span>',
             productsDesc: 'Explore our range of EN 124 certified composite manhole covers and access solutions',
             productsViewAll: 'View All Products',
             ctaTitle: 'Ready to Discuss Your Project?',
             ctaText: 'Contact our team for a customized quote. We respond within 24 hours.'
+        },
+        // Challenge Bar
+        challenge: {
+            text: 'A 10-year replacement guarantee on composite manhole covers. We\'re still waiting for the second company to offer one.'
         },
         // About page
         about: {
@@ -246,7 +257,7 @@ const i18nData = {
         },
         // Footer
         footer: {
-            description: 'ACONCN is a leading manufacturer of composite manhole covers, dedicated to providing high-quality infrastructure solutions worldwide since 2000.',
+            description: '香港欣東實業有限公司 (Happy Orient Industrial Limited), brand ACONCN — a leading manufacturer of phenolic composite manhole covers, dedicated to providing high-quality infrastructure solutions worldwide since 2000.',
             products: 'Products',
             manholeCovers: 'Manhole Covers',
             outdoorProducts: 'Outdoor Products',
@@ -295,18 +306,25 @@ const i18nData = {
         },
         // Hero
         hero: {
-            subtitle: 'EN 124 认证',
-            title: '复合材料井盖<br>为<span>基础设施</span>而生',
-            description: 'ACONCN 提供优质复合材料井盖及检修解决方案，受到全球 50 多个国家基础设施项目的信赖。工程设计的耐久性、安全性和国际标准合规性。',
-            getQuote: '获取报价',
-            viewProducts: '查看产品'
+            subtitle: 'E600 主干道 · F900 港口及機場',
+            title: '為<span>重載交通</span>而生的<br>複合材料井蓋',
+            description: '酚醛複合材料人孔蓋，專為重載交通設計 — 經 SMQ 60 噸實測，2001 年起在宜昌主幹道服役至今。',
+            getQuote: '獲取報價',
+            viewProducts: '查看產品',
+            statSmq: 'SMQ',
+            statSmqLabel: '實測驗證',
+            statFailure: '故障率 (25 年)',
+            statRecycled: '再生材料低碳',
+            statGuarantee: '品質更換保證',
+            statGuaranteeSpan: '年'
         },
         // Stats
         stats: {
-            years: '年行业经验',
-            units: '套已安装',
-            countries: '服务国家',
-            quality: '品质合格率'
+            smq: 'SMQ 荷載實測',
+            yichang: '年宜昌道路服役',
+            recycled: '再生材料，低碳環保',
+            guarantee: '品質更換保證',
+            guaranteeSpan: '年'
         },
         // Common
         common: {
@@ -329,25 +347,29 @@ const i18nData = {
         },
         // Index page
         index: {
-            aboutLabel: '为什么选择 ACONCN',
-            aboutTitle: '为<span class="text-accent">卓越</span>而设计',
-            aboutText: '凭借超过 25 年的制造经验，ACONCN 已成为复合材料井盖的领先供应商。我们对质量、创新和客户满意度的承诺驱动着一切。',
-            aboutYears: '年行业经验',
-            aboutInstalled: '已安装',
-            aboutCountries: '个国家',
-            aboutLearnMore: '了解更多关于我们',
-            featureTech: '复合材料技术',
-            featureTechDesc: '先进的 SMC/BMC 材料',
-            featureCert: 'EN 124 认证',
-            featureCertDesc: '国际合规标准',
-            featureGlobal: '全球配送',
-            featureGlobalDesc: '服务 50+ 个国家',
-            productsLabel: '我们的产品',
-            productsTitle: '精选<span class="text-accent">产品</span>',
-            productsDesc: '探索我们的 EN 124 认证复合材料井盖和检修解决方案',
-            productsViewAll: '查看全部产品',
-            ctaTitle: '准备好讨论您的项目了吗？',
-            ctaText: '联系我们的团队获取定制报价。我们将在 24 小时内回复。'
+            aboutLabel: '為重載而生',
+            aboutTitle: '被裝在沒有車流的地方<br>實在<span class="text-accent">太可惜了</span>',
+            aboutText: 'ACONCN 酚醛複合材料人孔蓋，專為重載交通環境設計 — E600 (60T) 主幹道、F900 (90T) 港口及機場。在宜昌市政道路網絡中歷經 25 年驗證，故障率低於 0.05%，我們的井蓋在真正需要的地方發揮價值。',
+            aboutYears: '年道路服役',
+            aboutInstalled: '已安裝',
+            aboutFailure: '故障率',
+            aboutLearnMore: '了解更多關於我們',
+            featureTech: '酚醛複合材料',
+            featureTechDesc: '玻璃纖維增強，80% 再生',
+            featureCert: 'SMQ 60T 實測',
+            featureCertDesc: 'E600 及 F900 合規',
+            featureGlobal: '10 年質保',
+            featureGlobalDesc: '品質更換保證',
+            productsLabel: '我們的產品',
+            productsTitle: '精選<span class="text-accent">產品</span>',
+            productsDesc: '探索我們的 EN 124 認證複合材料井蓋和檢修解決方案',
+            productsViewAll: '查看全部產品',
+            ctaTitle: '準備好討論您的項目了嗎？',
+            ctaText: '聯繫我們的團隊獲取定制報價。我們將在 24 小時內回覆。'
+        },
+        // Challenge Bar
+        challenge: {
+            text: '10 年品質更換保證。複合井蓋能做到這一點的，我們仍在尋找第二家。'
         },
         // About page
         about: {
@@ -510,7 +532,7 @@ const i18nData = {
         },
         // Footer
         footer: {
-            description: 'ACONCN 是复合材料井盖的领先制造商，自 2000 年以来致力于为全球提供高质量的基础设施解决方案。',
+            description: '香港欣東實業有限公司 (Happy Orient Industrial Limited)，品牌 ACONCN — 酚醛複合材料人孔蓋領先製造商，自 2000 年以來致力於為全球提供高品質基礎設施解決方案。',
             products: '产品',
             manholeCovers: '井盖',
             outdoorProducts: '户外产品',
