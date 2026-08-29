@@ -114,6 +114,7 @@
               </div>
               <input type="text" id="form-company" placeholder="Company" data-lang="contact.formCompany" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
               <input type="text" id="form-phone" placeholder="Phone" data-lang="contact.formPhone" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
+              <input type="text" id="form-product" placeholder="Product of Interest" data-lang="contact.formProduct" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
               <textarea id="form-message" placeholder="Your Message *" rows="5" required data-lang="contact.formMessage" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem;resize:vertical"></textarea>
               <button type="button" class="btn btn-primary" id="form-submit-btn" data-lang="contact.formSubmit" style="align-self:flex-start">Send Message</button>
             </form>
@@ -156,6 +157,16 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Pre-fill product field from URL ?product= parameter (from product pages)
+      var productInput = document.getElementById('form-product');
+      if (productInput) {
+        var urlParams = new URLSearchParams(window.location.search);
+        var productParam = urlParams.get('product');
+        if (productParam) {
+          productInput.value = productParam;
+        }
+      }
+
       // Contact form submission via button click
       var submitBtn = document.getElementById('form-submit-btn');
       if (submitBtn) {
@@ -185,6 +196,7 @@
             email: email,
             phone: document.getElementById('form-phone').value.trim(),
             company: document.getElementById('form-company').value.trim(),
+            product: document.getElementById('form-product') ? document.getElementById('form-product').value.trim() : '',
             message: message
           };
 

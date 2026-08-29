@@ -1,17 +1,15 @@
 #!/usr/bin/env node
 /**
  * ACONCN v2 — 本地开发服务器
- * 静态文件服务 + 图片上传到本地（生产环境用 Supabase Storage）
+ * 纯静态文件服务（图片上传统一走 Supabase Storage，见 admin.js）
  * 线上部署到 GitHub Pages 时无需此文件
  */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const zlib = require('zlib');
 
 const PORT = Number(process.env.ACONCN_PORT) || 8001;
-const UPLOAD_DIR = path.join(__dirname, 'assets', 'uploads');
 const PUBLIC_DIR = __dirname;
 
 const MIME_TYPES = {
@@ -34,11 +32,6 @@ const MIME_TYPES = {
   '.pdf': 'application/pdf'
 };
 
-// Ensure upload dir
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-}
-
 const server = http.createServer((req, res) => {
   const parsed = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = parsed.pathname;
@@ -53,11 +46,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(200);
     res.end();
     return;
-  }
-
-  // Upload handler
-  if (method === 'POST' && pathname === '/upload') {
-    return handleUpload(req, res);
   }
 
   // Static file serving. Resolve directory URLs to their index page so that
@@ -129,87 +117,6 @@ function sendFile(res, data, mime) {
   }
 }
 
-function handleUpload(req, res) {
-  let body = [];
-  req.on('data', chunk => body.push(chunk));
-  req.on('end', () => {
-    const buffer = Buffer.concat(body);
-    const boundary = req.headers['content-type']?.split('boundary=')[1];
-    if (!boundary) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'No boundary' }));
-      return;
-    }
-
-    const delimiter = Buffer.from('--' + boundary);
-    const parts = splitBuffer(buffer, delimiter);
-    let filename = '';
-    let fileData = null;
-
-    for (const part of parts) {
-      const headerEnd = part.indexOf('\r\n\r\n');
-      if (headerEnd === -1) continue;
-      const headerStr = part.slice(0, headerEnd).toString('utf-8');
-      const fnMatch = headerStr.match(/filename="(.+?)"/);
-      if (!fnMatch) continue;
-      filename = path.basename(fnMatch[1]);
-      fileData = part.slice(headerEnd + 4, part.length - 2);
-      break;
-    }
-
-    if (!fileData || !filename) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'No file found' }));
-      return;
-    }
-
-    const ext = path.extname(filename).toLowerCase();
-    const allowed = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.ico', '.pdf'];
-    if (!allowed.includes(ext)) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: `File type ${ext} not allowed` }));
-      return;
-    }
-
-    if (fileData.length > 10 * 1024 * 1024) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'File too large. Max 10MB.' }));
-      return;
-    }
-
-    const timestamp = Date.now();
-    const rand = crypto.randomBytes(3).toString('hex');
-    const safeName = `${timestamp}_${rand}${ext}`;
-    const filePath = path.join(UPLOAD_DIR, safeName);
-
-    fs.writeFile(filePath, fileData, err => {
-      if (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Write failed' }));
-        return;
-      }
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        url: `/assets/uploads/${safeName}`,
-        filename: safeName
-      }));
-    });
-  });
-}
-
-function splitBuffer(buf, delimiter) {
-  const parts = [];
-  let start = 0;
-  let idx = buf.indexOf(delimiter, start);
-  while (idx !== -1) {
-    const part = buf.slice(start, idx);
-    if (part.length > 0) parts.push(part.slice(0, -2)); // remove trailing \r\n
-    start = idx + delimiter.length;
-    idx = buf.indexOf(delimiter, start);
-  }
-  return parts;
-}
-
 // Port conflict handling
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
@@ -252,7 +159,6 @@ console.log(`
   ║   http://localhost:${PORT}/admin        ║
   ╚══════════════════════════════════════╝
 `);
-console.log(`Uploads: ${UPLOAD_DIR}`);
 console.log(`Gzip: enabled`);
 
 server.listen(PORT, '0.0.0.0');

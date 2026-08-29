@@ -252,6 +252,7 @@ const translations = {
             name: 'Name',
             email: 'Email',
             phone: 'Phone',
+            product: 'Product',
             message: 'Message',
             status: 'Status',
             date: 'Date',
@@ -523,6 +524,7 @@ const translations = {
             name: '姓名',
             email: '邮箱',
             phone: '电话',
+            product: '产品',
             message: '留言内容',
             status: '状态',
             date: '日期',
@@ -2101,13 +2103,14 @@ async function renderMessagesPage() {
                 <th>${t('messages.name')}</th>
                 <th>${t('messages.email')}</th>
                 <th>${t('messages.phone')}</th>
+                <th>${t('messages.product')}</th>
                 <th>${t('messages.message')}</th>
                 <th>${t('messages.status')}</th>
                 <th>${t('messages.date')}</th>
                 <th>${t('messages.actions')}</th>
             </tr>
         `,
-        colspan: 8
+        colspan: 9
     };
     
     content.innerHTML = buildTableContainer(
@@ -2146,6 +2149,10 @@ function buildMessageViewModal() {
                     <p id="msg-view-phone" style="color:var(--text-primary);"></p>
                 </div>
                 <div class="form-group">
+                    <label>${t('messages.product')}</label>
+                    <p id="msg-view-product" style="color:var(--text-primary);"></p>
+                </div>
+                <div class="form-group">
                     <label>${t('messages.message')}</label>
                     <div id="msg-view-content" style="background:var(--bg-input);padding:12px;border-radius:var(--radius);color:var(--text-primary);line-height:1.7;white-space:pre-wrap;"></div>
                 </div>
@@ -2168,7 +2175,7 @@ async function loadMessages(searchTerm) {
     const tbody = document.getElementById('table-body');
     if (!tbody) return;
     
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('common.loading')}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">${t('common.loading')}</td></tr>`;
     
     try {
         let params = {
@@ -2199,6 +2206,7 @@ async function loadMessages(searchTerm) {
                         <td>${escapeHtml(msg.name)}</td>
                         <td>${escapeHtml(msg.email)}</td>
                         <td>${escapeHtml(msg.phone || '—')}</td>
+                        <td>${escapeHtml(msg.product || '—')}</td>
                         <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(msg.message || msg.content || '')}</td>
                         <td><span class="status-badge ${statusClass}" data-status="${status}" data-section="messages">${t('messages.' + status)}</span></td>
                         <td>${msg.created_at ? new Date(msg.created_at).toLocaleDateString() : '—'}</td>
@@ -2213,13 +2221,13 @@ async function loadMessages(searchTerm) {
                 `;
             }).join('');
         } else {
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">${t('messages.noData')}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted">${t('messages.noData')}</td></tr>`;
         }
         
         renderPagination('pagination', 'goToMessagePage');
     } catch (err) {
         console.error('Load messages error:', err);
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center text-danger">${t('common.error')}: ${err.message}</td></tr>`;
     }
 }
 
@@ -2246,6 +2254,7 @@ async function viewMessage(id) {
             document.getElementById('msg-view-name').textContent = msg.name || '—';
             document.getElementById('msg-view-email').textContent = msg.email || '—';
             document.getElementById('msg-view-phone').textContent = msg.phone || '—';
+            document.getElementById('msg-view-product').textContent = msg.product || '—';
             document.getElementById('msg-view-content').textContent = msg.message || msg.content || '—';
             document.getElementById('msg-view-date').textContent = msg.created_at ? new Date(msg.created_at).toLocaleString() : '—';
             
