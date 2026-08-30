@@ -109,13 +109,22 @@
               <div id="form-success" style="display:none;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--color-success);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.9rem;text-align:center" data-lang="contact.formSuccess">Thank you! Your message has been sent successfully. We'll get back to you soon.</div>
               <div id="form-error-msg" style="display:none;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:var(--color-error);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.9rem;text-align:center" data-lang="contact.formError">Failed to send message. Please try again or contact us directly via email.</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)">
-                <input type="text" id="form-name" placeholder="Your Name *" required data-lang="contact.formName" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
-                <input type="email" id="form-email" placeholder="Your Email *" required data-lang="contact.formEmail" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
+                <div class="form-field">
+                  <input type="text" id="form-name" placeholder="Your Name *" required data-lang="contact.formName" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
+                  <span class="field-error" id="err-name"></span>
+                </div>
+                <div class="form-field">
+                  <input type="email" id="form-email" placeholder="Your Email *" required data-lang="contact.formEmail" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
+                  <span class="field-error" id="err-email"></span>
+                </div>
               </div>
               <input type="text" id="form-company" placeholder="Company" data-lang="contact.formCompany" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
               <input type="text" id="form-phone" placeholder="Phone" data-lang="contact.formPhone" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
               <input type="text" id="form-product" placeholder="Product of Interest" data-lang="contact.formProduct" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem">
-              <textarea id="form-message" placeholder="Your Message *" rows="5" required data-lang="contact.formMessage" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem;resize:vertical"></textarea>
+              <div class="form-field">
+                <textarea id="form-message" placeholder="Your Message *" rows="5" required data-lang="contact.formMessage" style="width:100%;padding:var(--space-sm);background-color:var(--color-bg-primary);border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-white);font-size:0.875rem;resize:vertical"></textarea>
+                <span class="field-error" id="err-message"></span>
+              </div>
               <button type="button" class="btn btn-primary" id="form-submit-btn" data-lang="contact.formSubmit" style="align-self:flex-start">Send Message</button>
             </form>
           </div>
@@ -167,6 +176,18 @@
         }
       }
 
+      // 输入时即时清除错误状态（现代交互）
+      ['form-name', 'form-email', 'form-message'].forEach(function(inputId) {
+        var input = document.getElementById(inputId);
+        if (input) {
+          input.addEventListener('input', function() {
+            this.classList.remove('input-error');
+            var errEl = document.getElementById('err-' + inputId.replace('form-', ''));
+            if (errEl) errEl.classList.remove('visible');
+          });
+        }
+      });
+
       // Contact form submission via button click
       var submitBtn = document.getElementById('form-submit-btn');
       if (submitBtn) {
@@ -178,9 +199,32 @@
           var name = document.getElementById('form-name').value.trim();
           var email = document.getElementById('form-email').value.trim();
           var message = document.getElementById('form-message').value.trim();
-          if (!name || !email || !message) {
-            errorEl.textContent = t('contact.formValidation');
-            errorEl.style.display = 'block';
+
+          // 现代内联校验：缺失字段边框变红 + 下方提示 + 聚焦第一个缺失字段
+          var requiredFields = [
+            { value: name, inputId: 'form-name', errId: 'err-name', msgKey: 'contact.errName' },
+            { value: email, inputId: 'form-email', errId: 'err-email', msgKey: 'contact.errEmail' },
+            { value: message, inputId: 'form-message', errId: 'err-message', msgKey: 'contact.errMessage' }
+          ];
+          var firstMissing = null;
+          requiredFields.forEach(function(f) {
+            var input = document.getElementById(f.inputId);
+            var errEl = document.getElementById(f.errId);
+            if (!f.value) {
+              input.classList.add('input-error');
+              errEl.textContent = t(f.msgKey);
+              errEl.classList.add('visible');
+              if (!firstMissing) firstMissing = input;
+            } else {
+              input.classList.remove('input-error');
+              errEl.classList.remove('visible');
+            }
+          });
+          if (firstMissing) {
+            firstMissing.focus();
+            firstMissing.classList.remove('field-shake');
+            void firstMissing.offsetWidth;
+            firstMissing.classList.add('field-shake');
             return;
           }
 

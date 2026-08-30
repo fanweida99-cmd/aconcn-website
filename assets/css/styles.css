@@ -2655,3 +2655,46 @@ ul, ol {
 /* ==========================================================================
    34. END OF STYLESHEET
    ========================================================================== */
+
+/* ==========================================================================
+   35. FORM VALIDATION — modern inline hints (contact page)
+   ========================================================================== */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-field input,
+.form-field textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-error {
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+}
+
+.field-error {
+  display: none;
+  color: var(--color-error);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.field-error.visible {
+  display: block;
+}
+
+@keyframes field-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+.field-shake {
+  animation: field-shake 0.4s ease;
+}
