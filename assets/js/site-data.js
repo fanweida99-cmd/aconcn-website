@@ -802,15 +802,25 @@ function renderComparisons(comparisons) {
   var tbody = table.querySelector('tbody');
   if (!tbody) return;
 
+  // 中文翻译映射（i18nData[lang].comparison.rows）；英文直接用数据库值
+  var lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+  var rowMap = (typeof i18nData !== 'undefined' && i18nData[lang] && i18nData[lang].comparison && i18nData[lang].comparison.rows) || {};
+
   tbody.innerHTML = '';
   comparisons.forEach(function(item) {
-    var tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td style="font-weight:600;color:var(--color-white)">' + escapeHtml(item.feature) + '</td>' +
-      '<td style="color:var(--color-accent)">' + escapeHtml(item.composite) + '</td>' +
-      '<td style="color:#8ab4f8">' + escapeHtml(item.standard_composite || '—') + '</td>' +
-      '<td style="color:var(--color-text-muted)">' + escapeHtml(item.cast_iron) + '</td>';
-    tbody.appendChild(tr);
+    var tr = rowMap[item.feature] || null;
+    var feature = tr ? tr.feature : item.feature;
+    var composite = tr ? tr.composite : item.composite;
+    var standard = tr ? tr.standard_composite : item.standard_composite;
+    var castIron = tr ? tr.cast_iron : item.cast_iron;
+
+    var row = document.createElement('tr');
+    row.innerHTML =
+      '<td style="font-weight:600;color:var(--color-white)">' + escapeHtml(feature) + '</td>' +
+      '<td style="color:var(--color-accent)">' + escapeHtml(composite) + '</td>' +
+      '<td style="color:#8ab4f8">' + escapeHtml(standard || '—') + '</td>' +
+      '<td style="color:var(--color-text-muted)">' + escapeHtml(castIron) + '</td>';
+    tbody.appendChild(row);
   });
 }
 

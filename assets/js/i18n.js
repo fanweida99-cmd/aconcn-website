@@ -193,11 +193,11 @@ const i18nData = {
         },
         // Comparison page
         comparison: {
-            pageTitle: 'Composite vs <span>Cast Iron</span>',
-            pageSubtitle: 'See why composite manhole covers outperform traditional cast iron in every critical metric',
+            pageTitle: 'ACONCN vs Standard Composite vs <span>Cast Iron</span>',
+            pageSubtitle: 'See why ACONCN composite covers outperform standard composite and cast iron in every critical metric',
             headerLabel: 'Head to Head',
-            headerTitle: 'Composite <span class="text-accent">vs</span> Cast Iron',
-            headerDesc: 'A comprehensive comparison across all key performance indicators',
+            headerTitle: 'ACONCN <span class="text-accent">vs</span> Standard Composite vs Cast Iron',
+            headerDesc: 'A comprehensive three-way comparison across all key performance indicators',
             tableFeature: 'Feature',
             tableComposite: 'Composite (ACONCN)',
             tableStandardComposite: 'Standard Composite',
@@ -480,11 +480,19 @@ const i18nData = {
         },
         // Comparison page
         comparison: {
-            pageTitle: '复合材料 vs <span>铸铁</span>',
-            pageSubtitle: '了解复合材料井盖如何在每个关键指标上超越传统铸铁井盖',
+            pageTitle: 'ACONCN vs 普通复合 vs <span>铸铁</span>',
+            pageSubtitle: '了解 ACONCN 复合井盖如何在每个关键指标上超越普通复合与铸铁井盖',
             headerLabel: '正面较量',
-            headerTitle: '复合材料 <span class="text-accent">vs</span> 铸铁',
-            headerDesc: '全面对比所有关键性能指标',
+            headerTitle: 'ACONCN <span class="text-accent">vs</span> 普通复合 vs 铸铁',
+            headerDesc: '三方全面对比所有关键性能指标',
+            rows: {
+                'Weight': { feature: '重量', composite: '轻 70% — D400 约 35 kg', standard_composite: '比铸铁轻 — D400 约 55 kg', cast_iron: '沉重 — D400 约 120 kg' },
+                'Corrosion Resistance': { feature: '耐腐蚀性', composite: '极佳 — 零腐蚀，耐化学品', standard_composite: '中等 — 抗锈但耐 UV/化学品差', cast_iron: '差 — 会生锈，需涂层' },
+                'Anti-Theft': { feature: '防盗性', composite: '无回收价值 — 天然防盗', standard_composite: '回收价值低，但劣质盖易被破坏', cast_iron: '回收价值高 — 常被盗' },
+                'Lifespan': { feature: '使用寿命', composite: '30+ 年，几乎无需维护', standard_composite: '15–20 年，因厂家而异', cast_iron: '10–15 年后腐蚀损坏' },
+                'Installation': { feature: '安装便捷性', composite: '2 人即可，无需重型机械', standard_composite: '2 人可装，但更重、更费力', cast_iron: '需吊车或起重设备' },
+                'Cost Over Lifetime': { feature: '全生命周期成本', composite: 'TCO 更低 — 无需更换维护', standard_composite: 'TCO 中等 — 偶尔需更换', cast_iron: 'TCO 更高 — 需频繁更换' }
+            },
             tableFeature: '特性',
             tableComposite: '复合材料（ACONCN）',
             tableStandardComposite: '普通复合井盖',
@@ -626,6 +634,11 @@ function applyTranslations() {
 
     // Update lang switcher buttons in nav
     updateLangSwitcher();
+
+    // 重新渲染动态内容（对比表格等，随语言切换）
+    if (typeof renderComparisons === 'function' && window.siteData && window.siteData.comparisons) {
+        renderComparisons(window.siteData.comparisons);
+    }
 }
 
 function updateLangSwitcher() {
