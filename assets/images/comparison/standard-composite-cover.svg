@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1d23"/>
+      <stop offset="100%" stop-color="#23262b"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d4351"/>
+      <stop offset="100%" stop-color="#2c313c"/>
+    </linearGradient>
+    <linearGradient id="standard" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8ab4f8"/>
+      <stop offset="100%" stop-color="#6b8cae"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- Cover frame - mid weight -->
+  <rect x="95" y="55" width="210" height="170" rx="10" fill="url(#cover)" stroke="#555a68" stroke-width="2"/>
+  <!-- Inner grid pattern -->
+  <rect x="110" y="70" width="180" height="140" rx="5" fill="none" stroke="#4a4f5c" stroke-width="1"/>
+  <!-- Cross pattern -->
+  <line x1="200" y1="70" x2="200" y2="210" stroke="#4a4f5c" stroke-width="1"/>
+  <line x1="110" y1="140" x2="290" y2="140" stroke="#4a4f5c" stroke-width="1"/>
+  <!-- Anti-slip texture dots -->
+  <circle cx="150" cy="115" r="2" fill="#555a68"/>
+  <circle cx="200" cy="95" r="2" fill="#555a68"/>
+  <circle cx="250" cy="115" r="2" fill="#555a68"/>
+  <circle cx="150" cy="165" r="2" fill="#555a68"/>
+  <circle cx="200" cy="185" r="2" fill="#555a68"/>
+  <circle cx="250" cy="165" r="2" fill="#555a68"/>
+  <!-- Handle -->
+  <rect x="165" y="195" width="70" height="10" rx="4" fill="url(#standard)"/>
+  <!-- Weight label -->
+  <text x="200" y="247" text-anchor="middle" fill="#8ab4f8" font-family="Arial" font-size="14" font-weight="bold">~55 kg</text>
+  <text x="200" y="267" text-anchor="middle" fill="#666" font-family="Arial" font-size="11">Lighter than Iron | Moderate Quality</text>
+</svg>

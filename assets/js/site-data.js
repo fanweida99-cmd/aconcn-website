@@ -239,31 +239,43 @@ var DEFAULT_COMPARISONS = [
     id: 1,
     feature: 'Weight',
     composite: '70% lighter — ~35 kg for D400',
+    standard_composite: 'Lighter than iron — ~55 kg for D400',
     cast_iron: 'Heavy — ~120 kg for D400'
   },
   {
     id: 2,
     feature: 'Corrosion Resistance',
     composite: 'Excellent — zero corrosion, impervious to chemicals',
+    standard_composite: 'Moderate — resists rust but degrades under UV/chemicals',
     cast_iron: 'Poor — rusts over time, requires coating'
   },
   {
     id: 3,
     feature: 'Anti-Theft',
     composite: 'No scrap value — theft-proof by design',
+    standard_composite: 'Low scrap value, but low-grade covers can be vandalized',
     cast_iron: 'High scrap value — frequent theft target'
   },
   {
     id: 4,
     feature: 'Lifespan',
     composite: '30+ years with minimal maintenance',
+    standard_composite: '15–20 years, quality varies by manufacturer',
     cast_iron: '10–15 years before corrosion damage'
   },
   {
     id: 5,
     feature: 'Installation',
     composite: '2-person crew, no heavy machinery needed',
+    standard_composite: '2-person crew, but heavier and less ergonomic',
     cast_iron: 'Requires crane or lifting equipment'
+  },
+  {
+    id: 6,
+    feature: 'Cost Over Lifetime',
+    composite: 'Lower TCO — no replacement, no maintenance',
+    standard_composite: 'Moderate TCO — occasional replacement needed',
+    cast_iron: 'Higher TCO — frequent replacement needed'
   }
 ];
 
@@ -796,6 +808,7 @@ function renderComparisons(comparisons) {
     tr.innerHTML =
       '<td style="font-weight:600;color:var(--color-white)">' + escapeHtml(item.feature) + '</td>' +
       '<td style="color:var(--color-accent)">' + escapeHtml(item.composite) + '</td>' +
+      '<td style="color:#8ab4f8">' + escapeHtml(item.standard_composite || '—') + '</td>' +
       '<td style="color:var(--color-text-muted)">' + escapeHtml(item.cast_iron) + '</td>';
     tbody.appendChild(tr);
   });
