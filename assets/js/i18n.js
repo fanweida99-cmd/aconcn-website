@@ -141,7 +141,9 @@ const i18nData = {
             pageSubtitle: 'EN 124 certified composite manhole covers and access solutions for infrastructure projects worldwide',
             filterAll: 'All',
             filterManhole: 'Manhole Covers',
-            filterOutdoor: 'Outdoor Products',
+            filterRepair: 'Pipe Repair Clamps',
+            filterRollers: 'Conveyor Rollers',
+            filterOutdoor: 'Planters & Bins',
             filterGratings: 'Gratings',
             filterAccessories: 'Accessories',
             noProducts: 'No products found in this category.',
@@ -269,10 +271,12 @@ const i18nData = {
         },
         // Footer
         footer: {
-            description: '香港欣東實業有限公司 (Happy Orient Industrial Limited), brand ACONCN — a leading manufacturer of phenolic composite manhole covers, dedicated to providing high-quality infrastructure solutions worldwide since 2000.',
+            description: '香港欣东实业有限公司 (Happy Orient Industrial Limited), brand ACONCN — a leading manufacturer of phenolic composite manhole covers, dedicated to providing high-quality infrastructure solutions worldwide since 2000.',
             products: 'Products',
             manholeCovers: 'Manhole Covers',
-            outdoorProducts: 'Outdoor Products',
+            repairClamps: 'Pipe Repair Clamps',
+            rollers: 'Conveyor Rollers',
+            outdoorProducts: 'Planters & Bins',
             gratings: 'Gratings',
             viewAll: 'View All',
             support: 'Support',
@@ -318,24 +322,24 @@ const i18nData = {
         },
         // Hero
         hero: {
-            subtitle: 'E600 主干道 · F900 港口及機場',
-            title: '為<span>重載交通</span>而生的<br>複合材料井蓋',
-            description: '酚醛複合材料人孔蓋，專為重載交通設計 — 經 SMQ 60 噸實測，2001 年起在宜昌主幹道服役至今。',
-            getQuote: '獲取報價',
-            viewProducts: '查看產品',
+            subtitle: 'E600 主干道 · F900 港口及机场',
+            title: '为<span>重载交通</span>而生的<br>复合材料井盖',
+            description: '酚醛复合材料人孔盖，专为重载交通设计 — 经 SMQ 60 吨实测，2001 年起在宜昌主干道服役至今。',
+            getQuote: '获取报价',
+            viewProducts: '查看产品',
             statSmq: 'SMQ',
-            statSmqLabel: '實測驗證',
+            statSmqLabel: '实测验证',
             statFailure: '故障率 (25 年)',
             statRecycled: '再生材料低碳',
-            statGuarantee: '品質更換保證',
+            statGuarantee: '品质更换保证',
             statGuaranteeSpan: '年'
         },
         // Stats
         stats: {
-            smq: 'SMQ 荷載實測',
+            smq: 'SMQ 荷载实测',
             yichang: '年宜昌道路服役',
-            recycled: '再生材料，低碳環保',
-            guarantee: '品質更換保證',
+            recycled: '再生材料，低碳环保',
+            guarantee: '品质更换保证',
             guaranteeSpan: '年'
         },
         // Common
@@ -359,29 +363,29 @@ const i18nData = {
         },
         // Index page
         index: {
-            aboutLabel: '為重載而生',
-            aboutTitle: '被裝在沒有車流的地方<br>實在<span class="text-accent">太可惜了</span>',
-            aboutText: 'ACONCN 酚醛複合材料人孔蓋，專為重載交通環境設計 — E600 (60T) 主幹道、F900 (90T) 港口及機場。在宜昌市政道路網絡中歷經 25 年驗證，故障率低於 0.05%，我們的井蓋在真正需要的地方發揮價值。',
+            aboutLabel: '为重载而生',
+            aboutTitle: '被装在没有车流的地方<br>实在<span class="text-accent">太可惜了</span>',
+            aboutText: 'ACONCN 酚醛复合材料人孔盖，专为重载交通环境设计 — E600 (60T) 主干道、F900 (90T) 港口及机场。在宜昌市政道路网络中历经 25 年验证，故障率低于 0.05%，我们的井盖在真正需要的地方发挥价值。',
             aboutYears: '年道路服役',
-            aboutInstalled: '已安裝',
+            aboutInstalled: '已安装',
             aboutFailure: '故障率',
-            aboutLearnMore: '了解更多關於我們',
-            featureTech: '酚醛複合材料',
-            featureTechDesc: '玻璃纖維增強，80% 再生',
-            featureCert: 'SMQ 60T 實測',
-            featureCertDesc: 'E600 及 F900 合規',
-            featureGlobal: '10 年質保',
-            featureGlobalDesc: '品質更換保證',
-            productsLabel: '我們的產品',
-            productsTitle: '精選<span class="text-accent">產品</span>',
-            productsDesc: '探索我們的 EN 124 認證複合材料井蓋和檢修解決方案',
-            productsViewAll: '查看全部產品',
-            ctaTitle: '準備好討論您的項目了嗎？',
-            ctaText: '聯繫我們的團隊獲取定制報價。我們將在 24 小時內回覆。'
+            aboutLearnMore: '了解更多关于我们',
+            featureTech: '酚醛复合材料',
+            featureTechDesc: '玻璃纤维增强，80% 再生',
+            featureCert: 'SMQ 60T 实测',
+            featureCertDesc: 'E600 及 F900 合规',
+            featureGlobal: '10 年质保',
+            featureGlobalDesc: '品质更换保证',
+            productsLabel: '我们的产品',
+            productsTitle: '精选<span class="text-accent">产品</span>',
+            productsDesc: '探索我们的 EN 124 认证复合材料井盖和检修解决方案',
+            productsViewAll: '查看全部产品',
+            ctaTitle: '准备好讨论您的项目了吗？',
+            ctaText: '联系我们的团队获取定制报价。我们将在 24 小时内回复。'
         },
         // Challenge Bar
         challenge: {
-            text: '10 年品質更換保證。複合井蓋能做到這一點的，我們仍在尋找第二家。'
+            text: '10 年品质更换保证。复合井盖能做到这一点的，我们仍在寻找第二家。'
         },
         // About page
         about: {
@@ -427,8 +431,10 @@ const i18nData = {
             pageTitle: '我们的<span>产品</span>',
             pageSubtitle: 'EN 124 认证的复合材料井盖和检修解决方案，适用于全球基础设施项目',
             filterAll: '全部',
-            filterManhole: '井盖',
-            filterOutdoor: '户外产品',
+            filterManhole: '井盖及格栅',
+            filterRepair: '管道抢修器',
+            filterRollers: '输送机托辊',
+            filterOutdoor: '花箱与垃圾箱',
             filterGratings: '格栅',
             filterAccessories: '配件',
             noProducts: '该类别暂无产品。',
@@ -486,12 +492,14 @@ const i18nData = {
             headerTitle: 'ACONCN <span class="text-accent">vs</span> 普通复合 vs 铸铁',
             headerDesc: '三方全面对比所有关键性能指标',
             rows: {
-                'Weight': { feature: '重量', composite: '轻 70% — D400 约 35 kg', standard_composite: '比铸铁轻 — D400 约 55 kg', cast_iron: '沉重 — D400 约 120 kg' },
-                'Corrosion Resistance': { feature: '耐腐蚀性', composite: '极佳 — 零腐蚀，耐化学品', standard_composite: '中等 — 抗锈但耐 UV/化学品差', cast_iron: '差 — 会生锈，需涂层' },
-                'Anti-Theft': { feature: '防盗性', composite: '无回收价值 — 天然防盗', standard_composite: '回收价值低，但劣质盖易被破坏', cast_iron: '回收价值高 — 常被盗' },
-                'Lifespan': { feature: '使用寿命', composite: '30+ 年，几乎无需维护', standard_composite: '15–20 年，因厂家而异', cast_iron: '10–15 年后腐蚀损坏' },
-                'Installation': { feature: '安装便捷性', composite: '2 人即可，无需重型机械', standard_composite: '2 人可装，但更重、更费力', cast_iron: '需吊车或起重设备' },
-                'Cost Over Lifetime': { feature: '全生命周期成本', composite: 'TCO 更低 — 无需更换维护', standard_composite: 'TCO 中等 — 偶尔需更换', cast_iron: 'TCO 更高 — 需频繁更换' }
+                'Weight': { feature: '重量', composite: '轻 70% — D400 约 35 kg，两人即可安装', standard_composite: '低质配方更重 — D400 约 55 kg', cast_iron: '非常沉重 — D400 约 120 kg，需起重设备' },
+                'Load Performance': { feature: '载荷表现', composite: 'SMQ 实测 40T / 60T 验证载荷（D400–F900）', standard_composite: '批次质量参差，标称等级常未经第三方验证', cast_iron: '标称强度高，但受冲击时脆断' },
+                'Settlement / "Dark Ring"': { feature: '沉降 /「黑眼圈」', composite: '防沉降深框齐平安装 — 与路面长期保持齐平', standard_composite: '边框单薄，反复车轮荷载后下沉', cast_iron: '沉重边框晃动，辗碎周边沥青' },
+                'Corrosion Resistance': { feature: '耐腐蚀性', composite: '零锈蚀，耐盐、耐酸、耐 UV', standard_composite: '不生锈，但长期耐 UV / 耐化学品较差', cast_iron: '持续生锈，防护涂层会脱落' },
+                'Anti-Theft': { feature: '防盗性', composite: '无回收价值 — 天然防盗', standard_composite: '废品价值低，但廉价产品易被砸毁', cast_iron: '废铁价值高 — 全球范围内常被盗' },
+                'Anti-Skid Surface': { feature: '防滑表面', composite: '模压防滑纹路，干湿路面均防滑', standard_composite: '表面磨损后变光滑', cast_iron: '新装时纹路深，生锈磨耗后变滑' },
+                'Lifespan': { feature: '使用寿命', composite: '30+ 年，几乎免维护', standard_composite: '15–20 年，因厂家而异', cast_iron: '10–15 年后腐蚀失效' },
+                'Cost Over Lifetime': { feature: '全生命周期成本', composite: 'TCO 最低 — 基本无更换周期', standard_composite: 'TCO 中等 — 需周期性更换', cast_iron: 'TCO 最高 — 频繁更换与道路施工' }
             },
             tableFeature: '特性',
             tableComposite: '复合材料（ACONCN）',
@@ -564,10 +572,12 @@ const i18nData = {
         },
         // Footer
         footer: {
-            description: '香港欣東實業有限公司 (Happy Orient Industrial Limited)，品牌 ACONCN — 酚醛複合材料人孔蓋領先製造商，自 2000 年以來致力於為全球提供高品質基礎設施解決方案。',
+            description: '香港欣东实业有限公司 (Happy Orient Industrial Limited)，品牌 ACONCN — 酚醛复合材料人孔盖领先制造商，自 2000 年以来致力于为全球提供高品质基础设施解决方案。',
             products: '产品',
-            manholeCovers: '井盖',
-            outdoorProducts: '户外产品',
+            manholeCovers: '井盖及格栅',
+            repairClamps: '管道抢修器',
+            rollers: '输送机托辊',
+            outdoorProducts: '花箱与垃圾箱',
             gratings: '格栅',
             viewAll: '查看全部',
             support: '支持',
@@ -618,6 +628,20 @@ function switchLang(lang) {
     applyTranslations();
 }
 
+// Scoped translation: translate only [data-lang] inside a freshly rendered container.
+// Unlike applyTranslations(), this never re-renders dynamic lists, avoiding recursion.
+function applyTranslationsWithin(root) {
+    if (!root || typeof t !== 'function') return;
+    root.querySelectorAll('[data-lang]').forEach(function (el) {
+        var key = el.getAttribute('data-lang');
+        var text = t(key);
+        if (text && text !== key) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+            else el.innerHTML = text;
+        }
+    });
+}
+
 function applyTranslations() {
     // Update all data-lang elements
     document.querySelectorAll('[data-lang]').forEach(function(el) {
@@ -638,6 +662,29 @@ function applyTranslations() {
     // 重新渲染动态内容（对比表格等，随语言切换）
     if (typeof renderComparisons === 'function' && window.siteData && window.siteData.comparisons) {
         renderComparisons(window.siteData.comparisons);
+    }
+
+    // 重新渲染主页"我的故事"（随语言切换）
+    if (typeof renderAbout === 'function' && window.siteData) {
+        renderAbout(window.siteData.siteContent);
+    }
+
+    // re-render dynamic list labels on language switch
+    if (typeof filterProducts === 'function' && document.getElementById('products-grid') && window.siteData) {
+        filterProducts(typeof _currentProductFilter !== 'undefined' ? _currentProductFilter : 'all');
+    }
+    if (typeof renderProducts === 'function' && document.getElementById('featured-products-grid') && window.siteData) {
+        renderProducts(window.siteData.products.filter(function (p) { return p.featured; }), 'featured-products-grid', window.siteData.image_base_url);
+    }
+    if (typeof filterNews === 'function' && document.getElementById('news-grid') && window.siteData
+        && !new URLSearchParams(window.location.search).get('id')) {
+        filterNews(typeof _currentNewsFilter !== 'undefined' ? _currentNewsFilter : 'all');
+    }
+    if (typeof renderCerts === 'function' && document.getElementById('certifications-grid') && window.siteData) {
+        renderCerts(window.siteData.certifications, 'certifications-grid', window.siteData.image_base_url);
+    }
+    if (typeof fillProductDetail === 'function' && document.getElementById('product-content') && window.siteData) {
+        fillProductDetail(window.siteData);
     }
 }
 

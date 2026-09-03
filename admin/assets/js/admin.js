@@ -41,7 +41,8 @@ const translations = {
             certifications: 'Certifications',
             news: 'News',
             comparisons: 'Comparisons',
-            messages: 'Messages'
+            messages: 'Messages',
+            sitecontent: 'Site Content'
         },
         dashboard: {
             title: 'Dashboard',
@@ -272,6 +273,32 @@ const translations = {
             noData: 'No messages found',
             pageInfo: 'Page {page} of {total} ({totalItems} items)'
         },
+        sitecontent: {
+            title: 'Site Content',
+            subtitle: 'Edit the homepage "Our Story" section',
+            image: 'Cover Image',
+            badgeEn: 'Badge (English)',
+            badgeZh: 'Badge (Chinese)',
+            labelEn: 'Label (English)',
+            labelZh: 'Label (Chinese)',
+            titleEn: 'Title (English)',
+            titleZh: 'Title (Chinese)',
+            textEn: 'Text (English)',
+            textZh: 'Text (Chinese)',
+            stat1Num: 'Stat 1 Number',
+            stat1LabelEn: 'Stat 1 Label (English)',
+            stat1LabelZh: 'Stat 1 Label (Chinese)',
+            stat2Num: 'Stat 2 Number',
+            stat2LabelEn: 'Stat 2 Label (English)',
+            stat2LabelZh: 'Stat 2 Label (Chinese)',
+            stat3Num: 'Stat 3 Number',
+            stat3LabelEn: 'Stat 3 Label (English)',
+            stat3LabelZh: 'Stat 3 Label (Chinese)',
+            uploadImage: 'Upload Image',
+            save: 'Save Changes',
+            saveSuccess: 'Content saved successfully',
+            hintTitleHtml: 'Tip: Title fields support HTML tags for styling.'
+        },
         common: {
             confirm: 'Confirm',
             cancel: 'Cancel',
@@ -313,7 +340,8 @@ const translations = {
             certifications: '认证管理',
             news: '新闻管理',
             comparisons: '对比管理',
-            messages: '留言管理'
+            messages: '留言管理',
+            sitecontent: '网站内容'
         },
         dashboard: {
             title: '仪表盘',
@@ -543,6 +571,32 @@ const translations = {
             loading: '加载中...',
             noData: '暂无留言数据',
             pageInfo: '第 {page} / {total} 页（共 {totalItems} 项）'
+        },
+        sitecontent: {
+            title: '网站内容',
+            subtitle: '编辑主页「我的故事」区块',
+            image: '封面图片',
+            badgeEn: '小标签（英文）',
+            badgeZh: '小标签（中文）',
+            labelEn: '标签（英文）',
+            labelZh: '标签（中文）',
+            titleEn: '标题（英文）',
+            titleZh: '标题（中文）',
+            textEn: '正文（英文）',
+            textZh: '正文（中文）',
+            stat1Num: '数据1数值',
+            stat1LabelEn: '数据1标签（英文）',
+            stat1LabelZh: '数据1标签（中文）',
+            stat2Num: '数据2数值',
+            stat2LabelEn: '数据2标签（英文）',
+            stat2LabelZh: '数据2标签（中文）',
+            stat3Num: '数据3数值',
+            stat3LabelEn: '数据3标签（英文）',
+            stat3LabelZh: '数据3标签（中文）',
+            uploadImage: '上传图片',
+            save: '保存修改',
+            saveSuccess: '内容保存成功',
+            hintTitleHtml: '提示：标题字段支持 HTML 标签（用于加粗、换行等样式）。'
         },
         common: {
             confirm: '确认',
@@ -1093,7 +1147,8 @@ async function loadPage(page) {
             certifications: t('certifications.title'),
             news: t('news.title'),
             comparisons: t('comparisons.pageTitle'),
-            messages: t('messages.title')
+            messages: t('messages.title'),
+            sitecontent: t('sitecontent.title')
         };
         pageTitle.textContent = titleMap[page] || t('dashboard.title');
     }
@@ -1126,6 +1181,9 @@ async function loadPage(page) {
             break;
         case 'messages':
             await renderMessagesPage();
+            break;
+        case 'sitecontent':
+            await renderSiteContentPage();
             break;
         default:
             await renderDashboard();
@@ -3296,6 +3354,201 @@ async function editNews(id) {
         }
     } catch (err) {
         console.error('Edit news error:', err);
+        showToast(err.message, 'error');
+    }
+}
+
+// ============================================================
+// Site Content（网站内容 — 主页"我的故事"）
+// ============================================================
+async function renderSiteContentPage() {
+    const content = document.getElementById('page-content');
+    if (!content) return;
+
+    content.innerHTML = `
+        <div class="table-container">
+            <div class="table-header">
+                <h2 class="table-title">${t('sitecontent.title')}</h2>
+                <p class="text-sm text-muted" style="margin:4px 0 16px;">${t('sitecontent.subtitle')}</p>
+            </div>
+            <div style="padding:24px;background:var(--bg-card, #1a1d24);border-radius:12px;border:1px solid var(--border-color, #2a2e3a);">
+                <div class="form-group">
+                    <label>${t('sitecontent.image')}</label>
+                    <input type="hidden" id="sc-image">
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <input type="file" id="sc-image-upload" accept="image/*" style="display:none;">
+                        <button class="btn btn-sm btn-secondary upload-btn" onclick="document.getElementById('sc-image-upload').click()">
+                            <i class="fas fa-upload"></i> ${t('sitecontent.uploadImage')}
+                        </button>
+                        <input type="text" class="form-control" id="sc-image-url" placeholder="Image URL or upload" style="flex:1;" oninput="document.getElementById('sc-image').value=this.value">
+                    </div>
+                    <img id="sc-image-preview" class="img-thumb img-thumb-lg" style="display:none;margin-top:8px;max-width:240px;">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.badgeEn')}</label>
+                        <input type="text" class="form-control" id="sc-badge-en">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.badgeZh')}</label>
+                        <input type="text" class="form-control" id="sc-badge-zh">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.labelEn')}</label>
+                        <input type="text" class="form-control" id="sc-label-en">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.labelZh')}</label>
+                        <input type="text" class="form-control" id="sc-label-zh">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.titleEn')}</label>
+                        <textarea class="form-control" id="sc-title-en" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.titleZh')}</label>
+                        <textarea class="form-control" id="sc-title-zh" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.textEn')}</label>
+                        <textarea class="form-control" id="sc-text-en" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.textZh')}</label>
+                        <textarea class="form-control" id="sc-text-zh" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat1Num')}</label>
+                        <input type="text" class="form-control" id="sc-stat1-num">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat1LabelEn')}</label>
+                        <input type="text" class="form-control" id="sc-stat1-label-en">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat1LabelZh')}</label>
+                        <input type="text" class="form-control" id="sc-stat1-label-zh">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat2Num')}</label>
+                        <input type="text" class="form-control" id="sc-stat2-num">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat2LabelEn')}</label>
+                        <input type="text" class="form-control" id="sc-stat2-label-en">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat2LabelZh')}</label>
+                        <input type="text" class="form-control" id="sc-stat2-label-zh">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat3Num')}</label>
+                        <input type="text" class="form-control" id="sc-stat3-num">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat3LabelEn')}</label>
+                        <input type="text" class="form-control" id="sc-stat3-label-en">
+                    </div>
+                    <div class="form-group">
+                        <label>${t('sitecontent.stat3LabelZh')}</label>
+                        <input type="text" class="form-control" id="sc-stat3-label-zh">
+                    </div>
+                </div>
+                <p class="text-xs text-muted" style="margin:12px 0;">${t('sitecontent.hintTitleHtml')}</p>
+                <div style="margin-top:8px;">
+                    <button class="btn btn-primary" onclick="saveSiteContent()">${t('sitecontent.save')}</button>
+                </div>
+            </div>
+        </div>`;
+
+    setTimeout(() => {
+        setupImageUpload('sc-image-upload', 'sc-image-preview', 'sc-image', 'about');
+    }, 100);
+
+    await loadSiteContent();
+}
+
+async function loadSiteContent() {
+    try {
+        const result = await supabaseGet('site_content', {});
+        const rows = (result && result.data) || [];
+        const c = rows[0] || null;
+        if (!c) return;
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        set('sc-image', c.about_image);
+        set('sc-image-url', c.about_image);
+        set('sc-badge-en', c.about_badge_en);
+        set('sc-badge-zh', c.about_badge_zh);
+        set('sc-label-en', c.about_label_en);
+        set('sc-label-zh', c.about_label_zh);
+        set('sc-title-en', c.about_title_en);
+        set('sc-title-zh', c.about_title_zh);
+        set('sc-text-en', c.about_text_en);
+        set('sc-text-zh', c.about_text_zh);
+        set('sc-stat1-num', c.about_stat1_num);
+        set('sc-stat1-label-en', c.about_stat1_label_en);
+        set('sc-stat1-label-zh', c.about_stat1_label_zh);
+        set('sc-stat2-num', c.about_stat2_num);
+        set('sc-stat2-label-en', c.about_stat2_label_en);
+        set('sc-stat2-label-zh', c.about_stat2_label_zh);
+        set('sc-stat3-num', c.about_stat3_num);
+        set('sc-stat3-label-en', c.about_stat3_label_en);
+        set('sc-stat3-label-zh', c.about_stat3_label_zh);
+        const preview = document.getElementById('sc-image-preview');
+        if (preview && c.about_image) {
+            preview.src = absUrl(c.about_image);
+            preview.style.display = 'block';
+        }
+    } catch (err) {
+        console.error('Load site content error:', err);
+    }
+}
+
+async function saveSiteContent() {
+    const data = {
+        about_image: document.getElementById('sc-image').value.trim(),
+        about_badge_en: document.getElementById('sc-badge-en').value,
+        about_badge_zh: document.getElementById('sc-badge-zh').value,
+        about_label_en: document.getElementById('sc-label-en').value,
+        about_label_zh: document.getElementById('sc-label-zh').value,
+        about_title_en: document.getElementById('sc-title-en').value,
+        about_title_zh: document.getElementById('sc-title-zh').value,
+        about_text_en: document.getElementById('sc-text-en').value,
+        about_text_zh: document.getElementById('sc-text-zh').value,
+        about_stat1_num: document.getElementById('sc-stat1-num').value,
+        about_stat1_label_en: document.getElementById('sc-stat1-label-en').value,
+        about_stat1_label_zh: document.getElementById('sc-stat1-label-zh').value,
+        about_stat2_num: document.getElementById('sc-stat2-num').value,
+        about_stat2_label_en: document.getElementById('sc-stat2-label-en').value,
+        about_stat2_label_zh: document.getElementById('sc-stat2-label-zh').value,
+        about_stat3_num: document.getElementById('sc-stat3-num').value,
+        about_stat3_label_en: document.getElementById('sc-stat3-label-en').value,
+        about_stat3_label_zh: document.getElementById('sc-stat3-label-zh').value
+    };
+
+    try {
+        const result = await supabaseGet('site_content', {});
+        const rows = (result && result.data) || [];
+        if (rows.length > 0) {
+            await supabaseUpdate('site_content', rows[0].id, data);
+        } else {
+            await supabaseInsert('site_content', Object.assign({ id: 1 }, data));
+        }
+        showToast(t('sitecontent.saveSuccess'));
+    } catch (err) {
+        console.error('Save site content error:', err);
         showToast(err.message, 'error');
     }
 }

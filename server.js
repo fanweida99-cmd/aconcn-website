@@ -92,8 +92,11 @@ function sendFile(res, data, mime) {
   } else {
     cacheControl = 'max-age=86400'; // 1 day
   }
+  // 已压缩的二进制格式（图片/字体/PDF 等）不再 gzip，避免浪费 CPU 与流式响应异常
+  var alreadyCompressed = /^image\//.test(mime) ||
+    ['font/woff2', 'font/woff', 'font/ttf', 'font/otf', 'application/pdf', 'application/octet-stream'].indexOf(mime) !== -1;
   const acceptEncoding = (res.req.headers['accept-encoding'] || '');
-  if (/\bgzip\b/.test(acceptEncoding) && data.length > 1024) {
+  if (!alreadyCompressed && /\bgzip\b/.test(acceptEncoding) && data.length > 1024) {
     zlib.gzip(data, (err, compressed) => {
       if (err) {
         res.writeHead(500);

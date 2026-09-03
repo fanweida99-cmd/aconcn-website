@@ -24,10 +24,10 @@
   <meta name="twitter:description" content="Compare ACONCN composite manhole covers vs standard composite vs cast iron — weight, corrosion resistance, load capacity, anti-theft, lifespan, and cost.">
   <meta name="twitter:image" content="https://aconcn.com/assets/images/og-cover.svg">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=8">
-  <script src="assets/js/site-data.js?v=10" defer></script>
-  <script src="assets/js/common.js?v=8" defer></script>
-  <script src="assets/js/i18n.js?v=8" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=15">
+  <script src="assets/js/site-data.js?v=15" defer></script>
+  <script src="assets/js/common.js?v=15" defer></script>
+  <script src="assets/js/i18n.js?v=15" defer></script>
 </head>
 <body>
 
@@ -65,7 +65,7 @@
             <th data-lang="comparison.tableCastIron">Cast Iron</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="comparisonTableBody">
           <!-- Dynamically rendered from site-data.js -->
         </tbody>
       </table>
@@ -79,20 +79,20 @@
         <span class="products__label" data-lang="comparison.advLabel">Advantages</span>
         <h2 class="products__title" data-lang="comparison.advTitle">Why Choose <span class="text-accent">Composite</span></h2>
       </div>
-      <!-- Visual Comparison Images -->
+      <!-- Visual Comparison Images — real field photos -->
       <div class="comparison-visual" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-bottom:var(--space-xl);align-items:start">
         <div class="reveal" style="text-align:center">
-          <img src="assets/images/comparison/composite-cover.svg" alt="ACONCN composite manhole cover" style="width:100%;max-width:360px;border-radius:var(--radius-lg);border:2px solid #FF6B1A">
+          <img src="assets/images/comparison/aconcn-flush.jpg" alt="ACONCN phenolic cover installed flush with no settlement" style="width:100%;max-width:360px;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-lg);border:2px solid #FF6B1A">
           <h4 style="color:#FF6B1A;margin-top:var(--space-sm);font-family:var(--font-title);text-transform:uppercase" data-lang="comparison.compositeLabel">Composite (ACONCN)</h4>
-          <p style="color:var(--color-text-secondary);font-size:0.9rem" data-lang="comparison.compositeFeatures">70% lighter | Zero rust | Theft-proof | 30+ year lifespan</p>
+          <p style="color:var(--color-text-secondary);font-size:0.9rem">Flush since 2012 · no settlement ring · no rust</p>
         </div>
         <div class="reveal" style="text-align:center">
-          <img src="assets/images/comparison/standard-composite-cover.svg" alt="Standard composite manhole cover" style="width:100%;max-width:360px;border-radius:var(--radius-lg);border:2px solid #8ab4f8">
+          <img src="assets/images/comparison/standard-composite.jpg" alt="Standard composite cover sinking into a residential lawn" style="width:100%;max-width:360px;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-lg);border:2px solid #8ab4f8">
           <h4 style="color:#8ab4f8;margin-top:var(--space-sm);font-family:var(--font-title);text-transform:uppercase" data-lang="comparison.standardCompositeLabel">Standard Composite</h4>
           <p style="color:var(--color-text-secondary);font-size:0.9rem" data-lang="comparison.standardCompositeFeatures">Moderate weight | UV-prone | Variable quality | 15-20 year lifespan</p>
         </div>
         <div class="reveal" style="text-align:center">
-          <img src="assets/images/comparison/cast-iron-cover.svg" alt="Cast iron manhole cover" style="width:100%;max-width:360px;border-radius:var(--radius-lg);border:2px solid #555">
+          <img src="assets/images/comparison/cast-iron-dark-ring.jpg" alt="Cast iron cover surrounded by an asphalt dark ring" style="width:100%;max-width:360px;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-lg);border:2px solid #555">
           <h4 style="color:var(--color-text-muted);margin-top:var(--space-sm);font-family:var(--font-title);text-transform:uppercase" data-lang="comparison.castIronLabel">Cast Iron (Traditional)</h4>
           <p style="color:var(--color-text-secondary);font-size:0.9rem" data-lang="comparison.castIronFeatures">Heavy 120kg | Rusts over time | High theft risk | 10-15 year lifespan</p>
         </div>

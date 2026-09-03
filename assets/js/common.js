@@ -31,7 +31,6 @@ function injectNav() {
       '<nav class="nav" role="navigation" aria-label="Main navigation">' +
         '<div class="container">' +
           '<a href="index.html" class="nav__logo">' +
-            '<img src="assets/images/logo.svg" alt="ACONCN" onerror="this.style.display=\'none\'">' +
             '<span class="nav__logo-text">ACON<span>CN</span></span>' +
           '</a>' +
           '<button class="nav__toggle" aria-label="Toggle menu" onclick="this.classList.toggle(\'active\');document.querySelector(\'.nav__links\').classList.toggle(\'open\')">' +
@@ -75,9 +74,11 @@ function injectFooter() {
             '<div>' +
               '<h4 class="footer__heading" data-lang="footer.products">Products</h4>' +
               '<div class="footer__links">' +
-                '<a href="products.html?category=Manhole%20Covers" data-lang="footer.manholeCovers">Manhole Covers</a>' +
-                '<a href="products.html?category=Outdoor%20Products" data-lang="footer.outdoorProducts">Outdoor Products</a>' +
-                '<a href="products.html?category=Gratings" data-lang="footer.gratings">Gratings</a>' +
+                '<a href="products.html?category=manhole" data-lang="footer.manholeCovers">Manhole Covers</a>' +
+                '<a href="products.html?category=repair-clamps" data-lang="footer.repairClamps">Pipe Repair Clamps</a>' +
+                '<a href="products.html?category=rollers" data-lang="footer.rollers">Conveyor Rollers</a>' +
+                '<a href="products.html?category=outdoor" data-lang="footer.outdoorProducts">Planters &amp; Bins</a>' +
+                '' +
                 '<a href="products.html" data-lang="footer.viewAll">View All</a>' +
               '</div>' +
             '</div>' +
